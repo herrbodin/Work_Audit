@@ -1,1 +1,1648 @@
-# Work_Audit
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RevisionsPro – Klienthantering</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+:root {
+  --ink:#1c1917;--ink-mid:#44403c;--muted:#78716c;--rule:#d6d0c8;
+  --accent:#7c3a2a;--accent-light:#f5ede9;--accent-mid:#b86b55;
+  --bg:#f3efe8;--paper:#faf8f4;--surface:#fff;
+  --green:#2d5a3d;--green-bg:#eaf2ed;--border:#e2ddd5;
+  --shadow:0 1px 12px rgba(28,25,23,.08);--xbrl:#1d4ed8;
+  --purple:#6d28d9;--purple-bg:#ede9fe;
+  --teal:#0f766e;--teal-bg:#f0fdfa;--teal-border:#99f6e4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+/* ── LAYOUT ── */
+.shell{display:flex;min-height:100vh;}
+.sidebar{width:260px;flex-shrink:0;background:var(--ink);color:#e8e4dc;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
+.sidebar-logo{padding:2rem 1.5rem 1.5rem;border-bottom:1px solid rgba(255,255,255,.1);}
+.sidebar-logo h1{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;letter-spacing:.04em;color:#fff;}
+.sidebar-logo p{font-size:.75rem;color:rgba(255,255,255,.4);letter-spacing:.06em;text-transform:uppercase;margin-top:.2rem;}
+.sidebar-section{padding:1.2rem 1.5rem .5rem;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);}
+.nav-btn{display:flex;align-items:center;gap:.7rem;padding:.65rem 1.5rem;font-family:'EB Garamond',serif;font-size:.95rem;color:rgba(255,255,255,.7);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:all .15s;}
+.nav-btn:hover{color:#fff;background:rgba(255,255,255,.06);}
+.nav-btn.active{color:#fff;background:rgba(255,255,255,.1);border-right:2px solid var(--accent-mid);}
+.nav-btn .icon{font-size:1rem;width:20px;text-align:center;}
+.sidebar-foot{margin-top:auto;padding:.5rem 1.5rem 1.5rem;font-size:.72rem;color:rgba(255,255,255,.3);line-height:1.6;}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+.topbar{background:var(--paper);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.topbar h2{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;}
+.content{flex:1;padding:2rem;overflow-y:auto;}
+/* ── BUTTONS ── */
+.btn{font-family:'EB Garamond',serif;font-size:.88rem;letter-spacing:.05em;padding:.45rem 1.1rem;border:1.5px solid var(--ink);background:none;color:var(--ink);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;}
+.btn:hover{background:var(--ink);color:#fff;}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+.btn-primary:hover{background:#5e2a1c;border-color:#5e2a1c;color:#fff;}
+.btn-ghost{border-color:var(--border);color:var(--muted);}
+.btn-ghost:hover{background:var(--border);color:var(--ink);}
+.btn-sm{font-size:.78rem;padding:.3rem .75rem;}
+.btn-green{background:var(--green);border-color:var(--green);color:#fff;}
+.btn-green:hover{background:#1e3d2a;border-color:#1e3d2a;color:#fff;}
+.btn-blue{background:var(--xbrl);border-color:var(--xbrl);color:#fff;}
+.btn-blue:hover{background:#1e3a8a;border-color:#1e3a8a;color:#fff;}
+.btn-purple{background:var(--purple);border-color:var(--purple);color:#fff;}
+.btn-purple:hover{background:#5b21b6;border-color:#5b21b6;color:#fff;}
+/* ── CARDS / TABLE ── */
+.card{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);}
+.search-bar{display:flex;gap:.75rem;margin-bottom:1.5rem;align-items:center;}
+.search-input{flex:1;padding:.55rem .9rem;border:1px solid var(--border);background:var(--surface);font-family:'EB Garamond',serif;font-size:1rem;color:var(--ink);outline:none;}
+.search-input:focus{border-color:var(--accent-mid);}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.5rem;}
+.stat-card{background:var(--surface);border:1px solid var(--border);padding:1.1rem 1.4rem;}
+.stat-card .stat-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--ink);line-height:1;}
+.stat-card .stat-label{font-size:.78rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.25rem;}
+.client-table{width:100%;border-collapse:collapse;}
+.client-table th{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border);padding:.65rem 1rem;text-align:left;font-family:'EB Garamond',serif;font-weight:400;background:var(--paper);}
+.client-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.95rem;vertical-align:middle;}
+.client-table tr:last-child td{border-bottom:none;}
+.client-table tr:hover td{background:var(--accent-light);}
+.badge{display:inline-block;padding:.15rem .55rem;font-size:.7rem;letter-spacing:.05em;font-family:'DM Mono',monospace;}
+.badge-green{background:var(--green-bg);color:var(--green);}
+.badge-orange{background:#fef3c7;color:#92400e;}
+.badge-blue{background:#dbeafe;color:#1e3a8a;}
+.status-badge{display:inline-block;padding:.2rem .65rem;font-size:.72rem;letter-spacing:.04em;font-family:'DM Mono',monospace;border:none;cursor:pointer;transition:filter .15s,transform .1s;}
+.status-badge:hover{filter:brightness(.92);transform:scale(1.04);}
+.status-badge:active{transform:scale(.97);}
+.actions{display:flex;gap:.4rem;flex-wrap:wrap;}
+/* ── MODALS ── */
+.overlay{position:fixed;inset:0;background:rgba(28,25,23,.55);backdrop-filter:blur(3px);z-index:100;display:none;align-items:center;justify-content:center;padding:1rem;}
+.overlay.open{display:flex;}
+.modal{background:var(--surface);border:1px solid var(--border);width:100%;max-width:600px;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25);}
+.modal-lg{max-width:780px;}
+.modal-sm{max-width:420px;}
+.modal-header{padding:1.5rem 1.8rem 1.2rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.modal-header h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;}
+.modal-close{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--muted);padding:.2rem .4rem;}
+.modal-close:hover{color:var(--ink);}
+.modal-body{padding:1.5rem 1.8rem;}
+.modal-footer{padding:1rem 1.8rem 1.5rem;border-top:1px solid var(--border);display:flex;gap:.75rem;justify-content:flex-end;flex-wrap:wrap;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:.9rem 1.2rem;}
+.form-grid .full{grid-column:1/-1;}
+.form-group{display:flex;flex-direction:column;gap:.3rem;}
+.form-group label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:'EB Garamond',serif;}
+.form-group input,.form-group select,.form-group textarea{padding:.5rem .7rem;border:1px solid var(--border);background:var(--paper);font-family:'EB Garamond',serif;font-size:.97rem;color:var(--ink);outline:none;transition:border .15s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent-mid);background:#fff;}
+/* ── TABS ── */
+.tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:1.5rem;}
+.tab-btn{font-family:'EB Garamond',serif;font-size:.9rem;padding:.5rem 1.2rem;background:none;border:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .15s;}
+.tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600;}
+.tab-btn:hover{color:var(--ink);}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+/* ── NOTES ── */
+.notes-area{width:100%;min-height:120px;padding:.7rem .9rem;border:1px solid var(--border);background:var(--paper);font-family:'EB Garamond',serif;font-size:.97rem;color:var(--ink);outline:none;resize:vertical;line-height:1.6;}
+.notes-area:focus{border-color:var(--accent-mid);background:#fff;}
+.note-entry{border:1px solid var(--border);padding:.8rem 1rem;margin-bottom:.6rem;background:var(--paper);position:relative;}
+.note-entry .note-date{font-size:.72rem;font-family:'DM Mono',monospace;color:var(--muted);}
+.note-entry .note-text{margin-top:.3rem;font-size:.95rem;line-height:1.6;white-space:pre-wrap;}
+.note-entry .note-del{position:absolute;top:.6rem;right:.7rem;background:none;border:none;cursor:pointer;color:var(--rule);font-size:.9rem;}
+.note-entry .note-del:hover{color:#8b0000;}
+/* ── HISTORY ── */
+.history-item{border:1px solid var(--border);padding:.8rem 1rem;margin-bottom:.6rem;background:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;}
+.history-item .hi-label{font-family:'DM Mono',monospace;font-size:.82rem;color:var(--muted);}
+.history-item .hi-name{font-size:.95rem;font-weight:600;}
+/* ── AUDITOR TEMPLATE ── */
+.tpl-card{border:1px solid var(--border);padding:.9rem 1.1rem;margin-bottom:.7rem;background:var(--paper);display:flex;align-items:center;justify-content:space-between;gap:.7rem;cursor:pointer;transition:all .15s;}
+.tpl-card:hover{border-color:var(--accent-mid);background:var(--accent-light);}
+.tpl-card.selected{border-color:var(--accent);background:var(--accent-light);}
+.tpl-info{flex:1;}
+.tpl-info strong{font-size:.95rem;}
+.tpl-info small{display:block;color:var(--muted);font-size:.8rem;margin-top:.15rem;}
+/* ── EXPORT MENU ── */
+.export-menu{position:relative;display:inline-flex;}
+.export-dropdown{position:absolute;top:100%;right:0;background:var(--surface);border:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.15);min-width:200px;z-index:50;display:none;}
+.export-dropdown.open{display:block;}
+.export-item{display:flex;align-items:center;gap:.6rem;padding:.65rem 1rem;font-family:'EB Garamond',serif;font-size:.92rem;cursor:pointer;transition:background .12s;border:none;background:none;width:100%;text-align:left;color:var(--ink);}
+.export-item:hover{background:var(--accent-light);}
+.export-item .ei-icon{width:20px;text-align:center;}
+/* ── REPORT ── */
+.report-toolbar{background:var(--ink);color:#e8e4dc;padding:.7rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.report-toolbar .rtitle{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#fff;font-weight:600;margin-left:1rem;}
+.year-selector{display:flex;align-items:center;gap:.5rem;padding:.5rem 1.5rem;background:rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.1);}
+.year-selector label{font-size:.75rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;}
+.year-selector select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:'EB Garamond',serif;font-size:.9rem;padding:.25rem .5rem;outline:none;cursor:pointer;}
+.report-wrap{max-width:820px;margin:2rem auto;padding:0 1rem 4rem;}
+.document{background:#fffef9;border:1px solid var(--rule);padding:3.5rem 4rem;box-shadow:0 2px 24px rgba(0,0,0,.07);}
+.doc-header{text-align:center;border-bottom:2px solid var(--ink);padding-bottom:1.8rem;margin-bottom:2rem;}
+.doc-header .doc-subtitle{font-size:1.05rem;font-style:italic;color:var(--muted);margin:.3rem 0 1rem;}
+.doc-header .meta{font-size:.88rem;color:var(--muted);display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;}
+.doc-section{margin-bottom:2rem;}
+.doc-h2{font-family:'EB Garamond',serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:.4rem;margin-bottom:1rem;}
+.doc-p{font-size:1rem;line-height:1.75;margin-bottom:.9rem;}
+.doc-p:last-child{margin-bottom:0;}
+.doc-rule{border:none;border-top:1px solid var(--rule);margin:2rem 0;}
+.efield{display:inline-block;background:#f2efe8;border:none;border-bottom:1px solid #ccc;font-family:'EB Garamond',Georgia,serif;font-size:inherit;color:var(--ink);padding:.05rem .3rem;outline:none;transition:background .15s,border-color .15s;}
+.efield:focus{background:#ebe6d9;border-bottom-color:var(--accent);}
+textarea.efield{display:block;width:100%;resize:vertical;padding:.5rem .6rem;border:1px solid #ccc;min-height:64px;line-height:1.6;margin-top:.3rem;}
+textarea.efield:focus{border-color:var(--accent);}
+.opinion-group{display:flex;gap:.75rem;margin-top:.6rem;flex-wrap:wrap;}
+.opinion-opt{display:flex;align-items:flex-start;gap:.5rem;font-size:.92rem;cursor:pointer;padding:.4rem .8rem;border:1px solid var(--rule);background:#f2efe8;transition:all .15s;line-height:1.4;}
+.opinion-opt:hover{border-color:var(--accent);}
+.opinion-opt.sel{border-color:var(--accent);background:#f5ebe8;}
+.opinion-opt input{accent-color:var(--accent);margin-top:.15rem;}
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem;}
+.sig-block{border-top:1px solid var(--ink);padding-top:.6rem;}
+.sig-lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem;}
+.xt{position:relative;background:rgba(29,78,216,.07);border-bottom:1.5px dashed var(--xbrl);}
+.xt::after{content:attr(data-lbl);position:absolute;bottom:100%;left:50%;transform:translateX(-50%);background:var(--xbrl);color:#fff;font-size:.62rem;font-family:'DM Mono',monospace;padding:.12rem .4rem;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10;}
+.xt:hover::after{opacity:1;}
+.xbrl-legend{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--xbrl);margin-top:1rem;font-family:'DM Mono',monospace;opacity:.7;}
+.xbrl-dot{width:10px;height:10px;background:rgba(29,78,216,.12);border:1.5px dashed var(--xbrl);display:inline-block;}
+/* ── MISC ── */
+.empty{text-align:center;padding:4rem 2rem;color:var(--muted);}
+.empty .em-icon{font-size:3rem;margin-bottom:1rem;opacity:.4;}
+.empty h3{font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:var(--ink-mid);margin-bottom:.5rem;}
+.toast{position:fixed;bottom:2rem;right:2rem;color:#fff;padding:.75rem 1.4rem;font-family:'EB Garamond',serif;font-size:.95rem;box-shadow:0 4px 20px rgba(0,0,0,.2);transform:translateY(100px);opacity:0;transition:all .25s ease;z-index:999;}
+.toast.show{transform:none;opacity:1;}
+.divider{border:none;border-top:1px solid var(--border);margin:1.2rem 0;}
+.pill{display:inline-block;padding:.1rem .5rem;font-size:.7rem;border-radius:2px;font-family:'DM Mono',monospace;}
+.pill-purple{background:var(--purple-bg);color:var(--purple);}
+/* export result panel */
+.dl-panel{background:var(--green-bg);border:1px solid #a7c9b5;padding:1rem 1.3rem;margin-top:1rem;display:none;}
+.dl-panel.show{display:block;}
+.dl-panel .dl-title{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:.6rem;font-weight:600;}
+.dl-link{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem 1rem;background:var(--green);color:#fff;font-family:'EB Garamond',serif;font-size:.9rem;text-decoration:none;margin-right:.5rem;transition:background .15s;}
+.dl-link:hover{background:#1e3d2a;}
+.dl-link-blue{background:var(--xbrl);}
+.dl-link-blue:hover{background:#1e3a8a;}
+/* ── RB TEMPLATES ── */
+.rb-tpl-card{border:1px solid var(--border);padding:.9rem 1.1rem;margin-bottom:.7rem;background:var(--paper);display:flex;align-items:flex-start;justify-content:space-between;gap:.7rem;transition:all .15s;}
+.rb-tpl-card:hover{border-color:var(--teal);background:var(--teal-bg);}
+.rb-tpl-card .tpl-info strong{font-size:.95rem;}
+.rb-tpl-card .tpl-info small{display:block;color:var(--muted);font-size:.8rem;margin-top:.15rem;}
+.rb-section{margin-bottom:.75rem;}
+.rb-section label{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.rb-section textarea{width:100%;padding:.5rem .7rem;border:1px solid var(--border);background:var(--paper);font-family:'EB Garamond',serif;font-size:.95rem;color:var(--ink);outline:none;resize:vertical;line-height:1.65;min-height:72px;}
+.rb-section textarea:focus{border-color:var(--teal);background:#fff;}
+.rb-placeholder-hint{font-size:.75rem;color:var(--teal);font-family:'DM Mono',monospace;margin-bottom:1rem;padding:.5rem .7rem;background:var(--teal-bg);border:1px solid var(--teal-border);}
+/* RB picker bar in report view */
+.rb-picker-bar{display:flex;align-items:center;gap:.75rem;padding:.45rem 1.5rem;background:rgba(15,118,110,.12);border-bottom:1px solid rgba(15,118,110,.2);flex-wrap:wrap;}
+.rb-picker-bar label{font-size:.72rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+.rb-picker-bar select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;font-family:'EB Garamond',serif;font-size:.88rem;padding:.22rem .5rem;outline:none;cursor:pointer;max-width:300px;}
+.rb-picker-bar select option{background:#1c1917;color:#fff;}
+.rb-active-badge{font-size:.68rem;font-family:'DM Mono',monospace;color:rgba(204,251,241,.9);padding:.12rem .45rem;border:1px solid rgba(204,251,241,.3);}
+/* section text in built report sourced from template */
+.from-template{border-left:2px solid var(--teal);padding-left:.6rem;background:rgba(15,118,110,.04);}
+.btn-teal{background:var(--teal);border-color:var(--teal);color:#fff;}
+.btn-teal:hover{background:#0d6056;border-color:#0d6056;color:#fff;}
+@media (max-width:760px){
+  .shell{flex-direction:column;}.sidebar{width:100%;height:auto;position:static;}
+  .stats-row{grid-template-columns:1fr 1fr;}.document{padding:2rem 1.5rem;}
+  .sig-grid,.form-grid{grid-template-columns:1fr;}.form-grid .full{grid-column:1;}
+}
+@media print{
+  .shell{display:block;}.sidebar,.report-toolbar,.topbar,.year-selector{display:none!important;}
+  .content{padding:0;}.report-wrap{margin:0;padding:0;max-width:100%;}.document{border:none;box-shadow:none;}
+  .efield{background:transparent!important;border-bottom:1px solid #999!important;}
+  textarea.efield{border:1px solid #999!important;}.xbrl-legend{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <!-- ── SIDEBAR ── -->
+  <nav class="sidebar">
+    <div class="sidebar-logo"><h1>RevisionsPro</h1><p>Klienthantering</p></div>
+    <div class="sidebar-section">Navigering</div>
+    <button class="nav-btn active" id="nav-clients" onclick="showView('clients')"><span class="icon">🗂</span> Klientlista</button>
+    <button class="nav-btn" id="nav-report" onclick="showView('report')" style="display:none"><span class="icon">📄</span> Revisionsberättelse</button>
+    <button class="nav-btn" id="nav-templates" onclick="showView('templates')"><span class="icon">👤</span> Revisorsmallar</button>
+    <button class="nav-btn" id="nav-rb-templates" onclick="showView('rb-templates')"><span class="icon">📋</span> RB-mallar</button>
+    <div class="sidebar-foot">iXBRL / se-nak-gar<br>Bolagsverket taxonomy</div>
+  </nav>
+
+  <div class="main">
+    <!-- ══ CLIENT VIEW ══ -->
+    <div id="view-clients">
+      <div class="topbar">
+        <h2>Klientlista</h2>
+        <button class="btn btn-primary" onclick="openNewClient()">+ Ny klient</button>
+      </div>
+      <div class="content">
+        <div class="stats-row">
+          <div class="stat-card"><div class="stat-val" id="stat-total">0</div><div class="stat-label">Klienter</div></div>
+          <div class="stat-card"><div class="stat-val" id="stat-done">0</div><div class="stat-label">Klara</div></div>
+          <div class="stat-card"><div class="stat-val" id="stat-pending">0</div><div class="stat-label">Ej påbörjade</div></div>
+          <div class="stat-card"><div class="stat-val" id="stat-years">0</div><div class="stat-label">Revisioner totalt</div></div>
+        </div>
+        <div class="search-bar">
+          <input class="search-input" id="searchInput" placeholder="Sök klient, org.nr…" oninput="renderList()">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('searchInput').value='';renderList()">Rensa</button>
+        </div>
+        <div class="card">
+          <table class="client-table">
+            <thead><tr><th>Bolag</th><th>Org.nr</th><th>Senaste räkenskapsår</th><th>Revisioner</th><th>Status</th><th>Åtgärder</th></tr></thead>
+            <tbody id="clientTbody"></tbody>
+          </table>
+          <div id="emptyState" class="empty" style="display:none">
+            <div class="em-icon">📋</div><h3>Inga klienter ännu</h3>
+            <p>Klicka på "+ Ny klient" för att komma igång.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ REPORT VIEW ══ -->
+    <div id="view-report" style="display:none">
+      <div class="report-toolbar">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem">
+          <button class="btn btn-ghost btn-sm" style="border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)" onclick="showView('clients')">← Tillbaka</button>
+          <span class="rtitle" id="reportTitle"></span>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-sm" style="border-color:rgba(255,255,255,.4);color:#fff" onclick="markDone()">✓ Markera klar</button>
+          <button class="btn btn-sm btn-blue" onclick="exportIxbrl()">⬇ iXBRL</button>
+          <!-- Export dropdown -->
+          <div class="export-menu" id="exportMenu">
+            <button class="btn btn-sm btn-green" onclick="toggleExportMenu()">⬇ Exportera ▾</button>
+            <div class="export-dropdown" id="exportDropdown">
+              <button class="export-item" onclick="exportPdf()"><span class="ei-icon">📄</span> Spara som PDF</button>
+              <button class="export-item" onclick="exportWord()"><span class="ei-icon">📝</span> Spara som Word (.docx)</button>
+              <button class="export-item" onclick="exportIxbrl()"><span class="ei-icon">🏷</span> Exportera iXBRL</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Year selector -->
+      <div class="year-selector">
+        <label>Räkenskapsår:</label>
+        <select id="yearSelect" onchange="switchYear()"></select>
+        <button class="btn btn-sm btn-ghost" style="border-color:rgba(255,255,255,.25);color:rgba(255,255,255,.6);font-size:.72rem" onclick="addNewYear()">+ Lägg till år</button>
+      </div>
+      <!-- RB-mall picker -->
+      <div class="rb-picker-bar">
+        <label>RB-mall:</label>
+        <select id="rbTplSelect" onchange="applyRbTemplate()">
+          <option value="">— Inbyggd standardtext —</option>
+        </select>
+        <span id="rbActiveBadge" class="rb-active-badge" style="display:none"></span>
+      </div>
+      <div class="report-wrap">
+        <div class="document" id="reportDoc"></div>
+        <div class="xbrl-legend"><span class="xbrl-dot"></span> Blå streckad = iXBRL-taggad. Hovra för taggnamn.</div>
+        <!-- Download result panel -->
+        <div class="dl-panel" id="dlPanel">
+          <div class="dl-title" id="dlPanelTitle">Fil genererad</div>
+          <div id="dlPanelLinks"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TEMPLATES VIEW ══ -->
+    <div id="view-templates" style="display:none">
+      <div class="topbar">
+        <h2>Revisorsmallar</h2>
+        <button class="btn btn-primary" onclick="openNewTemplate()">+ Ny mall</button>
+      </div>
+      <div class="content">
+        <p style="margin-bottom:1.2rem;color:var(--muted);font-size:.95rem">Spara dina revisoruppgifter som mallar. När du skapar en ny klient kan du välja en mall för att fylla i uppgifterna automatiskt.</p>
+        <div id="templateList"></div>
+        <div id="templateEmpty" class="empty" style="display:none">
+          <div class="em-icon">👤</div><h3>Inga mallar ännu</h3>
+          <p>Skapa en mall med dina revisoruppgifter för snabbare ifyllning.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ RB-MALLAR VIEW ══ -->
+    <div id="view-rb-templates" style="display:none">
+      <div class="topbar">
+        <h2>RB-mallar</h2>
+        <button class="btn btn-primary" onclick="openNewRbTemplate()">+ Ny RB-mall</button>
+      </div>
+      <div class="content">
+        <p style="margin-bottom:1.2rem;color:var(--muted);font-size:.95rem">
+          Skapa mallar med det juridiska innehållet i revisionsberättelsen. En mall kopplas mot ett räkenskapsår direkt i berättelsevyn.<br>
+          <span style="font-family:'DM Mono',monospace;font-size:.82rem;color:var(--teal)">Platshållare: {{BOLAG}} {{PERIOD}} {{BALDAT}} {{SIDOR}} {{REVISOR}} {{BYRA}}</span>
+        </p>
+        <div id="rbTemplateList"></div>
+        <div id="rbTemplateEmpty" class="empty" style="display:none">
+          <div class="em-icon">📋</div><h3>Inga RB-mallar ännu</h3>
+          <p>Skapa en mall för att återanvända standardtexter.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CLIENT MODAL ══ -->
+<div class="overlay" id="clientModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><h3 id="modalTitle">Ny klient</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <!-- Tabs -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-info')">📋 Grunduppgifter</button>
+        <button class="tab-btn" onclick="switchTab('tab-auditor')">👤 Revisor</button>
+        <button class="tab-btn" onclick="switchTab('tab-notes-modal')">🗒 Anteckningar</button>
+      </div>
+      <!-- Tab: Info -->
+      <div class="tab-pane active" id="tab-info">
+        <div class="form-grid">
+          <div class="form-group full"><label>Bolagets namn *</label><input type="text" id="f-name" placeholder="AB Exempelbolaget"></div>
+          <div class="form-group"><label>Organisationsnummer *</label><input type="text" id="f-orgnr" placeholder="556XXX-XXXX"></div>
+          <div class="form-group"><label>Kontaktperson</label><input type="text" id="f-contact" placeholder="Namn"></div>
+          <div class="form-group"><label>Räkenskapsår från</label><input type="date" id="f-from"></div>
+          <div class="form-group"><label>Räkenskapsår till</label><input type="date" id="f-to"></div>
+          <div class="form-group"><label>Balansdatum (text)</label><input type="text" id="f-baldate" placeholder="31 december 2024"></div>
+          <div class="form-group"><label>Ort</label><input type="text" id="f-city" placeholder="Stockholm"></div>
+          <div class="form-group"><label>Signeringsdatum</label><input type="date" id="f-signdate"></div>
+          <div class="form-group full"><label>Sidor i årsredovisning</label><input type="text" id="f-pages" placeholder="1–XX"></div>
+        </div>
+      </div>
+      <!-- Tab: Auditor -->
+      <div class="tab-pane" id="tab-auditor">
+        <!-- Template picker -->
+        <div style="margin-bottom:1rem">
+          <label style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Fyll i från mall</label>
+          <div id="tplPicker" style="margin-top:.5rem;display:flex;gap:.5rem;flex-wrap:wrap"></div>
+        </div>
+        <hr class="divider">
+        <div class="form-grid">
+          <div class="form-group full"><label>Revisorns namn</label><input type="text" id="f-auditor" placeholder="Förnamn Efternamn"></div>
+          <div class="form-group"><label>Revisorstyp</label><select id="f-auditortype"><option>Auktoriserad revisor</option><option>Godkänd revisor</option></select></div>
+          <div class="form-group"><label>E-post</label><input type="text" id="f-auditor-email" placeholder="revisor@byrå.se"></div>
+          <div class="form-group"><label>Revisionsbyrå</label><input type="text" id="f-firm" placeholder="Byråns namn"></div>
+          <div class="form-group"><label>Reg.nr (FAR)</label><input type="text" id="f-regnr" placeholder="FAR XXXXX"></div>
+        </div>
+      </div>
+      <!-- Tab: Notes in modal -->
+      <div class="tab-pane" id="tab-notes-modal">
+        <label style="font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)">Intern anteckning (sparas med klienten)</label>
+        <textarea class="notes-area" id="f-notes" rows="6" placeholder="Interna noteringar, kontaktinfo, särskilda omständigheter…" style="margin-top:.5rem"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal()">Avbryt</button>
+      <button class="btn btn-primary" onclick="saveClient()">Spara klient</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NOTES MODAL ══ -->
+<div class="overlay" id="notesModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><h3>🗒 Anteckningar – <span id="notesClientName"></span></h3><button class="modal-close" onclick="closeNotes()">✕</button></div>
+    <div class="modal-body">
+      <div style="display:flex;gap:.75rem;margin-bottom:1rem">
+        <textarea class="notes-area" id="newNoteText" rows="3" placeholder="Ny anteckning…" style="flex:1"></textarea>
+        <button class="btn btn-primary" style="align-self:flex-end" onclick="addNote()">+ Lägg till</button>
+      </div>
+      <hr class="divider">
+      <div id="notesList"></div>
+      <div id="notesEmpty" style="color:var(--muted);font-size:.92rem;text-align:center;padding:1.5rem;display:none">Inga anteckningar ännu.</div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeNotes()">Stäng</button></div>
+  </div>
+</div>
+
+<!-- ══ HISTORY MODAL ══ -->
+<div class="overlay" id="historyModal">
+  <div class="modal modal-lg">
+    <div class="modal-header"><h3>📅 Revisionshistorik – <span id="historyClientName"></span></h3><button class="modal-close" onclick="closeHistory()">✕</button></div>
+    <div class="modal-body">
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:1rem">Varje räkenskapsår sparas som en separat revision. Klicka för att öppna och redigera.</p>
+      <div id="historyList"></div>
+      <hr class="divider">
+      <p style="font-size:.85rem;color:var(--muted)">Lägg till ett nytt räkenskapsår direkt i revisionsberättelse-vyn via "+ Lägg till år".</p>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeHistory()">Stäng</button></div>
+  </div>
+</div>
+
+<!-- ══ TEMPLATE MODAL ══ -->
+<div class="overlay" id="templateModal">
+  <div class="modal">
+    <div class="modal-header"><h3 id="tplModalTitle">Ny revisormall</h3><button class="modal-close" onclick="closeTemplateModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group full"><label>Mallnamn *</label><input type="text" id="t-label" placeholder="t.ex. Min standardmall"></div>
+        <div class="form-group full"><label>Revisorns namn *</label><input type="text" id="t-auditor" placeholder="Förnamn Efternamn"></div>
+        <div class="form-group"><label>Revisorstyp</label><select id="t-auditortype"><option>Auktoriserad revisor</option><option>Godkänd revisor</option></select></div>
+        <div class="form-group"><label>E-post</label><input type="text" id="t-email" placeholder="revisor@byrå.se"></div>
+        <div class="form-group"><label>Revisionsbyrå</label><input type="text" id="t-firm" placeholder="Byråns namn"></div>
+        <div class="form-group"><label>Reg.nr (FAR)</label><input type="text" id="t-regnr" placeholder="FAR XXXXX"></div>
+        <div class="form-group"><label>Standardort</label><input type="text" id="t-city" placeholder="Stockholm"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeTemplateModal()">Avbryt</button>
+      <button class="btn btn-primary" onclick="saveTemplate()">Spara mall</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DELETE MODAL ══ -->
+<div class="overlay" id="deleteModal">
+  <div class="modal modal-sm">
+    <div class="modal-header"><h3>Ta bort klient</h3><button class="modal-close" onclick="closeDelete()">✕</button></div>
+    <div class="modal-body"><p style="font-size:1rem;line-height:1.6">Är du säker på att du vill ta bort <strong id="deleteClientName"></strong> och all revisionshistorik? Kan inte ångras.</p></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeDelete()">Avbryt</button>
+      <button class="btn" style="background:#8b0000;border-color:#8b0000;color:#fff" onclick="confirmDelete()">Ta bort</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD YEAR MODAL -->
+<div class="overlay" id="addYearModal">
+  <div class="modal modal-sm">
+    <div class="modal-header"><h3>Nytt räkenskapsår</h3><button class="modal-close" onclick="closeAddYear()">✕</button></div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Från</label><input type="date" id="ay-from"></div>
+        <div class="form-group"><label>Till</label><input type="date" id="ay-to"></div>
+        <div class="form-group full"><label>Balansdatum (text)</label><input type="text" id="ay-baldate" placeholder="31 december 2025"></div>
+        <div class="form-group full"><label>Signeringsdatum</label><input type="date" id="ay-signdate"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeAddYear()">Avbryt</button>
+      <button class="btn btn-primary" onclick="confirmAddYear()">Lägg till</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RB-MALL MODAL ══ -->
+<div class="overlay" id="rbTemplateModal">
+  <div class="modal" style="max-width:680px">
+    <div class="modal-header">
+      <h3 id="rbModalTitle">Ny RB-mall</h3>
+      <button class="modal-close" onclick="closeRbModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid" style="margin-bottom:1.1rem">
+        <div class="form-group full"><label>Mallnamn *</label><input type="text" id="rb-name" placeholder="t.ex. Standard AB, BRF med anmärkning…"></div>
+        <div class="form-group full"><label>Beskrivning (valfri)</label><input type="text" id="rb-desc" placeholder="Kort beskrivning av när mallen används"></div>
+      </div>
+      <div class="rb-placeholder-hint">
+        Platshållare som ersätts automatiskt: <strong>{{BOLAG}}</strong> · <strong>{{PERIOD}}</strong> · <strong>{{BALDAT}}</strong> · <strong>{{SIDOR}}</strong> · <strong>{{REVISOR}}</strong> · <strong>{{BYRA}}</strong>
+      </div>
+      <!-- Sections -->
+      <div class="rb-section">
+        <label>Inledning / Uppdrag</label>
+        <textarea id="rb-s-intro" rows="3" placeholder="Jag har utfört en revision av årsredovisningen för {{BOLAG}} för räkenskapsåret {{PERIOD}}. Årsredovisningen omfattar sidorna {{SIDOR}}."></textarea>
+      </div>
+      <div class="rb-section">
+        <label>Uttalanden</label>
+        <textarea id="rb-s-uttalanden" rows="4" placeholder="Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den {{BALDAT}}…"></textarea>
+      </div>
+      <div class="rb-section">
+        <label>Grund för uttalanden</label>
+        <textarea id="rb-s-grund" rows="3" placeholder="Jag har utfört revisionen enligt ISA och god revisionssed i Sverige…"></textarea>
+      </div>
+      <div class="rb-section">
+        <label>Styrelsens / ledningens ansvar</label>
+        <textarea id="rb-s-styransvar" rows="3" placeholder="Det är styrelsen och verkställande direktören som har ansvaret…"></textarea>
+      </div>
+      <div class="rb-section">
+        <label>Revisorns ansvar</label>
+        <textarea id="rb-s-revisoransvar" rows="3" placeholder="Mina mål är att uppnå en rimlig grad av säkerhet…"></textarea>
+      </div>
+      <div class="rb-section">
+        <label>Rapport om andra krav (lagar och författningar)</label>
+        <textarea id="rb-s-rapport" rows="3" placeholder="Utöver min revision av årsredovisningen har jag även granskat…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeRbModal()">Avbryt</button>
+      <button class="btn btn-teal" onclick="saveRbTemplate()">Spara RB-mall</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+let clients   = JSON.parse(localStorage.getItem('rev_clients')   || '[]');
+let templates = JSON.parse(localStorage.getItem('rev_templates') || '[]');
+let rbTemplates = JSON.parse(localStorage.getItem('rev_rb_templates') || '[]');
+let editId = null, deleteId = null, currentClientId = null, notesClientId = null, historyClientId = null, editTplId = null, editRbTplId = null;
+let currentYearIdx = 0;
+
+// ══════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════
+function uid() { return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function save() { localStorage.setItem('rev_clients', JSON.stringify(clients)); }
+function saveTpl() { localStorage.setItem('rev_templates', JSON.stringify(templates)); }
+function saveRbT() { localStorage.setItem('rev_rb_templates', JSON.stringify(rbTemplates)); }
+function fmtDate(d) { if (!d) return ''; try { return new Date(d).toLocaleDateString('sv-SE'); } catch(e) { return d; } }
+function x(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function toast(msg, bg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.background = bg||'#2d5a3d';
+  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+// ══════════════════════════════════════════════
+// VIEWS
+// ══════════════════════════════════════════════
+function showView(v) {
+  ['clients','report','templates','rb-templates'].forEach(id => {
+    document.getElementById('view-'+id).style.display = v===id ? 'block' : 'none';
+    const nb = document.getElementById('nav-'+id);
+    if (nb) nb.classList.toggle('active', v===id);
+  });
+  if (v==='templates') renderTemplates();
+  if (v==='rb-templates') renderRbTemplates();
+}
+
+// ══════════════════════════════════════════════
+// TABS (in modal)
+// ══════════════════════════════════════════════
+function switchTab(id) {
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// ══════════════════════════════════════════════
+// CLIENT LIST
+// ══════════════════════════════════════════════
+function renderList() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = clients.filter(c=>
+    c.name.toLowerCase().includes(q)||(c.orgnr||'').toLowerCase().includes(q)||(c.contact||'').toLowerCase().includes(q)
+  );
+  const tbody = document.getElementById('clientTbody');
+  const totalYears = clients.reduce((s,c)=>s+(c.years||[]).length,0);
+  document.getElementById('stat-total').textContent   = clients.length;
+  document.getElementById('stat-done').textContent    = clients.filter(c=>c.status==='klar').length;
+  document.getElementById('stat-pending').textContent = clients.filter(c=>c.status!=='klar').length;
+  document.getElementById('stat-years').textContent   = totalYears;
+  tbody.innerHTML = '';
+  document.getElementById('emptyState').style.display = filtered.length===0 ? 'block' : 'none';
+
+  filtered.forEach(c => {
+    const lastYear = (c.years||[]).length ? c.years[c.years.length-1] : null;
+    const period   = lastYear ? `${fmtDate(lastYear.from)} – ${fmtDate(lastYear.to)}` : '—';
+    const yearCount = (c.years||[]).length;
+    const isKlar   = c.status==='klar';
+    const badge    = isKlar
+      ? `<button class="status-badge badge-green" title="Klicka för att ändra status" onclick="toggleStatus('${c.id}')">✓ Klar</button>`
+      : `<button class="status-badge badge-orange" title="Klicka för att markera som Klar" onclick="toggleStatus('${c.id}')">○ Ej påbörjad</button>`;
+    const noteCount = (c.notes||[]).length;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <strong>${x(c.name)}</strong>
+        ${c.contact?`<br><small style="color:var(--muted)">${x(c.contact)}</small>`:''}
+        ${noteCount ? `<br><span class="pill pill-purple" style="margin-top:.2rem">🗒 ${noteCount} notering${noteCount>1?'ar':''}</span>` : ''}
+      </td>
+      <td style="font-family:'DM Mono',monospace;font-size:.85rem">${x(c.orgnr||'—')}</td>
+      <td style="font-size:.88rem">${period}</td>
+      <td><span class="badge badge-blue" style="cursor:pointer" onclick="openHistory('${c.id}')" title="Visa historik">${yearCount} år</span></td>
+      <td>${badge}</td>
+      <td><div class="actions">
+        <button class="btn btn-sm btn-primary" style="font-size:.82rem;padding:.4rem 1rem" onclick="openReport('${c.id}')">▶ Starta berättelse</button>
+        <button class="btn btn-sm" title="Anteckningar" onclick="openNotes('${c.id}')">🗒</button>
+        <button class="btn btn-sm" title="Historik" onclick="openHistory('${c.id}')">📅</button>
+        <button class="btn btn-sm" title="Redigera" onclick="openEditClient('${c.id}')">✏️</button>
+        <button class="btn btn-sm" style="border-color:#ccc;color:#999" title="Ta bort" onclick="openDelete('${c.id}')">🗑</button>
+      </div></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleStatus(id) {
+  const idx = clients.findIndex(c=>c.id===id); if (idx<0) return;
+  const wasKlar = clients[idx].status==='klar';
+  clients[idx].status = wasKlar ? 'ej påbörjad' : 'klar';
+  save(); renderList();
+  toast(wasKlar ? 'Status: Ej påbörjad' : 'Status: Klar ✓', wasKlar ? '#92400e' : '#2d5a3d');
+}
+
+// ══════════════════════════════════════════════
+// CLIENT MODAL (new / edit)
+// ══════════════════════════════════════════════
+function openNewClient() {
+  editId = null;
+  document.getElementById('modalTitle').textContent = 'Ny klient';
+  clearClientForm();
+  // defaults
+  const y = new Date().getFullYear()-1;
+  document.getElementById('f-from').value    = `${y}-01-01`;
+  document.getElementById('f-to').value      = `${y}-12-31`;
+  document.getElementById('f-baldate').value = `31 december ${y}`;
+  document.getElementById('f-city').value    = 'Stockholm';
+  document.getElementById('f-signdate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('f-pages').value   = '1–XX';
+  buildTplPicker();
+  switchTabById('tab-info');
+  document.getElementById('clientModal').classList.add('open');
+}
+
+function openEditClient(id) {
+  editId = id;
+  const c = clients.find(c=>c.id===id); if (!c) return;
+  document.getElementById('modalTitle').textContent = 'Redigera klient';
+  const ly = (c.years||[]).length ? c.years[c.years.length-1] : {};
+  document.getElementById('f-name').value          = c.name||'';
+  document.getElementById('f-orgnr').value         = c.orgnr||'';
+  document.getElementById('f-contact').value       = c.contact||'';
+  document.getElementById('f-from').value          = ly.from||'';
+  document.getElementById('f-to').value            = ly.to||'';
+  document.getElementById('f-baldate').value       = ly.baldate||'';
+  document.getElementById('f-city').value          = ly.city||'';
+  document.getElementById('f-signdate').value      = ly.signdate||'';
+  document.getElementById('f-pages').value         = ly.pages||'';
+  document.getElementById('f-auditor').value       = c.auditor||'';
+  document.getElementById('f-auditortype').value   = c.auditortype||'Auktoriserad revisor';
+  document.getElementById('f-auditor-email').value = c.auditorEmail||'';
+  document.getElementById('f-firm').value          = c.firm||'';
+  document.getElementById('f-regnr').value         = c.regnr||'';
+  document.getElementById('f-notes').value         = (c.notes||[]).map(n=>n.text).join('\n\n');
+  buildTplPicker();
+  switchTabById('tab-info');
+  document.getElementById('clientModal').classList.add('open');
+}
+
+function clearClientForm() {
+  ['f-name','f-orgnr','f-contact','f-from','f-to','f-baldate','f-city','f-signdate','f-pages',
+   'f-auditor','f-auditor-email','f-firm','f-regnr','f-notes'].forEach(id=>document.getElementById(id).value='');
+}
+
+function closeModal() { document.getElementById('clientModal').classList.remove('open'); }
+
+function switchTabById(id) {
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab-btn').forEach(b=>{
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes(id)) b.classList.add('active');
+  });
+}
+
+function saveClient() {
+  const name = document.getElementById('f-name').value.trim();
+  if (!name) { alert('Bolagets namn krävs.'); return; }
+  const year = {
+    id: uid(),
+    from: document.getElementById('f-from').value,
+    to:   document.getElementById('f-to').value,
+    baldate:  document.getElementById('f-baldate').value.trim(),
+    city:     document.getElementById('f-city').value.trim(),
+    signdate: document.getElementById('f-signdate').value,
+    pages:    document.getElementById('f-pages').value.trim(),
+    comments:'', ansvarsfrihet:'', periodText:'',
+    status:'ej påbörjad'
+  };
+  const auditorData = {
+    auditor:      document.getElementById('f-auditor').value.trim(),
+    auditortype:  document.getElementById('f-auditortype').value,
+    auditorEmail: document.getElementById('f-auditor-email').value.trim(),
+    firm:         document.getElementById('f-firm').value.trim(),
+    regnr:        document.getElementById('f-regnr').value.trim(),
+  };
+  const notesText = document.getElementById('f-notes').value.trim();
+
+  if (editId) {
+    const idx = clients.findIndex(c=>c.id===editId);
+    // update last year
+    if (clients[idx].years && clients[idx].years.length) {
+      Object.assign(clients[idx].years[clients[idx].years.length-1], {
+        from:year.from,to:year.to,baldate:year.baldate,
+        city:year.city,signdate:year.signdate,pages:year.pages
+      });
+    }
+    Object.assign(clients[idx], {name,orgnr:document.getElementById('f-orgnr').value.trim(),
+      contact:document.getElementById('f-contact').value.trim(),...auditorData});
+    toast('Klient uppdaterad');
+  } else {
+    const newClient = {
+      id:uid(), name, orgnr:document.getElementById('f-orgnr').value.trim(),
+      contact:document.getElementById('f-contact').value.trim(),
+      ...auditorData, status:'ej påbörjad', notes:[], years:[year]
+    };
+    if (notesText) newClient.notes.push({id:uid(),date:new Date().toLocaleDateString('sv-SE'),text:notesText});
+    clients.push(newClient);
+    toast('Klient tillagd');
+  }
+  save(); closeModal(); renderList();
+}
+
+// ══════════════════════════════════════════════
+// NOTES
+// ══════════════════════════════════════════════
+function openNotes(id) {
+  notesClientId = id;
+  const c = clients.find(c=>c.id===id); if (!c) return;
+  document.getElementById('notesClientName').textContent = c.name;
+  document.getElementById('newNoteText').value = '';
+  renderNotes(c);
+  document.getElementById('notesModal').classList.add('open');
+}
+function closeNotes() { document.getElementById('notesModal').classList.remove('open'); }
+
+function renderNotes(c) {
+  const notes = c.notes || [];
+  const list = document.getElementById('notesList');
+  const empty = document.getElementById('notesEmpty');
+  list.innerHTML = '';
+  empty.style.display = notes.length===0 ? 'block' : 'none';
+  [...notes].reverse().forEach(n => {
+    const div = document.createElement('div');
+    div.className = 'note-entry';
+    div.innerHTML = `<div class="note-date">${x(n.date)}</div>
+      <div class="note-text">${x(n.text)}</div>
+      <button class="note-del" onclick="deleteNote('${n.id}')" title="Ta bort">✕</button>`;
+    list.appendChild(div);
+  });
+}
+
+function addNote() {
+  const text = document.getElementById('newNoteText').value.trim();
+  if (!text) return;
+  const idx = clients.findIndex(c=>c.id===notesClientId); if (idx<0) return;
+  if (!clients[idx].notes) clients[idx].notes = [];
+  clients[idx].notes.push({id:uid(), date:new Date().toLocaleDateString('sv-SE'), text});
+  document.getElementById('newNoteText').value = '';
+  save(); renderNotes(clients[idx]); renderList();
+  toast('Anteckning tillagd');
+}
+
+function deleteNote(noteId) {
+  const idx = clients.findIndex(c=>c.id===notesClientId); if (idx<0) return;
+  clients[idx].notes = (clients[idx].notes||[]).filter(n=>n.id!==noteId);
+  save(); renderNotes(clients[idx]); renderList();
+}
+
+// ══════════════════════════════════════════════
+// HISTORY
+// ══════════════════════════════════════════════
+function openHistory(id) {
+  historyClientId = id;
+  const c = clients.find(c=>c.id===id); if (!c) return;
+  document.getElementById('historyClientName').textContent = c.name;
+  renderHistory(c);
+  document.getElementById('historyModal').classList.add('open');
+}
+function closeHistory() { document.getElementById('historyModal').classList.remove('open'); }
+
+function renderHistory(c) {
+  const list = document.getElementById('historyList');
+  list.innerHTML = '';
+  const years = c.years || [];
+  if (!years.length) { list.innerHTML = '<p style="color:var(--muted)">Inga räkenskapsår ännu.</p>'; return; }
+  [...years].reverse().forEach((y,ri) => {
+    const i = years.length-1-ri;
+    const period = `${fmtDate(y.from)} – ${fmtDate(y.to)}`;
+    const isKlar = y.status==='klar';
+    const div = document.createElement('div');
+    div.className = 'history-item';
+    div.innerHTML = `
+      <div>
+        <div class="hi-name">${period||'Okänt år'}</div>
+        <div class="hi-label">Signerat: ${y.signdate ? fmtDate(y.signdate) : '—'}</div>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <span class="badge ${isKlar?'badge-green':'badge-orange'}">${isKlar?'Klar':'Ej klar'}</span>
+        <button class="btn btn-sm btn-primary" onclick="openReportAtYear('${c.id}',${i});closeHistory()">Öppna</button>
+        ${years.length>1 ? `<button class="btn btn-sm" style="border-color:#ccc;color:#999" onclick="deleteYear('${c.id}',${i})">🗑</button>` : ''}
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function deleteYear(clientId, yearIdx) {
+  if (!confirm('Ta bort detta räkenskapsår?')) return;
+  const idx = clients.findIndex(c=>c.id===clientId); if (idx<0) return;
+  clients[idx].years.splice(yearIdx,1);
+  save(); renderHistory(clients[idx]); renderList();
+  toast('Räkenskapsår borttaget');
+}
+
+// ══════════════════════════════════════════════
+// ADD YEAR
+// ══════════════════════════════════════════════
+function addNewYear() {
+  const c = clients.find(c=>c.id===currentClientId); if (!c) return;
+  const lastY = (c.years||[]).length ? c.years[c.years.length-1] : null;
+  let nextFrom='', nextTo='', nextBal='';
+  if (lastY && lastY.to) {
+    const d = new Date(lastY.to); d.setDate(d.getDate()+1);
+    nextFrom = d.toISOString().split('T')[0];
+    const toD = new Date(d); toD.setFullYear(toD.getFullYear()+1); toD.setDate(toD.getDate()-1);
+    nextTo = toD.toISOString().split('T')[0];
+    nextBal = `31 december ${toD.getFullYear()}`;
+  }
+  document.getElementById('ay-from').value    = nextFrom;
+  document.getElementById('ay-to').value      = nextTo;
+  document.getElementById('ay-baldate').value = nextBal;
+  document.getElementById('ay-signdate').value = '';
+  document.getElementById('addYearModal').classList.add('open');
+}
+function closeAddYear() { document.getElementById('addYearModal').classList.remove('open'); }
+function confirmAddYear() {
+  const from     = document.getElementById('ay-from').value;
+  const to       = document.getElementById('ay-to').value;
+  const baldate  = document.getElementById('ay-baldate').value.trim();
+  const signdate = document.getElementById('ay-signdate').value;
+  if (!from||!to) { alert('Ange räkenskapsår.'); return; }
+  const idx = clients.findIndex(c=>c.id===currentClientId); if (idx<0) return;
+  const newY = {id:uid(),from,to,baldate,signdate,pages:'1–XX',city:clients[idx].years?.[0]?.city||'Stockholm',comments:'',ansvarsfrihet:'',periodText:'',status:'ej påbörjad'};
+  clients[idx].years.push(newY);
+  save(); closeAddYear();
+  currentYearIdx = clients[idx].years.length-1;
+  buildYearSelector(clients[idx]);
+  loadYear(clients[idx], currentYearIdx);
+  toast('Nytt räkenskapsår tillagt');
+}
+
+// ══════════════════════════════════════════════
+// REPORT
+// ══════════════════════════════════════════════
+function openReport(id, yearIdx) {
+  currentClientId = id;
+  const c = clients.find(c=>c.id===id); if (!c) return;
+  if (!c.years || !c.years.length) {
+    // migrate old format
+    c.years = [{id:uid(),from:c.from||'',to:c.to||'',baldate:c.baldate||'',signdate:c.signdate||'',
+      pages:c.pages||'',city:c.city||'',comments:c.comments||'',ansvarsfrihet:c.ansvarsfrihet||'',
+      periodText:c.periodText||'',status:c.status||'ej påbörjad'}];
+    save();
+  }
+  currentYearIdx = yearIdx !== undefined ? yearIdx : c.years.length-1;
+  document.getElementById('reportTitle').textContent = c.name;
+  document.getElementById('nav-report').style.display = 'flex';
+  buildYearSelector(c);
+  loadYear(c, currentYearIdx);
+  showView('report');
+}
+
+function openReportAtYear(id, yearIdx) { openReport(id, yearIdx); }
+
+function buildYearSelector(c) {
+  const sel = document.getElementById('yearSelect');
+  sel.innerHTML = '';
+  (c.years||[]).forEach((y,i) => {
+    const opt = document.createElement('option');
+    const period = y.from && y.to ? `${fmtDate(y.from)} – ${fmtDate(y.to)}` : `År ${i+1}`;
+    opt.value = i; opt.textContent = period + (y.status==='klar'?' ✓':'');
+    if (i===currentYearIdx) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  buildRbPicker(c);
+}
+
+function buildRbPicker(c) {
+  const sel = document.getElementById('rbTplSelect');
+  sel.innerHTML = '<option value="">— Inbyggd standardtext —</option>';
+  rbTemplates.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t.id; o.textContent = t.name + (t.desc ? ' – '+t.desc : '');
+    sel.appendChild(o);
+  });
+  const y = (c.years||[])[currentYearIdx];
+  const linked = y?.rbTemplateId || '';
+  sel.value = linked;
+  updateRbBadge(linked);
+}
+
+function updateRbBadge(tplId) {
+  const badge = document.getElementById('rbActiveBadge');
+  if (tplId) {
+    const t = rbTemplates.find(t=>t.id===tplId);
+    badge.textContent = '📋 ' + (t?.name||'mall kopplad');
+    badge.style.display = 'inline';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function applyRbTemplate() {
+  if (!currentClientId) return;
+  const tplId = document.getElementById('rbTplSelect').value;
+  const idx = clients.findIndex(c=>c.id===currentClientId);
+  if (idx < 0) return;
+  clients[idx].years[currentYearIdx].rbTemplateId = tplId;
+  save();
+  updateRbBadge(tplId);
+  // Rebuild the report so texts update immediately
+  loadYear(clients[idx], currentYearIdx);
+  toast(tplId ? '📋 RB-mall kopplad till detta räkenskapsår' : 'Standardtext återställd');
+}
+
+function switchYear() {
+  const c = clients.find(c=>c.id===currentClientId); if (!c) return;
+  currentYearIdx = parseInt(document.getElementById('yearSelect').value);
+  loadYear(c, currentYearIdx);
+}
+
+function loadYear(c, yi) {
+  const y = c.years[yi];
+  if (!y) return;
+  buildReport(c, y);
+}
+
+function buildReport(c, y) {
+  // ── Resolve RB-mall texts ──────────────────────────────────────────
+  const tpl = y.rbTemplateId ? rbTemplates.find(t=>t.id===y.rbTemplateId) : null;
+
+  const periodText = y.periodText || ((y.from && y.to)
+    ? `${new Date(y.from).toLocaleDateString('sv-SE',{day:'numeric',month:'long'})} – ${new Date(y.to).toLocaleDateString('sv-SE',{day:'numeric',month:'long',year:'numeric'})}`
+    : '[period]');
+
+  // Fill placeholders in a template string
+  function fillTpl(raw) {
+    if (!raw) return '';
+    return raw
+      .replace(/{{BOLAG}}/g,  c.name||'')
+      .replace(/{{PERIOD}}/g, periodText)
+      .replace(/{{BALDAT}}/g, y.baldate||'')
+      .replace(/{{SIDOR}}/g,  y.pages||'')
+      .replace(/{{REVISOR}}/g,c.auditor||'')
+      .replace(/{{BYRA}}/g,   c.firm||'');
+  }
+
+  // Helper: wrap in "from-template" class when sourced from a template
+  function tplPara(rawText, fallback) {
+    const txt = tpl ? fillTpl(rawText) : fallback;
+    if (!txt) return '';
+    const cls = tpl ? ' from-template' : '';
+    return txt.split('\n').filter(l=>l.trim()).map(l=>`<p class="doc-p${cls}">${x(l)}</p>`).join('');
+  }
+
+  const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
+  const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
+
+  // ── Default (inbyggd) stycken ──────────────────────────────────────
+  const defIntro = `Jag har utfört en revision av årsredovisningen för ${c.name} för räkenskapsåret ${periodText}. Årsredovisningen omfattar sidorna ${y.pages||'1–XX'}.`;
+  const defUttalanden = `Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den ${y.baldate||''} och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.\nFörvaltningsberättelsen är förenlig med årsredovisningens övriga delar.\nJag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.`;
+  const defGrund = `Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet Revisorns ansvar. Jag är oberoende i förhållande till bolaget enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.\nJag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.`;
+  const defStyransvar = `Det är styrelsen och verkställande direktören som har ansvaret för att årsredovisningen upprättas och att den ger en rättvisande bild enligt årsredovisningslagen. Styrelsen och verkställande direktören ansvarar även för den interna kontroll som de bedömer är nödvändig för att upprätta en årsredovisning som inte innehåller några väsentliga felaktigheter, vare sig dessa beror på oegentligheter eller misstag.\nVid upprättandet av årsredovisningen ansvarar styrelsen och verkställande direktören för bedömningen av bolagets förmåga att fortsätta verksamheten.`;
+  const defRevisoransvar = `Mina mål är att uppnå en rimlig grad av säkerhet om huruvida årsredovisningen som helhet innehåller några väsentliga felaktigheter, vare sig dessa beror på oegentligheter eller misstag, och att lämna en revisionsberättelse som innehåller mina uttalanden.\nFelaktigheter kan uppstå på grund av oegentligheter eller misstag och anses vara väsentliga om de enskilt eller tillsammans rimligen kan förväntas påverka de ekonomiska beslut som användare fattar med grund i årsredovisningen.`;
+  const defRapport = `Utöver min revision av årsredovisningen har jag även granskat om styrelsen och verkställande direktören har gjort sig skyldiga till försummelse eller på annat sätt handlat i strid med aktiebolagslagen, årsredovisningslagen eller bolagsordningen.`;
+
+  // Shown "från mall" indicator
+  const mallBanner = tpl
+    ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.45rem .8rem;background:var(--teal-bg);border:1px solid var(--teal-border);font-size:.78rem;font-family:'DM Mono',monospace;color:var(--teal)">📋 Mall: <strong>${x(tpl.name)}</strong>${tpl.desc?' – '+x(tpl.desc):''}<span style="margin-left:auto;cursor:pointer;opacity:.6" onclick="document.getElementById('rbTplSelect').value='';applyRbTemplate()" title="Koppla bort mallen">✕ koppla bort</span></div>`
+    : '';
+
+  document.getElementById('reportDoc').innerHTML = `
+    ${mallBanner}
+    <div class="doc-header">
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em">
+        <input class="efield xt" data-lbl="EntityName" id="r-name"
+          style="min-width:260px;font-size:1.5rem;font-family:'Cormorant Garamond',serif;font-weight:700;text-align:center"
+          value="${x(c.name)}" oninput="syncClient('name',this.value)">
+      </div>
+      <div class="doc-subtitle">Revisionsberättelse</div>
+      <div class="meta">
+        <span>Org.nr: <input class="efield xt" data-lbl="RegistrationNumber" id="r-orgnr" value="${x(c.orgnr||'')}" style="min-width:110px" oninput="syncClient('orgnr',this.value)"></span>
+        <span>Räkenskapsår:
+          <input class="efield xt" data-lbl="PeriodStart" id="r-from" type="date" value="${y.from||''}" style="min-width:130px" oninput="syncYear('from',this.value)"> –
+          <input class="efield xt" data-lbl="PeriodEnd" id="r-to" type="date" value="${y.to||''}" style="min-width:130px" oninput="syncYear('to',this.value)">
+        </span>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-h2">Till bolagsstämman i <span id="r-nameref">${x(c.name)}</span></div>
+      ${tpl
+        ? tplPara(tpl.sections?.intro, defIntro)
+        : `<p class="doc-p">Jag har utfört en revision av årsredovisningen för
+          <input class="efield xt" data-lbl="EntityName" id="r-name2" value="${x(c.name)}" style="min-width:180px" oninput="syncClient('name',this.value)">
+          för räkenskapsåret <input class="efield xt" data-lbl="AuditedPeriod" id="r-period" value="${x(periodText)}" style="min-width:220px" oninput="syncYear('periodText',this.value)">.
+          Årsredovisningen omfattar sidorna <input class="efield" id="r-pages" value="${x(y.pages||'1–XX')}" style="min-width:60px" oninput="syncYear('pages',this.value)">.</p>`
+      }
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-h2">Uttalanden</div>
+      ${tpl
+        ? tplPara(tpl.sections?.uttalanden, defUttalanden)
+        : `<p class="doc-p">Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den
+          <input class="efield xt" data-lbl="BalanceSheetDate" id="r-baldate" value="${x(y.baldate||'')}" style="min-width:160px" oninput="syncYear('baldate',this.value)">
+          och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.</p>
+          <p class="doc-p">Förvaltningsberättelsen är förenlig med årsredovisningens övriga delar.</p>
+          <p class="doc-p">Jag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.</p>`
+      }
+    </div>
+
+    <hr class="doc-rule">
+
+    <div class="doc-section">
+      <div class="doc-h2">Grund för uttalanden</div>
+      ${tpl
+        ? tplPara(tpl.sections?.grund, defGrund)
+        : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till bolaget enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
+          <p class="doc-p">Jag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.</p>`
+      }
+    </div>
+
+    <hr class="doc-rule">
+
+    <div class="doc-section">
+      <div class="doc-h2">Styrelsens och verkställande direktörens ansvar</div>
+      ${tpl
+        ? tplPara(tpl.sections?.styransvar, defStyransvar)
+        : `<p class="doc-p">Det är styrelsen och verkställande direktören som har ansvaret för att årsredovisningen upprättas och att den ger en rättvisande bild enligt årsredovisningslagen. Styrelsen och verkställande direktören ansvarar även för den interna kontroll som de bedömer är nödvändig för att upprätta en årsredovisning som inte innehåller några väsentliga felaktigheter, vare sig dessa beror på oegentligheter eller misstag.</p>
+          <p class="doc-p">Vid upprättandet av årsredovisningen ansvarar styrelsen och verkställande direktören för bedömningen av bolagets förmåga att fortsätta verksamheten.</p>`
+      }
+    </div>
+
+    <hr class="doc-rule">
+
+    <div class="doc-section">
+      <div class="doc-h2">Revisorns ansvar</div>
+      ${tpl
+        ? tplPara(tpl.sections?.revisoransvar, defRevisoransvar)
+        : `<p class="doc-p">Mina mål är att uppnå en rimlig grad av säkerhet om huruvida årsredovisningen som helhet innehåller några väsentliga felaktigheter, vare sig dessa beror på oegentligheter eller misstag, och att lämna en revisionsberättelse som innehåller mina uttalanden.</p>
+          <p class="doc-p">Felaktigheter kan uppstå på grund av oegentligheter eller misstag och anses vara väsentliga om de enskilt eller tillsammans rimligen kan förväntas påverka de ekonomiska beslut som användare fattar med grund i årsredovisningen.</p>
+          <p class="doc-p" style="color:var(--muted);font-size:.9rem;font-style:italic">Ytterligare beskrivning av revisorns ansvar finns i Revisorsinspektionens standard och på www.revisorsinspektionen.se.</p>`
+      }
+    </div>
+
+    <hr class="doc-rule">
+
+    <div class="doc-section">
+      <div class="doc-h2">Rapport om andra krav enligt lagar och andra författningar</div>
+      ${tpl
+        ? tplPara(tpl.sections?.rapport, defRapport)
+        : `<p class="doc-p">Utöver min revision av årsredovisningen har jag även granskat om styrelsen och verkställande direktören har gjort sig skyldiga till försummelse eller på annat sätt handlat i strid med aktiebolagslagen, årsredovisningslagen eller bolagsordningen.</p>`
+      }
+      <p class="doc-p" style="font-style:italic;color:var(--muted);font-size:.88rem">Ansvarsfrihet:</p>
+      <div class="opinion-group">
+        <label class="opinion-opt ${selTill}" id="opt-till" onclick="selectAnsvar(this,'tillstyrker')">
+          <input type="radio" name="ansvar" value="tillstyrker" ${selTill?'checked':''}> Jag tillstyrker att bolagsstämman beviljar styrelsens ledamöter och verkställande direktören ansvarsfrihet.
+        </label>
+        <label class="opinion-opt ${selAvst}" id="opt-avst" onclick="selectAnsvar(this,'avstyrker')">
+          <input type="radio" name="ansvar" value="avstyrker" ${selAvst?'checked':''}> Jag avstyrker ansvarsfrihet (se kommentar nedan).
+        </label>
+      </div>
+    </div>
+
+    <div class="doc-section">
+      <div class="doc-h2">Övrigt / kommentarer</div>
+      <textarea class="efield" id="r-comments" rows="3" placeholder="Eventuella anmärkningar eller upplysningar…" oninput="syncYear('comments',this.value)">${x(y.comments||'')}</textarea>
+    </div>
+
+    <hr class="doc-rule">
+
+    <div class="doc-section">
+      <div class="doc-h2">Underskrift</div>
+      <p class="doc-p">
+        Ort: <input class="efield xt" data-lbl="SigningCity" id="r-city" value="${x(y.city||'')}" style="min-width:120px" oninput="syncYear('city',this.value)">
+        &nbsp;&nbsp;Datum: <input class="efield xt" data-lbl="AuditReportDate" id="r-signdate" type="date" value="${y.signdate||''}" style="min-width:150px" oninput="syncYear('signdate',this.value)">
+      </p>
+      <div class="sig-grid">
+        <div class="sig-block">
+          <div class="sig-lbl">Revisorns namn</div>
+          <input class="efield xt" data-lbl="AuditorName" id="r-auditor" value="${x(c.auditor||'')}" style="min-width:200px;font-size:1.05rem" oninput="syncClient('auditor',this.value)">
+          <br><br>
+          <div class="sig-lbl">Titel</div>
+          <select class="efield xt" data-lbl="AuditorQualification" id="r-auditortype" onchange="syncClient('auditortype',this.value)">
+            <option ${(c.auditortype||'')==='Auktoriserad revisor'?'selected':''}>Auktoriserad revisor</option>
+            <option ${(c.auditortype||'')==='Godkänd revisor'?'selected':''}>Godkänd revisor</option>
+          </select>
+        </div>
+        <div class="sig-block">
+          <div class="sig-lbl">Revisionsbyrå</div>
+          <input class="efield xt" data-lbl="AuditFirmName" id="r-firm" value="${x(c.firm||'')}" style="min-width:200px" oninput="syncClient('firm',this.value)">
+          <br><br>
+          <div class="sig-lbl">Registreringsnummer</div>
+          <input class="efield xt" data-lbl="AuditFirmReg" id="r-regnr" value="${x(c.regnr||'')}" style="min-width:130px" oninput="syncClient('regnr',this.value)">
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('r-name').addEventListener('input', function() {
+    document.getElementById('r-nameref').textContent = this.value;
+    const el2 = document.getElementById('r-name2'); if(el2) el2.value = this.value;
+  });
+}
+
+function syncClient(field, value) {
+  if (!currentClientId) return;
+  const idx = clients.findIndex(c=>c.id===currentClientId); if (idx<0) return;
+  clients[idx][field] = value; save();
+}
+
+function syncYear(field, value) {
+  if (!currentClientId) return;
+  const idx = clients.findIndex(c=>c.id===currentClientId); if (idx<0) return;
+  if (!clients[idx].years || !clients[idx].years[currentYearIdx]) return;
+  clients[idx].years[currentYearIdx][field] = value; save();
+  if (field==='from'||field==='to') buildYearSelector(clients[idx]);
+}
+
+function selectAnsvar(el, val) {
+  document.querySelectorAll('.opinion-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel'); el.querySelector('input').checked = true;
+  syncYear('ansvarsfrihet', val);
+}
+
+function markDone() {
+  if (!currentClientId) return;
+  const idx = clients.findIndex(c=>c.id===currentClientId); if (idx<0) return;
+  if (clients[idx].years && clients[idx].years[currentYearIdx]) {
+    clients[idx].years[currentYearIdx].status = 'klar';
+  }
+  clients[idx].status = 'klar';
+  save(); buildYearSelector(clients[idx]);
+  toast('Revisionsberättelse markerad som klar ✓');
+}
+
+// ══════════════════════════════════════════════
+// EXPORT
+// ══════════════════════════════════════════════
+function toggleExportMenu() {
+  document.getElementById('exportDropdown').classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  if (!document.getElementById('exportMenu').contains(e.target))
+    document.getElementById('exportDropdown').classList.remove('open');
+});
+
+function getReportData() {
+  const c = clients.find(c=>c.id===currentClientId); if (!c) return null;
+  const y = (c.years||[])[currentYearIdx] || {};
+  // Read live values from DOM
+  const live = {};
+  const map = {name:'r-name',orgnr:'r-orgnr',from:'r-from',to:'r-to',baldate:'r-baldate',
+    city:'r-city',signdate:'r-signdate',auditor:'r-auditor',auditortype:'r-auditortype',
+    firm:'r-firm',regnr:'r-regnr',pages:'r-pages',periodText:'r-period',comments:'r-comments'};
+  Object.entries(map).forEach(([f,id])=>{ const el=document.getElementById(id); if(el) live[f]=el.value; });
+  return {...c, ...live, year: {...y, ...live}};
+}
+
+function showDownloadPanel(title, links) {
+  const panel = document.getElementById('dlPanel');
+  const linksEl = document.getElementById('dlPanelLinks');
+  document.getElementById('dlPanelTitle').textContent = title;
+  linksEl.innerHTML = links.map(l =>
+    `<a class="dl-link ${l.blue?'dl-link-blue':''}" href="${l.url}" download="${l.filename}" target="_blank">${l.icon} ${l.label}</a>`
+  ).join('');
+  panel.classList.add('show');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+function exportPdf() {
+  document.getElementById('exportDropdown').classList.remove('open');
+  const d = getReportData(); if (!d) return;
+  const filename = `${(d.name||'revision').replace(/[^a-z0-9åäö]/gi,'_').toLowerCase()}_revisionsberattelse.pdf`;
+
+  toast('📄 Genererar PDF…', '#2d5a3d');
+
+  // Clone the document element for clean PDF rendering
+  const el = document.getElementById('reportDoc').cloneNode(true);
+  // Replace inputs with plain text spans
+  el.querySelectorAll('input').forEach(inp => {
+    const span = document.createElement('span');
+    span.textContent = inp.value;
+    inp.parentNode.replaceChild(span, inp);
+  });
+  el.querySelectorAll('select').forEach(sel => {
+    const span = document.createElement('span');
+    span.textContent = sel.options[sel.selectedIndex]?.text || '';
+    sel.parentNode.replaceChild(span, sel);
+  });
+  el.querySelectorAll('textarea').forEach(ta => {
+    const span = document.createElement('span');
+    span.style.whiteSpace = 'pre-wrap';
+    span.textContent = ta.value;
+    ta.parentNode.replaceChild(span, ta);
+  });
+
+  // Wrap in a styled container
+  const wrapper = document.createElement('div');
+  wrapper.style.cssText = 'font-family:Georgia,serif;font-size:11pt;color:#1c1917;padding:20mm;max-width:none;background:#fff;';
+  wrapper.appendChild(el);
+  document.body.appendChild(wrapper);
+
+  const opt = {
+    margin: [15, 15, 15, 15],
+    filename,
+    image: { type:'jpeg', quality:0.98 },
+    html2canvas: { scale:2, useCORS:true, letterRendering:true },
+    jsPDF: { unit:'mm', format:'a4', orientation:'portrait' },
+    pagebreak: { mode: ['avoid-all','css','legacy'] }
+  };
+
+  html2pdf().set(opt).from(wrapper).toPdf().get('pdf').then(pdf => {
+    document.body.removeChild(wrapper);
+    const blob = pdf.output('blob');
+    const url = URL.createObjectURL(blob);
+    showDownloadPanel('✅ PDF genererad – klicka för att öppna eller spara', [{
+      url, filename, label: '📄 Öppna / Spara PDF', blue: false
+    }]);
+    toast('✅ PDF klar!', '#2d5a3d');
+    // Also trigger download
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.click();
+  }).catch(err => {
+    document.body.removeChild(wrapper);
+    console.error(err);
+    toast('⚠️ PDF misslyckades, försök med Skriv ut', '#92400e');
+    window.print();
+  });
+}
+
+function exportWord() {
+  document.getElementById('exportDropdown').classList.remove('open');
+  const d = getReportData(); if (!d) return;
+  const y = d.year;
+  const periodText = d.periodText || ((y.from&&y.to)
+    ? `${new Date(y.from).toLocaleDateString('sv-SE',{day:'numeric',month:'long'})} – ${new Date(y.to).toLocaleDateString('sv-SE',{day:'numeric',month:'long',year:'numeric'})}`
+    : '');
+  const ansvarText = y.ansvarsfrihet==='tillstyrker'
+    ? 'Jag tillstyrker att bolagsstämman beviljar styrelsens ledamöter och verkställande direktören ansvarsfrihet.'
+    : y.ansvarsfrihet==='avstyrker' ? 'Jag avstyrker ansvarsfrihet.' : '';
+
+  // RTF format (opens in Word)
+  const rtf = buildRtf(d, y, periodText, ansvarText);
+  const blob = new Blob([rtf], {type:'application/rtf'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${(d.name||'revision').replace(/[^a-z0-9åäö]/gi,'_').toLowerCase()}_revisionsberattelse.rtf`;
+  a.click(); URL.revokeObjectURL(url);
+  const filename2 = `${(d.name||'revision').replace(/[^a-z0-9åäö]/gi,'_').toLowerCase()}_revisionsberattelse.rtf`;
+  const blob2 = new Blob([rtf], {type:'application/rtf'});
+  const url2 = URL.createObjectURL(blob2);
+  showDownloadPanel('✅ Word-fil genererad (.rtf)', [{
+    url: url2, filename: filename2, label: '📝 Öppna i Word', blue: false
+  }]);
+  toast('📝 Word-fil klar!', '#6d28d9');
+}
+
+function buildRtf(d, y, periodText, ansvarText) {
+  const r = s => String(s||'').replace(/\\/g,'\\\\').replace(/\{/g,'\\{').replace(/\}/g,'\\}')
+    .replace(/å/g,"\\'e5").replace(/ä/g,"\\'e4").replace(/ö/g,"\\'f6")
+    .replace(/Å/g,"\\'c5").replace(/Ä/g,"\\'c4").replace(/Ö/g,"\\'d6");
+
+  return `{\\rtf1\\ansi\\deff0
+{\\fonttbl{\\f0\\froman Times New Roman;}{\\f1\\fswiss Arial;}}
+{\\colortbl;\\red124\\green58\\blue42;}
+\\paperw12240\\paperh15840\\margl1440\\margr1440\\margt1440\\margb1440
+\\f0\\fs24
+
+{\\pard\\qc\\fs36\\b ${r(d.name)}\\par}
+{\\pard\\qc\\fs24\\i Revisionsberättelse\\par}
+{\\pard\\qc\\fs20 Org.nr: ${r(d.orgnr)} | Räkenskapsår: ${r(fmtDate(y.from))} – ${r(fmtDate(y.to))}\\par}
+\\pard\\brdrb\\brdrs\\brdrw10\\brsp20 \\par
+
+{\\pard\\cf1\\b\\fs18 TILL BOLAGSSTÄMMAN I ${r(d.name).toUpperCase()}\\par}
+{\\pard\\fs24 Jag har utfört en revision av årsredovisningen för ${r(d.name)} för räkenskapsåret ${r(periodText)}. Årsredovisningen omfattar sidorna ${r(y.pages||'')}. \\par}
+\\par
+
+{\\pard\\cf1\\b\\fs18 UTTALANDEN\\par}
+{\\pard\\fs24 Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den ${r(y.baldate||'')} och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.\\par}
+{\\pard\\fs24 Förvaltningsberättelsen är förenlig med årsredovisningens övriga delar.\\par}
+{\\pard\\fs24 Jag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.\\par}
+\\par\\brdrb\\brdrs\\brdrw5\\brsp20 \\par
+
+{\\pard\\cf1\\b\\fs18 GRUND FÖR UTTALANDEN\\par}
+{\\pard\\fs24 Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Jag är oberoende i förhållande till bolaget och har fullgjort mitt yrkesetiska ansvar.\\par}
+\\par
+
+{\\pard\\cf1\\b\\fs18 STYRELSENS OCH VERKSTÄLLANDE DIREKTÖRENS ANSVAR\\par}
+{\\pard\\fs24 Det är styrelsen och verkställande direktören som har ansvaret för att årsredovisningen upprättas och att den ger en rättvisande bild enligt årsredovisningslagen.\\par}
+\\par
+
+{\\pard\\cf1\\b\\fs18 REVISORNS ANSVAR\\par}
+{\\pard\\fs24 Mina mål är att uppnå en rimlig grad av säkerhet om huruvida årsredovisningen som helhet innehåller några väsentliga felaktigheter och att lämna en revisionsberättelse som innehåller mina uttalanden.\\par}
+\\par
+
+{\\pard\\cf1\\b\\fs18 RAPPORT OM ANDRA KRAV ENLIGT LAGAR OCH ANDRA FÖRFATTNINGAR\\par}
+{\\pard\\fs24 Utöver min revision av årsredovisningen har jag även granskat om styrelsen och verkställande direktören har gjort sig skyldiga till försummelse eller på annat sätt handlat i strid med aktiebolagslagen, årsredovisningslagen eller bolagsordningen.\\par}
+${ansvarText ? `{\\pard\\fs24 ${r(ansvarText)}\\par}` : ''}
+${y.comments ? `\\par{\\pard\\cf1\\b\\fs18 ÖVRIGT / KOMMENTARER\\par}{\\pard\\fs24 ${r(y.comments)}\\par}` : ''}
+\\par\\brdrb\\brdrs\\brdrw5\\brsp20 \\par
+
+{\\pard\\cf1\\b\\fs18 UNDERSKRIFT\\par}
+{\\pard\\fs24 Ort: ${r(y.city||'')} \\tab Datum: ${r(fmtDate(y.signdate||''))}\\par}
+\\par
+{\\pard\\fs24\\b ${r(d.auditor||'')}\\par}
+{\\pard\\fs24 ${r(d.auditortype||'')}\\par}
+\\par
+{\\pard\\fs24\\b ${r(d.firm||'')}\\par}
+{\\pard\\fs24 ${r(d.regnr||'')}\\par}
+}`;
+}
+
+function exportIxbrl() {
+  document.getElementById('exportDropdown').classList.remove('open');
+  const d = getReportData(); if (!d) return;
+  const y = d.year;
+  const periodText = d.periodText || ((y.from&&y.to)
+    ? `${new Date(y.from).toLocaleDateString('sv-SE',{day:'numeric',month:'long'})} – ${new Date(y.to).toLocaleDateString('sv-SE',{day:'numeric',month:'long',year:'numeric'})}`
+    : '');
+  const ansvarText = y.ansvarsfrihet==='tillstyrker'
+    ? 'Jag tillstyrker att bolagsstämman beviljar styrelsens ledamöter och verkställande direktören ansvarsfrihet.'
+    : y.ansvarsfrihet==='avstyrker' ? 'Jag avstyrker ansvarsfrihet.' : '';
+
+  const doc = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ix="http://www.xbrl.org/2013/inlineXBRL"
+      xmlns:ixt="http://www.xbrl.org/inlineXBRL/transformation/2020-02-12"
+      xmlns:se-nak-gar="http://www.bolagsverket.se/se/taxonomy/2021-09-30/se-nak-gar"
+      xmlns:xbrli="http://www.xbrl.org/2003/instance"
+      xmlns:link="http://www.xbrl.org/2003/linkbase"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xml:lang="sv">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Revisionsberättelse – ${x(d.name)}</title>
+  <ix:header>
+    <ix:hidden><ix:nonNumeric name="se-nak-gar:DocumentType" contextRef="ctx-period">AuditReport</ix:nonNumeric></ix:hidden>
+    <ix:references><link:schemaRef xlink:type="simple" xlink:href="https://www.bolagsverket.se/se/taxonomy/2021-09-30/se-nak-gar.xsd"/></ix:references>
+    <ix:resources>
+      <xbrli:context id="ctx-period">
+        <xbrli:entity><xbrli:identifier scheme="http://www.bolagsverket.se">${x(d.orgnr||'')}</xbrli:identifier></xbrli:entity>
+        <xbrli:period><xbrli:startDate>${y.from||''}</xbrli:startDate><xbrli:endDate>${y.to||''}</xbrli:endDate></xbrli:period>
+      </xbrli:context>
+      <xbrli:context id="ctx-instant">
+        <xbrli:entity><xbrli:identifier scheme="http://www.bolagsverket.se">${x(d.orgnr||'')}</xbrli:identifier></xbrli:entity>
+        <xbrli:period><xbrli:instant>${y.to||''}</xbrli:instant></xbrli:period>
+      </xbrli:context>
+    </ix:resources>
+  </ix:header>
+  <style>body{font-family:Georgia,serif;max-width:860px;margin:2rem auto;color:#1c1917;padding:2rem;line-height:1.6}
+    h1{font-size:1.5rem;text-align:center;border-bottom:2px solid #1c1917;padding-bottom:1rem;margin-bottom:1.5rem}
+    h2{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#7c3a2a;border-bottom:1px solid #d6d0c8;padding-bottom:.3rem;margin:1.5rem 0 .8rem}
+    p{margin-bottom:.9rem;font-size:1rem}hr{border:none;border-top:1px solid #d6d0c8;margin:1.5rem 0}
+    .meta{text-align:center;color:#78716c;font-size:.88rem;margin-bottom:1rem}
+    .sig{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem}
+    .sig-blk{border-top:1px solid #1c1917;padding-top:.6rem}
+    .sig-lbl{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#78716c;margin-bottom:.3rem}
+    .xnote{font-size:.7rem;color:#1d4ed8;font-family:monospace;margin-top:2rem;padding:1rem;border:1px solid #dbeafe;background:#eff6ff}
+  </style>
+</head>
+<body>
+  <h1><ix:nonNumeric name="se-nak-gar:EntityName" contextRef="ctx-period">${x(d.name)}</ix:nonNumeric></h1>
+  <div class="meta">Revisionsberättelse | Org.nr: <ix:nonNumeric name="se-nak-gar:EntityRegistrationNumber" contextRef="ctx-period">${x(d.orgnr||'')}</ix:nonNumeric>
+  | Räkenskapsår: <ix:nonNumeric name="se-nak-gar:DocumentPeriodStartDate" contextRef="ctx-period" format="ixt:date-std">${y.from||''}</ix:nonNumeric> – <ix:nonNumeric name="se-nak-gar:DocumentPeriodEndDate" contextRef="ctx-period" format="ixt:date-std">${y.to||''}</ix:nonNumeric></div>
+  <h2>Till bolagsstämman i ${x(d.name)}</h2>
+  <p>Jag har utfört en revision av årsredovisningen för <ix:nonNumeric name="se-nak-gar:EntityName" contextRef="ctx-period">${x(d.name)}</ix:nonNumeric> för räkenskapsåret <ix:nonNumeric name="se-nak-gar:AuditedPeriodDescription" contextRef="ctx-period">${x(periodText)}</ix:nonNumeric>. Årsredovisningen omfattar sidorna ${x(y.pages||'')}.</p>
+  <h2>Uttalanden</h2>
+  <p>Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en rättvisande bild per den <ix:nonNumeric name="se-nak-gar:BalanceSheetDate" contextRef="ctx-instant">${x(y.baldate||'')}</ix:nonNumeric>.</p>
+  <p>Förvaltningsberättelsen är förenlig med årsredovisningens övriga delar.</p>
+  <hr/>
+  <h2>Rapport om andra krav</h2>
+  ${ansvarText?`<p><ix:nonNumeric name="se-nak-gar:AuditorDischargeOpinion" contextRef="ctx-period">${x(ansvarText)}</ix:nonNumeric></p>`:''}
+  ${y.comments?`<h2>Övrigt</h2><p>${x(y.comments)}</p>`:''}
+  <hr/>
+  <h2>Underskrift</h2>
+  <p>Ort: <ix:nonNumeric name="se-nak-gar:AuditorSigningCity" contextRef="ctx-period">${x(y.city||'')}</ix:nonNumeric> &nbsp; Datum: <ix:nonNumeric name="se-nak-gar:AuditReportDate" contextRef="ctx-period" format="ixt:date-std">${y.signdate||''}</ix:nonNumeric></p>
+  <div class="sig">
+    <div class="sig-blk"><div class="sig-lbl">Revisorns namn</div><strong><ix:nonNumeric name="se-nak-gar:AuditorName" contextRef="ctx-period">${x(d.auditor||'')}</ix:nonNumeric></strong><br/><br/><div class="sig-lbl">Titel</div><ix:nonNumeric name="se-nak-gar:AuditorQualification" contextRef="ctx-period">${x(d.auditortype||'')}</ix:nonNumeric></div>
+    <div class="sig-blk"><div class="sig-lbl">Revisionsbyrå</div><ix:nonNumeric name="se-nak-gar:AuditFirmName" contextRef="ctx-period">${x(d.firm||'')}</ix:nonNumeric><br/><br/><div class="sig-lbl">Reg.nr</div><ix:nonNumeric name="se-nak-gar:AuditFirmRegistrationNumber" contextRef="ctx-period">${x(d.regnr||'')}</ix:nonNumeric></div>
+  </div>
+  <div class="xnote">iXBRL • se-nak-gar (Bolagsverket) • Genererat: ${new Date().toLocaleDateString('sv-SE')}</div>
+</body></html>`;
+
+  const blob = new Blob([doc],{type:'application/xhtml+xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const filename = `${(d.name||'revision').replace(/[^a-z0-9åäö]/gi,'_').toLowerCase()}_ixbrl.xhtml`;
+  showDownloadPanel('✅ iXBRL-fil genererad – klicka för att öppna eller spara', [
+    { url, filename, label: '🏷 Öppna iXBRL-fil', blue: true },
+  ]);
+  // also trigger download
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  toast('🏷 iXBRL exporterad!', '#1d4ed8');
+}
+
+function exportIxbrlById(id) {
+  const prev = currentClientId; const prevYi = currentYearIdx;
+  currentClientId = id; currentYearIdx = (clients.find(c=>c.id===id)?.years||[]).length-1;
+  exportIxbrl();
+  currentClientId = prev; currentYearIdx = prevYi;
+}
+
+// ══════════════════════════════════════════════
+// AUDITOR TEMPLATES
+// ══════════════════════════════════════════════
+function renderTemplates() {
+  const list = document.getElementById('templateList');
+  const empty = document.getElementById('templateEmpty');
+  list.innerHTML = '';
+  empty.style.display = templates.length===0 ? 'block' : 'none';
+  templates.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'tpl-card';
+    div.innerHTML = `
+      <div class="tpl-info">
+        <strong>${x(t.label)}</strong>
+        <small>${x(t.auditor)} • ${x(t.firm)} • ${x(t.regnr)}</small>
+      </div>
+      <div style="display:flex;gap:.5rem">
+        <button class="btn btn-sm" onclick="openEditTemplate('${t.id}')">✏️</button>
+        <button class="btn btn-sm" style="border-color:#ccc;color:#999" onclick="deleteTemplate('${t.id}')">🗑</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function buildTplPicker() {
+  const picker = document.getElementById('tplPicker');
+  picker.innerHTML = templates.length===0
+    ? '<small style="color:var(--muted)">Inga mallar sparade ännu. Skapa en under Revisorsmallar.</small>'
+    : '';
+  templates.forEach(t => {
+    const btn = document.createElement('button');
+    btn.className = 'btn btn-sm btn-ghost';
+    btn.textContent = t.label;
+    btn.onclick = () => applyTemplate(t);
+    picker.appendChild(btn);
+  });
+}
+
+function applyTemplate(t) {
+  document.getElementById('f-auditor').value       = t.auditor||'';
+  document.getElementById('f-auditortype').value   = t.auditortype||'Auktoriserad revisor';
+  document.getElementById('f-auditor-email').value = t.email||'';
+  document.getElementById('f-firm').value          = t.firm||'';
+  document.getElementById('f-regnr').value         = t.regnr||'';
+  if (t.city && !document.getElementById('f-city').value) document.getElementById('f-city').value = t.city;
+  switchTabById('tab-auditor');
+  toast('Mall tillämpad: '+t.label);
+}
+
+function openNewTemplate() {
+  editTplId = null;
+  document.getElementById('tplModalTitle').textContent = 'Ny revisormall';
+  ['t-label','t-auditor','t-email','t-firm','t-regnr','t-city'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('templateModal').classList.add('open');
+}
+
+function openEditTemplate(id) {
+  editTplId = id;
+  const t = templates.find(t=>t.id===id); if (!t) return;
+  document.getElementById('tplModalTitle').textContent = 'Redigera mall';
+  document.getElementById('t-label').value       = t.label||'';
+  document.getElementById('t-auditor').value     = t.auditor||'';
+  document.getElementById('t-auditortype').value = t.auditortype||'Auktoriserad revisor';
+  document.getElementById('t-email').value       = t.email||'';
+  document.getElementById('t-firm').value        = t.firm||'';
+  document.getElementById('t-regnr').value       = t.regnr||'';
+  document.getElementById('t-city').value        = t.city||'';
+  document.getElementById('templateModal').classList.add('open');
+}
+
+function closeTemplateModal() { document.getElementById('templateModal').classList.remove('open'); }
+
+function saveTemplate() {
+  const label = document.getElementById('t-label').value.trim();
+  if (!label) { alert('Mallnamn krävs.'); return; }
+  const data = {
+    label, auditor: document.getElementById('t-auditor').value.trim(),
+    auditortype: document.getElementById('t-auditortype').value,
+    email: document.getElementById('t-email').value.trim(),
+    firm: document.getElementById('t-firm').value.trim(),
+    regnr: document.getElementById('t-regnr').value.trim(),
+    city: document.getElementById('t-city').value.trim(),
+  };
+  if (editTplId) {
+    const idx = templates.findIndex(t=>t.id===editTplId);
+    templates[idx] = {...templates[idx],...data};
+    toast('Mall uppdaterad');
+  } else {
+    templates.push({id:uid(),...data});
+    toast('Mall sparad');
+  }
+  saveTpl(); closeTemplateModal(); renderTemplates();
+}
+
+function deleteTemplate(id) {
+  if (!confirm('Ta bort mallen?')) return;
+  templates = templates.filter(t=>t.id!==id);
+  saveTpl(); renderTemplates(); toast('Mall borttagen');
+}
+
+// ══════════════════════════════════════════════
+// RB TEMPLATES (Revisionsberättelse-mallar)
+// ══════════════════════════════════════════════
+function renderRbTemplates() {
+  const list  = document.getElementById('rbTemplateList');
+  const empty = document.getElementById('rbTemplateEmpty');
+  list.innerHTML = '';
+  empty.style.display = rbTemplates.length === 0 ? 'block' : 'none';
+  rbTemplates.forEach(t => {
+    const div = document.createElement('div');
+    div.className = 'rb-tpl-card';
+    div.innerHTML = `
+      <div class="tpl-info">
+        <strong>${x(t.name)}</strong>
+        ${t.desc ? `<small>${x(t.desc)}</small>` : ''}
+        <small style="margin-top:.3rem;color:var(--teal);font-family:'DM Mono',monospace;font-size:.72rem">
+          ${t.sections ? Object.keys(t.sections).filter(k=>t.sections[k]).length + ' sektioner ifyllda' : ''}
+        </small>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-shrink:0">
+        <button class="btn btn-sm" onclick="openEditRbTemplate('${t.id}')">✏️ Redigera</button>
+        <button class="btn btn-sm" style="border-color:#ccc;color:#999" onclick="deleteRbTemplate('${t.id}')">🗑</button>
+      </div>`;
+    list.appendChild(div);
+  });
+}
+
+function openNewRbTemplate() {
+  editRbTplId = null;
+  document.getElementById('rbModalTitle').textContent = 'Ny RB-mall';
+  document.getElementById('rb-name').value = '';
+  document.getElementById('rb-desc').value = '';
+  ['rb-s-intro','rb-s-uttalanden','rb-s-grund','rb-s-styransvar','rb-s-revisoransvar','rb-s-rapport']
+    .forEach(id => document.getElementById(id).value = '');
+  document.getElementById('rbTemplateModal').classList.add('open');
+}
+
+function openEditRbTemplate(id) {
+  editRbTplId = id;
+  const t = rbTemplates.find(t => t.id === id); if (!t) return;
+  document.getElementById('rbModalTitle').textContent = 'Redigera RB-mall';
+  document.getElementById('rb-name').value = t.name || '';
+  document.getElementById('rb-desc').value = t.desc || '';
+  const s = t.sections || {};
+  document.getElementById('rb-s-intro').value         = s.intro         || '';
+  document.getElementById('rb-s-uttalanden').value    = s.uttalanden    || '';
+  document.getElementById('rb-s-grund').value         = s.grund         || '';
+  document.getElementById('rb-s-styransvar').value    = s.styransvar    || '';
+  document.getElementById('rb-s-revisoransvar').value = s.revisoransvar || '';
+  document.getElementById('rb-s-rapport').value       = s.rapport       || '';
+  document.getElementById('rbTemplateModal').classList.add('open');
+}
+
+function closeRbModal() {
+  document.getElementById('rbTemplateModal').classList.remove('open');
+}
+
+function saveRbTemplate() {
+  const name = document.getElementById('rb-name').value.trim();
+  if (!name) { alert('Mallnamn krävs.'); return; }
+  const data = {
+    name,
+    desc: document.getElementById('rb-desc').value.trim(),
+    sections: {
+      intro:         document.getElementById('rb-s-intro').value.trim(),
+      uttalanden:    document.getElementById('rb-s-uttalanden').value.trim(),
+      grund:         document.getElementById('rb-s-grund').value.trim(),
+      styransvar:    document.getElementById('rb-s-styransvar').value.trim(),
+      revisoransvar: document.getElementById('rb-s-revisoransvar').value.trim(),
+      rapport:       document.getElementById('rb-s-rapport').value.trim(),
+    }
+  };
+  if (editRbTplId) {
+    const idx = rbTemplates.findIndex(t => t.id === editRbTplId);
+    rbTemplates[idx] = { ...rbTemplates[idx], ...data };
+    toast('RB-mall uppdaterad');
+  } else {
+    rbTemplates.push({ id: uid(), ...data });
+    toast('RB-mall sparad');
+  }
+  saveRbT();
+  closeRbModal();
+  renderRbTemplates();
+  // Rebuild RB picker in all open report views
+  const c = clients.find(c => c.id === currentClientId);
+  if (c) buildRbPicker(c);
+}
+
+function deleteRbTemplate(id) {
+  if (!confirm('Ta bort RB-mallen?')) return;
+  rbTemplates = rbTemplates.filter(t => t.id !== id);
+  saveRbT();
+  renderRbTemplates();
+  toast('RB-mall borttagen');
+}
+
+// ══════════════════════════════════════════════
+// DELETE CLIENT
+// ══════════════════════════════════════════════
+function openDelete(id) {
+  deleteId = id;
+  document.getElementById('deleteClientName').textContent = clients.find(c=>c.id===id)?.name||'';
+  document.getElementById('deleteModal').classList.add('open');
+}
+function closeDelete() { document.getElementById('deleteModal').classList.remove('open'); }
+function confirmDelete() {
+  clients = clients.filter(c=>c.id!==deleteId);
+  save(); closeDelete(); renderList(); toast('Klient borttagen');
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+renderList();
+['clientModal','deleteModal','notesModal','historyModal','templateModal','addYearModal','rbTemplateModal'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e){ if(e.target===this) this.classList.remove('open'); });
+});
+</script>
+</body>
+</html>
