@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RevisionsPro – Klienthantering</title>
+<title>Audit Report</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
@@ -208,7 +208,7 @@ textarea.efield:focus{border-color:var(--accent);}
 <div class="shell">
   <!-- ── SIDEBAR ── -->
   <nav class="sidebar">
-    <div class="sidebar-logo"><h1>RevisionsPro</h1><p>Klienthantering</p></div>
+    <div class="sidebar-logo"><h1>Audit Report</h1><p>Revisionsberättelse</p></div>
     <div class="sidebar-section">Navigering</div>
     <button class="nav-btn active" id="nav-clients" onclick="showView('clients')"><span class="icon">🗂</span> Klientlista</button>
     <button class="nav-btn" id="nav-report" onclick="showView('report')" style="display:none"><span class="icon">📄</span> Revisionsberättelse</button>
@@ -348,6 +348,7 @@ textarea.efield:focus{border-color:var(--accent);}
         <div class="form-grid">
           <div class="form-group full"><label>Bolagets namn *</label><input type="text" id="f-name" placeholder="AB Exempelbolaget"></div>
           <div class="form-group"><label>Organisationsnummer *</label><input type="text" id="f-orgnr" placeholder="556XXX-XXXX"></div>
+          <div class="form-group"><label>Bolagstyp</label><select id="f-entitytype"><option value="">— Välj —</option><option>AB</option><option>BRF</option><option>HB</option><option>KB</option><option>Enskild firma</option><option>Stiftelse</option><option>Förening</option></select></div>
           <div class="form-group"><label>Kontaktperson</label><input type="text" id="f-contact" placeholder="Namn"></div>
           <div class="form-group"><label>Räkenskapsår från</label><input type="date" id="f-from"></div>
           <div class="form-group"><label>Räkenskapsår till</label><input type="date" id="f-to"></div>
@@ -480,7 +481,8 @@ textarea.efield:focus{border-color:var(--accent);}
     <div class="modal-body">
       <div class="form-grid" style="margin-bottom:1.1rem">
         <div class="form-group full"><label>Mallnamn *</label><input type="text" id="rb-name" placeholder="t.ex. Standard AB, BRF med anmärkning…"></div>
-        <div class="form-group full"><label>Beskrivning (valfri)</label><input type="text" id="rb-desc" placeholder="Kort beskrivning av när mallen används"></div>
+        <div class="form-group"><label>Bolagstyp</label><select id="rb-entitytype"><option value="">— Alla / Generell —</option><option>AB</option><option>BRF</option><option>HB</option><option>KB</option><option>Enskild firma</option><option>Stiftelse</option><option>Förening</option></select></div>
+        <div class="form-group"><label>Beskrivning (valfri)</label><input type="text" id="rb-desc" placeholder="Kort beskrivning av när mallen används"></div>
       </div>
       <div class="rb-placeholder-hint">
         Platshållare som ersätts automatiskt: <strong>{{BOLAG}}</strong> · <strong>{{PERIOD}}</strong> · <strong>{{BALDAT}}</strong> · <strong>{{SIDOR}}</strong> · <strong>{{REVISOR}}</strong> · <strong>{{BYRA}}</strong>
@@ -599,6 +601,7 @@ function renderList() {
     tr.innerHTML = `
       <td>
         <strong>${x(c.name)}</strong>
+        ${c.entitytype?`<span class="badge badge-blue" style="margin-left:.4rem;font-size:.68rem">${x(c.entitytype)}</span>`:''}
         ${c.contact?`<br><small style="color:var(--muted)">${x(c.contact)}</small>`:''}
         ${noteCount ? `<br><span class="pill pill-purple" style="margin-top:.2rem">🗒 ${noteCount} notering${noteCount>1?'ar':''}</span>` : ''}
       </td>
@@ -652,6 +655,7 @@ function openEditClient(id) {
   const ly = (c.years||[]).length ? c.years[c.years.length-1] : {};
   document.getElementById('f-name').value          = c.name||'';
   document.getElementById('f-orgnr').value         = c.orgnr||'';
+  document.getElementById('f-entitytype').value    = c.entitytype||'';
   document.getElementById('f-contact').value       = c.contact||'';
   document.getElementById('f-from').value          = ly.from||'';
   document.getElementById('f-to').value            = ly.to||'';
@@ -673,6 +677,7 @@ function openEditClient(id) {
 function clearClientForm() {
   ['f-name','f-orgnr','f-contact','f-from','f-to','f-baldate','f-city','f-signdate','f-pages',
    'f-auditor','f-auditor-email','f-firm','f-regnr','f-notes'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-entitytype').value='';
 }
 
 function closeModal() { document.getElementById('clientModal').classList.remove('open'); }
@@ -719,12 +724,13 @@ function saveClient() {
       });
     }
     Object.assign(clients[idx], {name,orgnr:document.getElementById('f-orgnr').value.trim(),
-      contact:document.getElementById('f-contact').value.trim(),...auditorData});
+      contact:document.getElementById('f-contact').value.trim(),entitytype:document.getElementById('f-entitytype').value,...auditorData});
     toast('Klient uppdaterad');
   } else {
     const newClient = {
       id:uid(), name, orgnr:document.getElementById('f-orgnr').value.trim(),
       contact:document.getElementById('f-contact').value.trim(),
+      entitytype:document.getElementById('f-entitytype').value,
       ...auditorData, status:'ej påbörjad', notes:[], years:[year]
     };
     if (notesText) newClient.notes.push({id:uid(),date:new Date().toLocaleDateString('sv-SE'),text:notesText});
@@ -903,20 +909,43 @@ function buildRbPicker(c) {
   sel.innerHTML = '<option value="">— Inbyggd standardtext —</option>';
   rbTemplates.forEach(t => {
     const o = document.createElement('option');
-    o.value = t.id; o.textContent = t.name + (t.desc ? ' – '+t.desc : '');
+    o.value = t.id;
+    const typeLabel = t.entitytype ? ` [${t.entitytype}]` : '';
+    o.textContent = t.name + typeLabel + (t.desc ? ' – '+t.desc : '');
     sel.appendChild(o);
   });
   const y = (c.years||[])[currentYearIdx];
   const linked = y?.rbTemplateId || '';
-  sel.value = linked;
+  if (linked) {
+    sel.value = linked;
+  } else if (c.entitytype) {
+    // Auto-suggest: find first RB-mall matching client's entitytype
+    const match = rbTemplates.find(t => t.entitytype === c.entitytype);
+    if (match) {
+      sel.value = match.id;
+      // Show suggestion hint but don't save yet
+      updateRbBadge(match.id, true);
+      return;
+    }
+  }
   updateRbBadge(linked);
 }
 
-function updateRbBadge(tplId) {
+function updateRbBadge(tplId, isSuggestion) {
   const badge = document.getElementById('rbActiveBadge');
   if (tplId) {
     const t = rbTemplates.find(t=>t.id===tplId);
-    badge.textContent = '📋 ' + (t?.name||'mall kopplad');
+    if (isSuggestion) {
+      badge.textContent = '💡 Förslag: ' + (t?.name||'mall') + (t?.entitytype?' ['+t.entitytype+']':'');
+      badge.style.background = 'rgba(120,80,20,.15)';
+      badge.style.borderColor = 'rgba(120,80,20,.3)';
+      badge.style.color = '#78501a';
+    } else {
+      badge.textContent = '📋 ' + (t?.name||'mall kopplad');
+      badge.style.background = '';
+      badge.style.borderColor = '';
+      badge.style.color = '';
+    }
     badge.style.display = 'inline';
   } else {
     badge.style.display = 'none';
@@ -1540,6 +1569,7 @@ function renderRbTemplates() {
     div.innerHTML = `
       <div class="tpl-info">
         <strong>${x(t.name)}</strong>
+        ${t.entitytype ? `<span class="badge badge-blue" style="margin-left:.5rem;font-size:.68rem">${x(t.entitytype)}</span>` : ''}
         ${t.desc ? `<small>${x(t.desc)}</small>` : ''}
         <small style="margin-top:.3rem;color:var(--teal);font-family:'DM Mono',monospace;font-size:.72rem">
           ${t.sections ? Object.keys(t.sections).filter(k=>t.sections[k]).length + ' sektioner ifyllda' : ''}
@@ -1557,6 +1587,7 @@ function openNewRbTemplate() {
   editRbTplId = null;
   document.getElementById('rbModalTitle').textContent = 'Ny RB-mall';
   document.getElementById('rb-name').value = '';
+  document.getElementById('rb-entitytype').value = '';
   document.getElementById('rb-desc').value = '';
   ['rb-s-intro','rb-s-uttalanden','rb-s-grund','rb-s-styransvar','rb-s-revisoransvar','rb-s-rapport']
     .forEach(id => document.getElementById(id).value = '');
@@ -1567,8 +1598,9 @@ function openEditRbTemplate(id) {
   editRbTplId = id;
   const t = rbTemplates.find(t => t.id === id); if (!t) return;
   document.getElementById('rbModalTitle').textContent = 'Redigera RB-mall';
-  document.getElementById('rb-name').value = t.name || '';
-  document.getElementById('rb-desc').value = t.desc || '';
+  document.getElementById('rb-name').value       = t.name || '';
+  document.getElementById('rb-entitytype').value = t.entitytype || '';
+  document.getElementById('rb-desc').value       = t.desc || '';
   const s = t.sections || {};
   document.getElementById('rb-s-intro').value         = s.intro         || '';
   document.getElementById('rb-s-uttalanden').value    = s.uttalanden    || '';
@@ -1588,6 +1620,7 @@ function saveRbTemplate() {
   if (!name) { alert('Mallnamn krävs.'); return; }
   const data = {
     name,
+    entitytype: document.getElementById('rb-entitytype').value,
     desc: document.getElementById('rb-desc').value.trim(),
     sections: {
       intro:         document.getElementById('rb-s-intro').value.trim(),
