@@ -7,52 +7,54 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Audit Report">
-<meta name="theme-color" content="#1e3a5f">
-<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Audit Report%22%2C%22short_name%22%3A%22Audit Report%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%231e3a5f%22%2C%22theme_color%22%3A%22%231e3a5f%22%2C%22description%22%3A%22Revisionsber%C3%A4ttelse%20och%20klienthantering%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%253D%25270%25200%2520100%2520100%2527%253E%253Crect%2520width%253D%2527100%2527%2520height%253D%2527100%2527%2520rx%253D%252722%2527%2520fill%253D%2527%25231e3a5f%2527%2F%253E%253Ctext%2520y%253D%252768%2527%2520x%253D%252712%2527%2520font-size%253D%252762%2527%253E%25F0%259F%2593%258B%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%231e3a5f'/><text y='68' x='12' font-size='62'>📋</text></svg>">
+<meta name="theme-color" content="#007ac3">
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Audit Report%22%2C%22short_name%22%3A%22Audit Report%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23007ac3%22%2C%22theme_color%22%3A%22%23007ac3%22%2C%22description%22%3A%22Revisionsber%C3%A4ttelse%20och%20klienthantering%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%253Csvg%2520xmlns%253D%2527http%253A%2F%2Fwww.w3.org%2F2000%2Fsvg%2527%2520viewBox%253D%25270%25200%2520100%2520100%2527%253E%253Crect%2520width%253D%2527100%2527%2520height%253D%2527100%2527%2520rx%253D%252722%2527%2520fill%253D%2527%23007ac3%2527%2F%253E%253Ctext%2520y%253D%252768%2527%2520x%253D%252712%2527%2520font-size%253D%252762%2527%253E%25F0%259F%2593%258B%253C%2Ftext%253E%253C%2Fsvg%253E%22%2C%22sizes%22%3A%22any%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23007ac3'/><text y='68' x='12' font-size='62'>📋</text></svg>">
 <title>Audit Report</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer onerror="console.warn('html2pdf ej tillgänglig – PDF via Skriv ut')"></script>
 <style>
 :root {
-  --ink:#111827;
-  --ink-mid:#374151;
+  --ink:#000000;
+  --ink-mid:#333333;
   --muted:#6b7280;
   --rule:#d1d5db;
-  --accent:#1e3a5f;
-  --accent-hover:#162d4a;
-  --accent-light:#eff4fb;
+  --accent:#007ac3;
+  --accent-hover:#005f99;
+  --accent-light:#e6f3fb;
+  --accent-red:#e5202e;
+  --accent-green:#85bc20;
   --bg:#f5f6f7;
   --paper:#ffffff;
   --surface:#ffffff;
   --border:#e5e7eb;
   --shadow:0 1px 8px rgba(0,0,0,.08);
-  --ok:#166534;      --ok-bg:#dcfce7;
-  --warn:#92400e;    --warn-bg:#fef3c7;
-  --xbrl:#1d4ed8;
+  --ok:#85bc20;        --ok-bg:#f2f9e6;
+  --warn:#92400e;      --warn-bg:#fef3c7;
+  --xbrl:#007ac3;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+body{font-family:'Fira Sans',Arial,sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
 
 /* LAYOUT */
 .shell{display:flex;min-height:100vh;}
 .sidebar{width:252px;flex-shrink:0;background:var(--accent);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;}
-.sidebar-logo{padding:1.8rem 1.4rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.15);}
-.sidebar-logo h1{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;letter-spacing:.03em;color:#fff;}
+.sidebar-logo{padding:1.8rem 1.4rem 1.4rem;border-bottom:3px solid #e5202e;}
+.sidebar-logo h1{font-family:'Fira Sans',sans-serif;font-size:1.3rem;font-weight:700;letter-spacing:.01em;color:#fff;text-transform:uppercase;}
 .sidebar-logo p{font-size:.7rem;color:rgba(255,255,255,.5);letter-spacing:.07em;text-transform:uppercase;margin-top:.2rem;}
 .sidebar-section{padding:1.1rem 1.4rem .4rem;font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.45);}
-.nav-btn{display:flex;align-items:center;gap:.65rem;padding:.62rem 1.4rem;font-family:'EB Garamond',serif;font-size:.93rem;color:rgba(255,255,255,.78);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:background .12s,color .12s;}
+.nav-btn{display:flex;align-items:center;gap:.65rem;padding:.62rem 1.4rem;font-family:'Fira Sans',sans-serif;font-size:.93rem;color:rgba(255,255,255,.78);background:none;border:none;cursor:pointer;width:100%;text-align:left;transition:background .12s,color .12s;}
 .nav-btn:hover{color:#fff;background:rgba(255,255,255,.12);}
 .nav-btn.active{color:#fff;background:rgba(255,255,255,.2);font-weight:600;}
 .nav-btn .icon{font-size:.95rem;width:18px;text-align:center;}
 .sidebar-foot{margin-top:auto;padding:.5rem 1.4rem 1.4rem;font-size:.68rem;color:rgba(255,255,255,.35);line-height:1.6;}
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
 .topbar{background:var(--surface);border-bottom:1px solid var(--border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.topbar h2{font-family:'Cormorant Garamond',serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
+.topbar h2{font-family:'Fira Sans',sans-serif;font-size:1.45rem;font-weight:700;color:var(--ink);}
 .content{flex:1;padding:2rem;overflow-y:auto;}
 
 /* BUTTONS */
-.btn{font-family:'EB Garamond',serif;font-size:.88rem;letter-spacing:.04em;padding:.44rem 1.05rem;border:1.5px solid var(--ink);background:none;color:var(--ink);cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;}
+.btn{font-family:'Fira Sans',sans-serif;font-size:.88rem;letter-spacing:.04em;padding:.44rem 1.05rem;border:1.5px solid var(--ink);background:none;color:var(--ink);cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;}
 .btn:hover{background:var(--ink);color:#fff;}
 .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
 .btn-primary:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff;}
@@ -61,43 +63,43 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 .btn-sm{font-size:.78rem;padding:.3rem .72rem;}
 .btn-teal{background:var(--accent);border-color:var(--accent);color:#fff;}
 .btn-teal:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff;}
-.btn-green{background:#166534;border-color:#166534;color:#fff;}
-.btn-green:hover{background:#14532d;border-color:#14532d;color:#fff;}
+.btn-green{background:#5a8200;border-color:#5a8200;color:#fff;}
+.btn-green:hover{background:#4a6b00;border-color:#4a6b00;color:#fff;}
 .btn-blue{background:var(--xbrl);border-color:var(--xbrl);color:#fff;}
-.btn-blue:hover{background:#1e3a8a;border-color:#1e3a8a;color:#fff;}
+.btn-blue:hover{background:#005f99;border-color:#005f99;color:#fff;}
 .btn-purple{background:var(--accent);border-color:var(--accent);color:#fff;}
 .btn-purple:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:#fff;}
 
 /* CARDS / TABLE */
 .card{background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow);}
 .search-bar{display:flex;gap:.7rem;margin-bottom:1.4rem;align-items:center;}
-.search-input{flex:1;padding:.52rem .85rem;border:1.5px solid var(--border);background:var(--surface);font-family:'EB Garamond',serif;font-size:1rem;color:var(--ink);outline:none;transition:border .12s;}
+.search-input{flex:1;padding:.52rem .85rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Fira Sans',sans-serif;font-size:1rem;color:var(--ink);outline:none;transition:border .12s;}
 .search-input:focus{border-color:var(--accent);}
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1.4rem;}
 .stat-card{background:var(--surface);border:1px solid var(--border);padding:1rem 1.3rem;box-shadow:var(--shadow);}
-.stat-card .stat-val{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1;}
+.stat-card .stat-val{font-family:'Fira Sans',sans-serif;font-size:2rem;font-weight:700;color:var(--accent);line-height:1;}
 .stat-card .stat-label{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:.2rem;}
 .client-table{width:100%;border-collapse:collapse;}
 .client-table th{font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border);padding:.6rem 1rem;text-align:left;background:var(--bg);font-weight:500;}
-.client-table td{padding:.72rem 1rem;border-bottom:1px solid var(--border);font-size:.94rem;vertical-align:middle;}
+.client-table td{padding:.72rem 1rem;border-bottom:1px solid var(--border);font-size:.92rem;vertical-align:middle;}
 .client-table tr:last-child td{border-bottom:none;}
 .client-table tr:hover td{background:var(--accent-light);}
 
 /* BADGES - ett tydligt system */
 .badge{display:inline-block;padding:.18rem .55rem;font-size:.69rem;letter-spacing:.04em;font-family:'DM Mono',monospace;font-weight:500;border:1px solid transparent;}
-.badge-blue{background:#dbeafe;color:#1e3a8a;border-color:#bfdbfe;}
-.badge-green{background:var(--ok-bg);color:var(--ok);border-color:#bbf7d0;}
+.badge-blue{background:#cce9f6;color:#005f99;border-color:#99d0ef;}
+.badge-green{background:var(--ok-bg);color:var(--ok);border-color:#c8e68f;}
 .badge-orange{background:var(--warn-bg);color:var(--warn);border-color:#fde68a;}
-.badge-teal{background:#dbeafe;color:#1e3a8a;border-color:#bfdbfe;}
+.badge-teal{background:#cce9f6;color:#005f99;border-color:#99d0ef;}
 /* AB / BRF badges */
-.badge-ab{background:#e0e7ff;color:#3730a3;border-color:#c7d2fe;}
-.badge-brf{background:#dbeafe;color:#1e3a8a;border-color:#bfdbfe;}
-.badge-stiftelse{background:#f3e8ff;color:#5b21b6;border:1px solid #ddd6fe;}
+.badge-ab{background:#cce9f6;color:#005f99;border-color:#99d0ef;}
+.badge-brf{background:#cce9f6;color:#005f99;border-color:#99d0ef;}
+.badge-stiftelse{background:#cce9f6;color:#005f99;border:1px solid #99d0ef;}
 /* statusknappar */
 .status-badge{display:inline-block;padding:.22rem .7rem;font-size:.72rem;letter-spacing:.04em;font-family:'DM Mono',monospace;border:1.5px solid transparent;cursor:pointer;transition:filter .12s,transform .1s;font-weight:500;}
 .status-badge:hover{filter:brightness(.9);transform:scale(1.03);}
 .status-badge:active{transform:scale(.97);}
-.badge-green.status-badge{border-color:#86efac;}
+.badge-green.status-badge{border-color:#a8d660;}
 .badge-orange.status-badge{border-color:#fcd34d;}
 .actions{display:flex;gap:.35rem;flex-wrap:wrap;}
 
@@ -108,7 +110,7 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 .modal-lg{max-width:760px;}
 .modal-sm{max-width:420px;}
 .modal-header{padding:1.4rem 1.7rem 1.1rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.modal-header h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:700;color:var(--ink);}
+.modal-header h3{font-family:'Fira Sans',sans-serif;font-size:1.25rem;font-weight:700;color:var(--ink);}
 .modal-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--muted);padding:.2rem .4rem;line-height:1;}
 .modal-close:hover{color:var(--ink);}
 .modal-body{padding:1.4rem 1.7rem;}
@@ -119,25 +121,25 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 .form-grid .full{grid-column:1/-1;}
 .form-group{display:flex;flex-direction:column;gap:.28rem;}
 .form-group label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500;}
-.form-group input,.form-group select,.form-group textarea{padding:.48rem .68rem;border:1.5px solid var(--border);background:var(--surface);font-family:'EB Garamond',serif;font-size:.97rem;color:var(--ink);outline:none;transition:border .12s;}
+.form-group input,.form-group select,.form-group textarea{padding:.48rem .68rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Fira Sans',sans-serif;font-size:.97rem;color:var(--ink);outline:none;transition:border .12s;}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);}
 
 /* TABS */
 .tabs{display:flex;border-bottom:2px solid var(--border);margin-bottom:1.4rem;}
-.tab-btn{font-family:'EB Garamond',serif;font-size:.9rem;padding:.48rem 1.15rem;background:none;border:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .12s;}
+.tab-btn{font-family:'Fira Sans',sans-serif;font-size:.9rem;padding:.48rem 1.15rem;background:none;border:none;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .12s;}
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:600;}
 .tab-btn:hover{color:var(--ink);}
 .tab-pane{display:none;}
 .tab-pane.active{display:block;}
 
 /* NOTES */
-.notes-area{width:100%;min-height:100px;padding:.6rem .8rem;border:1.5px solid var(--border);background:var(--surface);font-family:'EB Garamond',serif;font-size:.97rem;color:var(--ink);outline:none;resize:vertical;line-height:1.6;}
+.notes-area{width:100%;min-height:100px;padding:.6rem .8rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Fira Sans',sans-serif;font-size:.97rem;color:var(--ink);outline:none;resize:vertical;line-height:1.6;}
 .notes-area:focus{border-color:var(--accent);}
 .note-entry{border:1px solid var(--border);padding:.75rem 1rem;margin-bottom:.55rem;background:var(--bg);position:relative;}
 .note-entry .note-date{font-size:.7rem;font-family:'DM Mono',monospace;color:var(--muted);}
 .note-entry .note-text{margin-top:.28rem;font-size:.93rem;line-height:1.6;white-space:pre-wrap;}
 .note-entry .note-del{position:absolute;top:.6rem;right:.7rem;background:none;border:none;cursor:pointer;color:var(--muted);font-size:.85rem;}
-.note-entry .note-del:hover{color:#b91c1c;}
+.note-entry .note-del:hover{color:#e5202e;}
 
 /* HISTORY */
 .history-item{border:1px solid var(--border);padding:.75rem 1rem;margin-bottom:.55rem;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:.5rem;flex-wrap:wrap;}
@@ -157,48 +159,48 @@ body{font-family:'EB Garamond',Georgia,serif;background:var(--bg);color:var(--in
 .rb-tpl-card .tpl-info small{display:block;color:var(--muted);font-size:.8rem;margin-top:.12rem;}
 .rb-section{margin-bottom:.75rem;}
 .rb-section label{display:block;font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;font-weight:500;}
-.rb-section textarea{width:100%;padding:.5rem .7rem;border:1.5px solid var(--border);background:var(--surface);font-family:'EB Garamond',serif;font-size:.95rem;color:var(--ink);outline:none;resize:vertical;line-height:1.65;min-height:72px;}
+.rb-section textarea{width:100%;padding:.5rem .7rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Fira Sans',sans-serif;font-size:.95rem;color:var(--ink);outline:none;resize:vertical;line-height:1.65;min-height:72px;}
 .rb-section textarea:focus{border-color:var(--accent);}
-.rb-placeholder-hint{font-size:.75rem;color:var(--ink-mid);font-family:'DM Mono',monospace;margin-bottom:1rem;padding:.5rem .75rem;background:var(--accent-light);border:1px solid #bfdbfe;}
+.rb-placeholder-hint{font-size:.75rem;color:var(--ink-mid);font-family:'DM Mono',monospace;margin-bottom:1rem;padding:.5rem .75rem;background:var(--accent-light);border:1px solid #99d0ef;}
 
 /* EXPORT MENU */
 .export-menu{position:relative;display:inline-flex;}
 .export-dropdown{position:absolute;top:100%;right:0;background:var(--surface);border:1px solid var(--border);box-shadow:0 8px 20px rgba(0,0,0,.12);min-width:200px;z-index:50;display:none;}
 .export-dropdown.open{display:block;}
-.export-item{display:flex;align-items:center;gap:.55rem;padding:.62rem 1rem;font-family:'EB Garamond',serif;font-size:.91rem;cursor:pointer;transition:background .1s;border:none;background:none;width:100%;text-align:left;color:var(--ink);}
+.export-item{display:flex;align-items:center;gap:.55rem;padding:.62rem 1rem;font-family:'Fira Sans',sans-serif;font-size:.91rem;cursor:pointer;transition:background .1s;border:none;background:none;width:100%;text-align:left;color:var(--ink);}
 .export-item:hover{background:var(--accent-light);}
 .export-item .ei-icon{width:18px;text-align:center;}
 
 /* REPORT TOOLBAR */
 .report-toolbar{background:var(--accent);color:#fff;padding:.65rem 1.8rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.report-toolbar .rtitle{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:#fff;font-weight:700;margin-left:.5rem;}
+.report-toolbar .rtitle{font-family:'Fira Sans',sans-serif;font-size:1.05rem;color:#fff;font-weight:700;margin-left:.5rem;}
 .report-toolbar .btn{border-color:rgba(255,255,255,.4);color:#fff;background:rgba(255,255,255,.1);}
 .report-toolbar .btn:hover{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.6);color:#fff;}
 
 /* YEAR + RB BARS */
-.year-selector{display:flex;align-items:center;gap:.6rem;padding:.45rem 1.8rem;background:#111827;border-bottom:1px solid rgba(255,255,255,.1);}
+.year-selector{display:flex;align-items:center;gap:.6rem;padding:.45rem 1.8rem;background:#005f99;border-bottom:1px solid rgba(255,255,255,.1);}
 .year-selector label{font-size:.7rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.09em;}
-.year-selector select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:'EB Garamond',serif;font-size:.9rem;padding:.24rem .5rem;outline:none;cursor:pointer;}
+.year-selector select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:'Fira Sans',sans-serif;font-size:.9rem;padding:.24rem .5rem;outline:none;cursor:pointer;}
 .year-selector .btn{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.75);font-size:.72rem;background:transparent;}
 .year-selector .btn:hover{background:rgba(255,255,255,.12);color:#fff;}
-.rb-picker-bar{display:flex;align-items:center;gap:.65rem;padding:.42rem 1.8rem;background:#1f2937;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;}
+.rb-picker-bar{display:flex;align-items:center;gap:.65rem;padding:.42rem 1.8rem;background:#005f99;border-bottom:1px solid rgba(255,255,255,.08);flex-wrap:wrap;}
 .rb-picker-bar label{font-size:.7rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.09em;white-space:nowrap;}
-.rb-picker-bar select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'EB Garamond',serif;font-size:.88rem;padding:.22rem .5rem;outline:none;cursor:pointer;max-width:300px;}
-.rb-picker-bar select option{background:#1f2937;color:#fff;}
-.rb-active-badge{font-size:.69rem;font-family:'DM Mono',monospace;color:#bfdbfe;padding:.14rem .5rem;border:1px solid rgba(191,219,254,.4);background:rgba(191,219,254,.1);}
+.rb-picker-bar select{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.25);color:#fff;font-family:'Fira Sans',sans-serif;font-size:.88rem;padding:.22rem .5rem;outline:none;cursor:pointer;max-width:300px;}
+.rb-picker-bar select option{background:#005f99;color:#fff;}
+.rb-active-badge{font-size:.69rem;font-family:'DM Mono',monospace;color:#99d0ef;padding:.14rem .5rem;border:1px solid rgba(191,219,254,.4);background:rgba(191,219,254,.1);}
 
 /* DOCUMENT */
 .report-wrap{max-width:820px;margin:2rem auto;padding:0 1rem 4rem;}
 .document{background:#fff;border:1px solid #d1d5db;padding:3.5rem 4rem;box-shadow:0 2px 16px rgba(0,0,0,.06);}
-.doc-header{text-align:center;border-bottom:2px solid var(--ink);padding-bottom:1.8rem;margin-bottom:2rem;}
+.doc-header{text-align:center;border-bottom:3px solid var(--accent);padding-bottom:1.8rem;margin-bottom:2rem;}
 .doc-header .doc-subtitle{font-size:1.05rem;font-style:italic;color:var(--muted);margin:.3rem 0 1rem;}
 .doc-header .meta{font-size:.88rem;color:var(--muted);display:flex;gap:2rem;justify-content:center;flex-wrap:wrap;}
 .doc-section{margin-bottom:2rem;}
-.doc-h2{font-family:'EB Garamond',serif;font-size:.76rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:.38rem;margin-bottom:1rem;}
-.doc-p{font-size:1rem;line-height:1.75;margin-bottom:.9rem;}
+.doc-h2{font-family:'Fira Sans',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);border-bottom:1px solid var(--rule);padding-bottom:.38rem;margin-bottom:1rem;}
+.doc-p{font-size:.97rem;line-height:1.72;margin-bottom:.9rem;}
 .doc-p:last-child{margin-bottom:0;}
 .doc-rule{border:none;border-top:1px solid var(--rule);margin:2rem 0;}
-.efield{display:inline-block;background:#f1f5f9;border:none;border-bottom:1.5px solid #94a3b8;font-family:'EB Garamond',Georgia,serif;font-size:inherit;color:var(--ink);padding:.05rem .3rem;outline:none;transition:background .12s,border-color .12s;}
+.efield{display:inline-block;background:#f1f5f9;border:none;border-bottom:1.5px solid #94a3b8;font-family:'Fira Sans',Arial,sans-serif;font-size:inherit;color:var(--ink);padding:.05rem .3rem;outline:none;transition:background .12s,border-color .12s;}
 .efield:focus{background:#e2e8f0;border-bottom-color:var(--accent);}
 textarea.efield{display:block;width:100%;resize:vertical;padding:.5rem .6rem;border:1.5px solid #94a3b8;min-height:64px;line-height:1.6;margin-top:.3rem;}
 textarea.efield:focus{border-color:var(--accent);}
@@ -219,10 +221,10 @@ textarea.efield:focus{border-color:var(--accent);}
 .xbrl-dot{width:9px;height:9px;background:rgba(29,78,216,.1);border:1.5px dashed var(--xbrl);display:inline-block;}
 
 /* FROM-TEMPLATE */
-.from-template{border-left:2px solid #93c5fd;padding-left:.55rem;background:rgba(219,234,254,.2);}
+.from-template{border-left:2px solid #66b8e8;padding-left:.55rem;background:rgba(219,234,254,.2);}
 .lang-badge{font-size:.75rem;font-family:'DM Mono',monospace;padding:.38rem .9rem;border-radius:4px;margin-bottom:1.2rem;border:1px solid;display:inline-block;letter-spacing:.01em}
-.lang-badge-en{background:#f0fdf4;border-color:#86efac;color:#166534}
-.lang-badge-sv{background:#eff4fb;border-color:#bfdbfe;color:#1e3a5f}
+.lang-badge-en{background:#f2f9e6;border-color:#85bc20;color:#4a6b00}
+.lang-badge-sv{background:#e6f3fb;border-color:#99d0ef;color:#007ac3}
 
 /* ENTITY BANNER */
 .entity-banner{display:flex;align-items:center;gap:.5rem;margin-bottom:1.1rem;padding:.38rem .75rem;font-size:.76rem;font-family:'DM Mono',monospace;color:var(--ink-mid);background:var(--bg);border:1px solid var(--border);}
@@ -230,21 +232,21 @@ textarea.efield:focus{border-color:var(--accent);}
 /* MISC */
 .empty{text-align:center;padding:4rem 2rem;color:var(--muted);}
 .empty .em-icon{font-size:3rem;margin-bottom:.9rem;opacity:.35;}
-.empty h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;color:var(--ink-mid);margin-bottom:.5rem;}
-.toast{position:fixed;bottom:2rem;right:2rem;color:#fff;padding:.72rem 1.3rem;font-family:'EB Garamond',serif;font-size:.93rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transform:translateY(100px);opacity:0;transition:all .22s ease;z-index:999;}
+.empty h3{font-family:'Fira Sans',sans-serif;font-size:1.35rem;color:var(--ink-mid);margin-bottom:.5rem;}
+.toast{position:fixed;bottom:2rem;right:2rem;color:#fff;padding:.72rem 1.3rem;font-family:'Fira Sans',sans-serif;font-size:.93rem;box-shadow:0 4px 16px rgba(0,0,0,.22);transform:translateY(100px);opacity:0;transition:all .22s ease;z-index:999;}
 .toast.show{transform:none;opacity:1;}
 .divider{border:none;border-top:1px solid var(--border);margin:1.1rem 0;}
 .pill{display:inline-block;padding:.1rem .48rem;font-size:.69rem;font-family:'DM Mono',monospace;font-weight:500;}
-.pill-purple{background:#e0e7ff;color:#3730a3;border:1px solid #c7d2fe;}
+.pill-purple{background:#cce9f6;color:#005f99;border:1px solid #99d0ef;}
 
 /* DOWNLOAD PANEL */
-.dl-panel{background:var(--accent-light);border:1px solid #bfdbfe;padding:1rem 1.2rem;margin-top:.9rem;display:none;}
+.dl-panel{background:var(--accent-light);border:1px solid #99d0ef;padding:1rem 1.2rem;margin-top:.9rem;display:none;}
 .dl-panel.show{display:block;}
 .dl-panel .dl-title{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.55rem;font-weight:600;}
-.dl-link{display:inline-flex;align-items:center;gap:.45rem;padding:.42rem .95rem;background:var(--accent);color:#fff;font-family:'EB Garamond',serif;font-size:.9rem;text-decoration:none;margin-right:.45rem;transition:background .12s;}
+.dl-link{display:inline-flex;align-items:center;gap:.45rem;padding:.42rem .95rem;background:var(--accent);color:#fff;font-family:'Fira Sans',sans-serif;font-size:.9rem;text-decoration:none;margin-right:.45rem;transition:background .12s;}
 .dl-link:hover{background:var(--accent-hover);}
 .dl-link-blue{background:var(--xbrl);}
-.dl-link-blue:hover{background:#1e3a8a;}
+.dl-link-blue:hover{background:#005f99;}
 
 @media (max-width:760px){
   .shell{flex-direction:column;}.sidebar{width:100%;height:auto;position:static;}
@@ -257,6 +259,57 @@ textarea.efield:focus{border-color:var(--accent);}
   .efield{background:transparent!important;border-bottom:1px solid #999!important;}
   textarea.efield{border:1px solid #999!important;}.xbrl-legend{display:none;}
 }
+
+/* ── UNDERLAG VIEW ─────────────────────────────────────────── */
+.ul-wrap{max-width:860px;margin:2rem auto;padding:0 1rem 4rem;}
+.ul-step{background:var(--surface);border:1px solid var(--border);margin-bottom:1.4rem;box-shadow:var(--shadow);}
+.ul-step-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.4rem;border-bottom:1px solid var(--border);background:var(--bg);}
+.ul-step-num{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-size:.78rem;font-family:'DM Mono',monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;}
+.ul-step-title{font-family:'Fira Sans',sans-serif;font-size:1.05rem;font-weight:700;color:var(--ink);}
+.ul-step-body{padding:1.2rem 1.4rem;}
+.ul-checklist{display:flex;flex-direction:column;gap:.55rem;}
+.ul-check-item{display:flex;align-items:flex-start;gap:.75rem;padding:.65rem .9rem;border:1.5px solid var(--border);background:var(--bg);transition:border-color .12s;}
+.ul-check-item:hover{border-color:var(--accent);}
+.ul-check-q{flex:1;font-size:.93rem;line-height:1.5;}
+.ul-check-q small{display:block;color:var(--muted);font-size:.78rem;margin-top:.18rem;}
+.ul-check-btns{display:flex;gap:.3rem;flex-shrink:0;}
+.ul-yno{font-size:.72rem;font-family:'DM Mono',monospace;padding:.26rem .6rem;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;transition:all .12s;color:var(--muted);}
+.ul-yno:hover{border-color:var(--accent);color:var(--accent);}
+.ul-yno.sel-ja{background:#f2f9e6;border-color:#a8d660;color:#5a8200;font-weight:700;}
+.ul-yno.sel-nej{background:#fde8ea;border-color:#f08090;color:#b0000a;font-weight:700;}
+.ul-yno.sel-na{background:#f3f4f6;border-color:#9ca3af;color:#374151;font-weight:700;}
+.ul-check-item.has-ja{border-color:#a8d660;background:#f2f9e6;}
+.ul-check-item.has-nej{border-color:#f08090;background:#fde8ea;}
+.ul-risk-banner{display:flex;align-items:flex-start;gap:.6rem;padding:.7rem 1rem;font-size:.85rem;margin-bottom:1rem;border:1.5px solid;}
+.ul-risk-banner.green{background:#f2f9e6;border-color:#a8d660;color:#5a8200;}
+.ul-risk-banner.orange{background:#fff7ed;border-color:#fed7aa;color:#9a3412;}
+.ul-risk-banner.red{background:#fde8ea;border-color:#e5202e;color:#b0000a;}
+.ul-mod-opts{display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1rem;}
+.ul-mod-opt{flex:1;min-width:140px;padding:.6rem .9rem;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;font-family:'Fira Sans',sans-serif;font-size:.88rem;text-align:center;transition:all .12s;color:var(--muted);}
+.ul-mod-opt:hover{border-color:var(--accent);color:var(--accent);}
+.ul-mod-opt.sel{border-color:var(--accent);background:var(--accent-light);color:var(--accent);font-weight:700;}
+.ul-mod-opt.sel-warn{border-color:#f59e0b;background:#fffbeb;color:#92400e;font-weight:700;}
+.ul-mod-opt.sel-danger{border-color:#e5202e;background:#fde8ea;color:#b0000a;font-weight:700;}
+.ul-section{margin-bottom:1.1rem;}
+.ul-section-header{display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:.5rem;}
+.ul-section-label{font-size:.7rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500;}
+.ul-section-toggle{display:flex;align-items:center;gap:.4rem;cursor:pointer;font-size:.82rem;font-family:'DM Mono',monospace;color:var(--muted);padding:.2rem .5rem;border:1.5px solid var(--border);background:var(--surface);transition:all .12s;}
+.ul-section-toggle:hover{border-color:var(--accent);color:var(--accent);}
+.ul-section-toggle.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+.ul-xbrl-hint{font-size:.68rem;font-family:'DM Mono',monospace;color:var(--xbrl);opacity:.7;margin-bottom:.3rem;}
+.ul-textarea{width:100%;padding:.55rem .75rem;border:1.5px solid var(--border);background:var(--surface);font-family:'Fira Sans',sans-serif;font-size:.95rem;color:var(--ink);outline:none;resize:vertical;line-height:1.65;min-height:80px;}
+.ul-textarea:focus{border-color:var(--accent);}
+.ul-textarea.locked{background:var(--bg);color:var(--muted);cursor:not-allowed;}
+.ul-klar-bar{display:flex;align-items:center;gap:1rem;padding:1rem 1.4rem;background:#f2f9e6;border:1.5px solid #a8d660;margin-top:.5rem;}
+.ul-klar-bar.locked{background:#fef3c7;border-color:#fde68a;}
+.ul-warn-box{padding:.65rem .9rem;background:#fff7ed;border:1.5px solid #fed7aa;color:#9a3412;font-size:.85rem;margin-bottom:.7rem;}
+.ul-info-box{padding:.65rem .9rem;background:var(--accent-light);border:1px solid #99d0ef;color:var(--accent);font-size:.82rem;font-family:'DM Mono',monospace;margin-bottom:.7rem;}
+.ul-anm-item{border:1.5px solid var(--border);margin-bottom:.55rem;background:var(--surface);}
+.ul-anm-item.active{border-color:#f59e0b;background:#fffbeb;}
+.ul-anm-header{display:flex;align-items:center;gap:.6rem;padding:.6rem .9rem;cursor:pointer;}
+.ul-anm-header:hover{background:var(--bg);}
+.ul-anm-body{padding:.7rem .9rem 1rem;border-top:1px solid var(--border);display:none;}
+.ul-anm-item.active .ul-anm-body{display:block;}
 </style>
 </head>
 <body>
@@ -269,6 +322,7 @@ textarea.efield:focus{border-color:var(--accent);}
     <button class="nav-btn" id="nav-report" onclick="showView('report')" style="display:none"><span class="icon">📄</span> Revisionsberättelse</button>
     <button class="nav-btn" id="nav-templates" onclick="showView('templates')"><span class="icon">👤</span> Revisorsmallar</button>
     <button class="nav-btn" id="nav-rb-templates" onclick="showView('rb-templates')"><span class="icon">📋</span> RB-mallar</button>
+    <button class="nav-btn" id="nav-underlag" onclick="showView('underlag')" style="display:none"><span class="icon">🔍</span> Underlag</button>
     <div class="sidebar-foot">iXBRL / se-nak-gar<br>Bolagsverket taxonomy</div>
   </nav>
 
@@ -384,6 +438,29 @@ textarea.efield:focus{border-color:var(--accent);}
         <div id="rbTemplateEmpty" class="empty" style="display:none">
           <div class="em-icon">📋</div><h3>Inga RB-mallar ännu</h3>
           <p>Skapa en mall för att återanvända standardtexter.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ UNDERLAG VIEW ══ -->
+    <div id="view-underlag" style="display:none">
+      <div class="report-toolbar">
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:.5rem">
+          <button class="btn btn-ghost btn-sm" style="border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.7)" onclick="showView('clients')">← Tillbaka</button>
+          <span class="rtitle" id="underlagTitle"></span>
+        </div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
+          <div style="display:flex;border:1.5px solid rgba(255,255,255,.35);overflow:hidden;font-size:.78rem;font-family:'DM Mono',monospace">
+            <button id="ul-lang-sv" onclick="setUlLang('sv')" style="background:rgba(255,255,255,.2);color:#fff;border:none;padding:.3rem .65rem;cursor:pointer;font-family:inherit">SV</button>
+            <button id="ul-lang-en" onclick="setUlLang('en')" style="background:transparent;color:rgba(255,255,255,.6);border:none;padding:.3rem .65rem;cursor:pointer;font-family:inherit">EN</button>
+          </div>
+          <select id="ul-yearSelect" onchange="switchUlYear()" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:'Fira Sans',sans-serif;font-size:.9rem;padding:.24rem .5rem;outline:none;cursor:pointer;"></select>
+          <button class="btn btn-sm btn-primary" onclick="markeraUnderlagKlart()">✓ Markera underlag klart</button>
+        </div>
+      </div>
+      <div class="content" style="overflow-y:auto;height:calc(100vh - 60px)">
+        <div class="ul-wrap" id="underlagContent">
+          <!-- Rendered by JS -->
         </div>
       </div>
     </div>
@@ -576,7 +653,7 @@ textarea.efield:focus{border-color:var(--accent);}
         <label>Rapport om andra krav (lagar och författningar)</label>
         <textarea id="rb-s-rapport" rows="3" placeholder="Utöver min revision av årsredovisningen har jag även granskat…"></textarea>
       </div>
-      <div style="margin:1.2rem 0 .6rem;padding:.5rem .8rem;background:#eff4fb;border-left:3px solid var(--accent);font-size:.82rem;color:var(--accent);font-family:'DM Mono',monospace">
+      <div style="margin:1.2rem 0 .6rem;padding:.5rem .8rem;background:#e6f3fb;border-left:3px solid var(--accent);font-size:.82rem;color:var(--accent);font-family:'DM Mono',monospace">
         🇬🇧 Engelska sektioner — används automatiskt när EN-läge är aktivt i berättelsevyn
       </div>
       <div class="rb-placeholder-hint" style="margin-bottom:.8rem">
@@ -613,7 +690,6 @@ textarea.efield:focus{border-color:var(--accent);}
     </div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -647,7 +723,7 @@ function toast(msg, bg) {
 // VIEWS
 // ══════════════════════════════════════════════
 function showView(v) {
-  ['clients','report','templates','rb-templates'].forEach(id => {
+  ['clients','report','templates','rb-templates','underlag'].forEach(id => {
     document.getElementById('view-'+id).style.display = v===id ? 'block' : 'none';
     const nb = document.getElementById('nav-'+id);
     if (nb) nb.classList.toggle('active', v===id);
@@ -697,7 +773,7 @@ function renderList() {
       <td>
         <strong>${x(c.name)}</strong>
         ${c.contact?`<br><small style="color:var(--muted)">${x(c.contact)}</small>`:''}
-        ${noteCount ? `<br><span class="pill" style="background:#e0e7ff;color:#3730a3;border:1px solid #c7d2fe" style="margin-top:.2rem">🗒 ${noteCount} notering${noteCount>1?'ar':''}</span>` : ''}
+        ${noteCount ? `<br><span class="pill" style="background:#cce9f6;color:#005f99;border:1px solid #99d0ef" style="margin-top:.2rem">🗒 ${noteCount} notering${noteCount>1?'ar':''}</span>` : ''}
       </td>
       <td>${entityTypeBadge(c.entityType)}</td>
       <td style="font-family:'DM Mono',monospace;font-size:.85rem">${x(c.orgnr||'—')}</td>
@@ -705,6 +781,7 @@ function renderList() {
       <td><span class="badge badge-blue" style="cursor:pointer" onclick="openHistory('${c.id}')" title="Visa historik">${yearCount} år</span></td>
       <td>${badge}</td>
       <td><div class="actions">
+        <button class="btn btn-sm" style="font-size:.82rem;padding:.4rem .8rem;background:#4b5563;border-color:#4b5563;color:#fff" onclick="openUnderlag('${c.id}')">🔍 Underlag</button>
         <button class="btn btn-sm btn-primary" style="font-size:.82rem;padding:.4rem 1rem" onclick="openReport('${c.id}')">▶ Starta berättelse</button>
         <button class="btn btn-sm" title="Anteckningar" onclick="openNotes('${c.id}')">🗒</button>
         <button class="btn btn-sm" title="Historik" onclick="openHistory('${c.id}')">📅</button>
@@ -1159,7 +1236,7 @@ function reportTplHelpersEn(c, y) {
     return txt.split('\n').filter(l=>l.trim()).map(l=>`<p class="doc-p${cls}">${x(l)}</p>`).join('');
   }
   const mallBanner = tpl
-    ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.45rem .8rem;background:var(--accent-light);border:1px solid #bfdbfe;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">📋 Template: <strong>${x(tpl.name)}</strong>${tpl.desc?' \u2013 '+x(tpl.desc):''}<span style="margin-left:auto;cursor:pointer;opacity:.6" onclick="document.getElementById('rbTplSelect').value='';applyRbTemplate()" title="Detach template">\u2715 detach</span></div>`
+    ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.45rem .8rem;background:var(--accent-light);border:1px solid #99d0ef;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">📋 Template: <strong>${x(tpl.name)}</strong>${tpl.desc?' \u2013 '+x(tpl.desc):''}<span style="margin-left:auto;cursor:pointer;opacity:.6" onclick="document.getElementById('rbTplSelect').value='';applyRbTemplate()" title="Detach template">\u2715 detach</span></div>`
     : '';
   return { tpl, periodText, tplPara, mallBanner };
 }
@@ -1168,9 +1245,9 @@ function reportTplHelpersEn(c, y) {
 function reportDocHeaderEn(c, y) {
   return `
     <div class="doc-header">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em">
+      <div style="font-family:'Fira Sans',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em">
         <input class="efield xt" data-lbl="EntityName" id="r-name"
-          style="min-width:260px;font-size:1.5rem;font-family:'Cormorant Garamond',serif;font-weight:700;text-align:center"
+          style="min-width:260px;font-size:1.5rem;font-family:'Fira Sans',sans-serif;font-weight:700;text-align:center"
           value="${x(c.name)}" oninput="syncClient('name',this.value)">
       </div>
       <div class="doc-subtitle">Auditor's Report</div>
@@ -1218,6 +1295,8 @@ function reportSignatureBlockEn(c, y) {
 // ── AB — English ──────────────────────────────────────────────
 function buildReportAB_EN(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpersEn(c, y);
+  const ov = getUnderlagOverrides(y, 'en');
+  const ovLocked = ov?.locked;
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
 
@@ -1325,6 +1404,8 @@ function buildReportAB_EN(c, y) {
 // ── BRF — English ─────────────────────────────────────────────
 function buildReportBRF_EN(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpersEn(c, y);
+  const ov = getUnderlagOverrides(y, 'en');
+  const ovLocked = ov?.locked;
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
 
@@ -1431,6 +1512,8 @@ function buildReportBRF_EN(c, y) {
 // ── Stiftelse — English ───────────────────────────────────────
 function buildReportStiftelse_EN(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpersEn(c, y);
+  const ov = getUnderlagOverrides(y, 'en');
+  const ovLocked = ov?.locked;
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
 
@@ -1560,7 +1643,7 @@ function reportTplHelpers(c, y) {
     return txt.split('\n').filter(l=>l.trim()).map(l=>`<p class="doc-p${cls}">${x(l)}</p>`).join('');
   }
   const mallBanner = tpl
-    ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.45rem .8rem;background:var(--accent-light);border:1px solid #bfdbfe;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">📋 Mall: <strong>${x(tpl.name)}</strong>${tpl.desc?' – '+x(tpl.desc):''}<span style="margin-left:auto;cursor:pointer;opacity:.6" onclick="document.getElementById('rbTplSelect').value='';applyRbTemplate()" title="Koppla bort mallen">✕ koppla bort</span></div>`
+    ? `<div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.45rem .8rem;background:var(--accent-light);border:1px solid #99d0ef;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">📋 Mall: <strong>${x(tpl.name)}</strong>${tpl.desc?' – '+x(tpl.desc):''}<span style="margin-left:auto;cursor:pointer;opacity:.6" onclick="document.getElementById('rbTplSelect').value='';applyRbTemplate()" title="Koppla bort mallen">✕ koppla bort</span></div>`
     : '';
   return { tpl, periodText, fillTpl, tplPara, mallBanner };
 }
@@ -1598,9 +1681,9 @@ function reportSignatureBlock(c, y) {
 function reportDocHeader(c, y, subtitle) {
   return `
     <div class="doc-header">
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em">
+      <div style="font-family:'Fira Sans',sans-serif;font-size:1.6rem;font-weight:700;letter-spacing:.04em">
         <input class="efield xt" data-lbl="EntityName" id="r-name"
-          style="min-width:260px;font-size:1.5rem;font-family:'Cormorant Garamond',serif;font-weight:700;text-align:center"
+          style="min-width:260px;font-size:1.5rem;font-family:'Fira Sans',sans-serif;font-weight:700;text-align:center"
           value="${x(c.name)}" oninput="syncClient('name',this.value)">
       </div>
       <div class="doc-subtitle">${subtitle||'Revisionsberättelse'}</div>
@@ -1628,6 +1711,8 @@ function buildReportAB(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpers(c, y);
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
+  const ov = getUnderlagOverrides(y, 'sv');
+  const ovLocked = ov?.locked;
 
   const defIntro       = `Jag har utfört en revision av årsredovisningen för ${c.name} för räkenskapsåret ${periodText}. Årsredovisningen omfattar sidorna ${y.pages||'1–XX'}.`;
   const defUttalanden  = `Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den ${y.baldate||''} och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.\nFörvaltningsberättelsen är förenlig med årsredovisningens övriga delar.\nJag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.`;
@@ -1653,24 +1738,30 @@ function buildReportAB(c, y) {
 
     <div class="doc-section">
       <div class="doc-h2">Uttalanden</div>
-      ${tpl
-        ? tplPara(tpl.sections?.uttalanden, defUttalanden)
-        : `<p class="doc-p">Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den
-          <input class="efield xt" data-lbl="BalanceSheetDate" id="r-baldate" value="${x(y.baldate||'')}" style="min-width:160px" oninput="syncYear('baldate',this.value)">
-          och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.</p>
-          <p class="doc-p">Förvaltningsberättelsen är förenlig med årsredovisningens övriga delar.</p>
-          <p class="doc-p">Jag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.</p>`
+      ${ovLocked && ov.mod !== 'ren'
+        ? `<div class="ul-info-box">${ov.mod==='reservation'?'Reservation (ISA 705)':ov.mod==='avvikande'?'Avvikande mening (ISA 705)':'Uteblivet uttalande (ISA 705)'} — se Grund nedan</div>
+           <p class="doc-p" style="color:var(--warn);font-style:italic">Uttalandet är modifierat. Se "Grund för modifierat uttalande" nedan.</p>`
+        : tpl
+          ? tplPara(tpl.sections?.uttalanden, defUttalanden)
+          : `<p class="doc-p">Enligt min uppfattning har årsredovisningen upprättats i enlighet med årsredovisningslagen och ger en i alla väsentliga avseenden rättvisande bild av bolagets finansiella ställning per den
+            <input class="efield xt" data-lbl="BalanceSheetDate" id="r-baldate" value="${x(y.baldate||'')}" style="min-width:160px" oninput="syncYear('baldate',this.value)">
+            och av dess finansiella resultat och kassaflöde för året enligt årsredovisningslagen.</p>
+            <p class="doc-p">Förvaltningsberättelsen är förenlig med årsredovisningens övriga delar.</p>
+            <p class="doc-p">Jag tillstyrker därför att bolagsstämman fastställer resultaträkningen och balansräkningen.</p>`
       }
+      ${ovLocked ? buildUlOverlayUppl(ov,'sv') : ''}
     </div>
 
     <hr class="doc-rule">
 
     <div class="doc-section">
-      <div class="doc-h2">Grund för uttalanden</div>
-      ${tpl
-        ? tplPara(tpl.sections?.grund, defGrund)
-        : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till bolaget enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
-          <p class="doc-p">Jag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.</p>`
+      <div class="doc-h2">${ovLocked && ov.mod!=='ren' ? 'Grund för modifierat uttalande' : 'Grund för uttalanden'}</div>
+      ${ovLocked && ov.mod!=='ren'
+        ? buildUlOverlayGrund(ov,'sv')
+        : tpl
+          ? tplPara(tpl.sections?.grund, defGrund)
+          : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till bolaget enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
+            <p class="doc-p">Jag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.</p>`
       }
     </div>
 
@@ -1705,6 +1796,7 @@ function buildReportAB(c, y) {
         ? tplPara(tpl.sections?.rapport, defRapport)
         : `<p class="doc-p">Utöver min revision av årsredovisningen har jag även granskat om styrelsen och verkställande direktören har gjort sig skyldiga till försummelse eller på annat sätt handlat i strid med aktiebolagslagen, årsredovisningslagen eller bolagsordningen.</p>`
       }
+      ${ovLocked ? buildUlOverlayAnm(ov,'sv') : ''}
       <p class="doc-p" style="font-style:italic;color:var(--muted);font-size:.88rem">Ansvarsfrihet:</p>
       <div class="opinion-group">
         <label class="opinion-opt ${selTill}" id="opt-till" onclick="selectAnsvar(this,'tillstyrker')">
@@ -1730,6 +1822,8 @@ function buildReportAB(c, y) {
 // ── BRF Revisionsberättelse ───────────────────────────────────────────
 function buildReportBRF(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpers(c, y);
+  const ov = getUnderlagOverrides(y, 'sv');
+  const ovLocked = ov?.locked;
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
 
@@ -1752,7 +1846,7 @@ function buildReportBRF(c, y) {
 
   document.getElementById('reportDoc').innerHTML = `
     ${mallBanner}
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.4rem .8rem;background:var(--accent-light);border:1px solid #bfdbfe;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.4rem .8rem;background:var(--accent-light);border:1px solid #99d0ef;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">
       🏠 Bostadsrättsförening — BRF-berättelse (Bostadsrättslagen + LEF)
     </div>
     ${reportDocHeader(c, y)}
@@ -1783,10 +1877,12 @@ function buildReportBRF(c, y) {
     <hr class="doc-rule">
 
     <div class="doc-section">
-      <div class="doc-h2">Grund för uttalanden</div>
-      ${tpl
-        ? tplPara(tpl.sections?.grund, defGrund)
-        : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till föreningen enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
+      <div class="doc-h2">${ovLocked && ov.mod!=='ren' ? 'Grund för modifierat uttalande' : 'Grund för uttalanden'}</div>
+      ${ovLocked && ov.mod!=='ren'
+        ? buildUlOverlayGrund(ov,'sv')
+        : tpl
+          ? tplPara(tpl.sections?.grund, defGrund)
+          : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till föreningen enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
            <p class="doc-p">Jag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.</p>`
       }
     </div>
@@ -1846,6 +1942,8 @@ function buildReportBRF(c, y) {
 // ── Stiftelse Revisionsberättelse ─────────────────────────────────────────
 function buildReportStiftelse(c, y) {
   const { tpl, periodText, tplPara, mallBanner } = reportTplHelpers(c, y);
+  const ov = getUnderlagOverrides(y, 'sv');
+  const ovLocked = ov?.locked;
   const selTill = y.ansvarsfrihet==='tillstyrker' ? 'sel' : '';
   const selAvst = y.ansvarsfrihet==='avstyrker'   ? 'sel' : '';
 
@@ -1866,7 +1964,7 @@ function buildReportStiftelse(c, y) {
 
   document.getElementById('reportDoc').innerHTML = `
     ${mallBanner}
-    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.4rem .8rem;background:var(--accent-light);border:1px solid #bfdbfe;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.2rem;padding:.4rem .8rem;background:var(--accent-light);border:1px solid #99d0ef;font-size:.78rem;font-family:'DM Mono',monospace;color:var(--accent)">
       🏛 Stiftelse — stiftelselagen (1994:1220) + ÅRL
     </div>
     ${reportDocHeader(c, y)}
@@ -1896,10 +1994,12 @@ function buildReportStiftelse(c, y) {
     <hr class="doc-rule">
 
     <div class="doc-section">
-      <div class="doc-h2">Grund för uttalanden</div>
-      ${tpl
-        ? tplPara(tpl.sections?.grund, defGrund)
-        : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till stiftelsen enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
+      <div class="doc-h2">${ovLocked && ov.mod!=='ren' ? 'Grund för modifierat uttalande' : 'Grund för uttalanden'}</div>
+      ${ovLocked && ov.mod!=='ren'
+        ? buildUlOverlayGrund(ov,'sv')
+        : tpl
+          ? tplPara(tpl.sections?.grund, defGrund)
+          : `<p class="doc-p">Jag har utfört revisionen enligt International Standards on Auditing (ISA) och god revisionssed i Sverige. Mitt ansvar enligt dessa standarder beskrivs närmare i avsnittet <em>Revisorns ansvar</em>. Jag är oberoende i förhållande till stiftelsen enligt god revisorssed i Sverige och har fullgjort mitt yrkesetiska ansvar enligt dessa krav.</p>
            <p class="doc-p">Jag anser att de revisionsbevis jag har inhämtat är tillräckliga och ändamålsenliga som grund för mina uttalanden.</p>`
       }
     </div>
@@ -2173,7 +2273,7 @@ function exportWord() {
   h1    { font-size: 18pt; font-weight: bold; text-align: center; border-bottom: 2pt solid #000; padding-bottom: 8pt; margin-bottom: 10pt; }
   .subtitle { text-align: center; font-style: italic; font-size: 12pt; color: #555; margin-bottom: 6pt; }
   .meta { text-align: center; font-size: 10pt; color: #555; margin-bottom: 16pt; }
-  h2   { font-size: 8.5pt; font-weight: bold; letter-spacing: 1.5pt; text-transform: uppercase; color: #1e3a5f; border-bottom: 1pt solid #ccc; padding-bottom: 3pt; margin-top: 16pt; margin-bottom: 8pt; }
+  h2   { font-size: 8.5pt; font-weight: bold; letter-spacing: 1.5pt; text-transform: uppercase; color: #007ac3; border-bottom: 1pt solid #ccc; padding-bottom: 3pt; margin-top: 16pt; margin-bottom: 8pt; }
   p    { margin: 0 0 8pt 0; font-size: 11pt; }
   hr   { border: none; border-top: 1pt solid #ccc; margin: 16pt 0; }
   .sig-grid { display: table; width: 100%; margin-top: 16pt; }
@@ -2329,7 +2429,7 @@ function exportWordEn() {
   h1    { font-size: 18pt; font-weight: bold; text-align: center; border-bottom: 2pt solid #000; padding-bottom: 8pt; margin-bottom: 10pt; }
   .subtitle { text-align: center; font-style: italic; font-size: 12pt; color: #555; margin-bottom: 6pt; }
   .meta { text-align: center; font-size: 10pt; color: #555; margin-bottom: 16pt; }
-  h2   { font-size: 8.5pt; font-weight: bold; letter-spacing: 1.5pt; text-transform: uppercase; color: #1e3a5f; border-bottom: 1pt solid #ccc; padding-bottom: 3pt; margin-top: 16pt; margin-bottom: 8pt; }
+  h2   { font-size: 8.5pt; font-weight: bold; letter-spacing: 1.5pt; text-transform: uppercase; color: #007ac3; border-bottom: 1pt solid #ccc; padding-bottom: 3pt; margin-top: 16pt; margin-bottom: 8pt; }
   p    { margin: 0 0 8pt 0; font-size: 11pt; }
   hr   { border: none; border-top: 1pt solid #ccc; margin: 16pt 0; }
   .sig-grid { display: table; width: 100%; margin-top: 16pt; }
@@ -2482,13 +2582,13 @@ function exportIxbrl() {
     h1{font-size:1.5rem;font-weight:bold;text-align:center;border-bottom:2px solid #111827;padding-bottom:1rem;margin-bottom:.5rem}
     .subtitle{text-align:center;font-style:italic;color:#6b7280;margin-bottom:.3rem}
     .meta{text-align:center;color:#6b7280;font-size:.88rem;margin-bottom:2rem}
-    h2{font-size:.76rem;font-weight:bold;letter-spacing:.14em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #d1d5db;padding-bottom:.35rem;margin:2rem 0 .9rem}
+    h2{font-size:.76rem;font-weight:bold;letter-spacing:.14em;text-transform:uppercase;color:#007ac3;border-bottom:1px solid #d1d5db;padding-bottom:.35rem;margin:2rem 0 .9rem}
     p{margin-bottom:.9rem;font-size:1rem}
     hr{border:none;border-top:1px solid #d1d5db;margin:1.8rem 0}
     .sig{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem}
     .sig-blk{border-top:2px solid #111827;padding-top:.6rem}
     .sig-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.3rem}
-    .xnote{font-size:.72rem;color:#1d4ed8;font-family:monospace;margin-top:2rem;padding:1rem;border:1px solid #dbeafe;background:#eff6ff}
+    .xnote{font-size:.72rem;color:#007ac3;font-family:monospace;margin-top:2rem;padding:1rem;border:1px solid #cce9f6;background:#eff6ff}
   </style>
 </head>
 <body>
@@ -2521,6 +2621,12 @@ function exportIxbrl() {
   <h2>${rapportRubrik}</h2>
   <p>Utöver min revision av årsredovisningen har jag även granskat om styrelsen${(!isBrf && !isStiftelse) ? ' och verkställande direktören' : ''} under räkenskapsåret handlat i strid med ${lagrum}.</p>
   ${ansvarText ? `<p><ix:nonNumeric name="se-nak-gar:AuditorDischargeOpinion" contextRef="ctx-period">${x(ansvarText)}</ix:nonNumeric></p>` : ''}
+  ${(()=>{ const ov=getUnderlagOverrides(y,'sv'); if(!ov||!ov.locked) return ''; let out='';
+    if(ov.mod!=='ren') out+=`<h2>Grund för ${ov.mod==='reservation'?'reservation':ov.mod==='avvikande'?'avvikande mening':'uteblivet uttalande'}</h2><p><ix:nonNumeric name="${UL_XBRL[ov.mod]||'se-nak-gar:BasisForQualifiedOpinion'}" contextRef="ctx-period">${x(ov.grundVal)}</ix:nonNumeric></p>`;
+    (ov.uppl||[]).forEach(u=>{ out+=`<p><ix:nonNumeric name="${u.xbrl}" contextRef="ctx-period">${x(u.text)}</ix:nonNumeric></p>`; });
+    (ov.anm||[]).forEach(a=>{ out+=`<h2>Anmärkning</h2><p><ix:nonNumeric name="${a.xbrl}" contextRef="ctx-period">${x(a.text)}</ix:nonNumeric></p>`; });
+    return out;
+  })()}
   ${y.comments ? '<h2>Övrigt</h2><p>' + x(y.comments).replace(/\n/g,'<br/>') + '</p>' : ''}
 
   <hr/>
@@ -2630,13 +2736,13 @@ function exportIxbrlEn() {
     h1{font-size:1.5rem;font-weight:700;text-align:center;border-bottom:2px solid #111827;padding-bottom:1rem;margin-bottom:1rem}
     .subtitle{text-align:center;font-style:italic;color:#6b7280;margin-bottom:.5rem}
     .meta{text-align:center;font-size:.88rem;color:#6b7280;margin-bottom:1.5rem}
-    h2{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#1e3a5f;border-bottom:1px solid #d1d5db;padding-bottom:.3rem;margin-top:1.5rem;margin-bottom:.75rem}
+    h2{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#007ac3;border-bottom:1px solid #d1d5db;padding-bottom:.3rem;margin-top:1.5rem;margin-bottom:.75rem}
     p{margin-bottom:.9rem;font-size:1rem}
     hr{border:none;border-top:1px solid #d1d5db;margin:1.8rem 0}
     .sig{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:1.5rem}
     .sig-blk{border-top:2px solid #111827;padding-top:.6rem}
     .sig-lbl{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.3rem}
-    .xnote{font-size:.72rem;color:#1d4ed8;font-family:monospace;margin-top:2rem;padding:1rem;border:1px solid #dbeafe;background:#eff6ff}
+    .xnote{font-size:.72rem;color:#007ac3;font-family:monospace;margin-top:2rem;padding:1rem;border:1px solid #cce9f6;background:#eff6ff}
   </style>
 </head>
 <body>
@@ -2669,6 +2775,12 @@ function exportIxbrlEn() {
   <h2>${otherHeading}</h2>
   <p>In addition to my audit of the annual report, I have also audited whether the Board of Directors${boardAnd} has in any material respect acted in contravention of ${lawRef}.</p>
   ${ansvarText ? `<p><ix:nonNumeric name="se-nak-gar:AuditorDischargeOpinion" contextRef="ctx-period">${x(ansvarText)}</ix:nonNumeric></p>` : ''}
+  ${(()=>{ const ov=getUnderlagOverrides(y,'en'); if(!ov||!ov.locked) return ''; let out='';
+    if(ov.mod!=='ren') out+=`<h2>Basis for ${ov.mod==='reservation'?'Qualified Opinion':ov.mod==='avvikande'?'Adverse Opinion':'Disclaimer of Opinion'}</h2><p><ix:nonNumeric name="${UL_XBRL[ov.mod]||'se-nak-gar:BasisForQualifiedOpinion'}" contextRef="ctx-period">${x(ov.grundVal)}</ix:nonNumeric></p>`;
+    (ov.uppl||[]).forEach(u=>{ out+=`<p><ix:nonNumeric name="${u.xbrl}" contextRef="ctx-period">${x(u.text)}</ix:nonNumeric></p>`; });
+    (ov.anm||[]).forEach(a=>{ out+=`<h2>Remark</h2><p><ix:nonNumeric name="${a.xbrl}" contextRef="ctx-period">${x(a.text)}</ix:nonNumeric></p>`; });
+    return out;
+  })()}
   ${commentsEn ? '<h2>Other / Comments</h2><p>' + x(commentsEn).replace(/\n/g,'<br/>') + '</p>' : ''}
 
   <hr/>
@@ -2939,6 +3051,568 @@ function confirmDelete() {
   save(); closeDelete(); renderList(); toast('Klient borttagen');
 }
 
+
+// ══════════════════════════════════════════════
+// UNDERLAG — DATA & STATE
+// ══════════════════════════════════════════════
+let currentUnderlagClientId = null;
+let currentUnderlagYearIdx  = 0;
+let currentUlLang = 'sv';
+
+// Default FAR-based texts — SV
+const UL_TEXTS_SV = {
+  // ── Modifierade uttalanden (ISA 705) ──────────────────────────────
+  reservation: `Grund för reservation\nJag har reviderat årsredovisningen för [BOLAG] avseende räkenskapsåret [PERIOD]. Min revision har utförts i enlighet med ISA och god revisionssed i Sverige.\n\nJag har inte kunnat inhämta tillräckliga och ändamålsenliga revisionsbevis avseende [ANGE OMRÅDE] till följd av [ANGE ORSAK]. Det föreligger därigenom en risk för väsentliga felaktigheter.\n\nUttalanden (med reservation)\nMed undantag för den möjliga effekten av det förhållande som beskrivs i avsnittet Grund för reservation är det min uppfattning att årsredovisningen, i alla väsentliga avseenden, ger en rättvisande bild av bolagets finansiella ställning per den [BALANSDATUM] i enlighet med årsredovisningslagen.`,
+  avvikande: `Grund för avvikande mening\nJag har reviderat årsredovisningen för [BOLAG] avseende räkenskapsåret [PERIOD].\n\n[ANGE DE SPECIFIKA OMSTÄNDIGHETER SOM MOTIVERAR DEN AVVIKANDE MENINGEN, t.ex. att redovisningsprincipen är felaktig eller att effekten av en felaktighet är så väsentlig att en reservation inte är tillräcklig.]\n\nAvvikande mening\nJag anser att årsredovisningen, på grund av väsentligheten i de förhållanden som beskrivs ovan, inte ger en rättvisande bild av bolagets finansiella ställning per den [BALANSDATUM] i enlighet med årsredovisningslagen.`,
+  utebliven: `Grund för uteblivet uttalande\nJag har anlitats som revisor för [BOLAG]. Jag har inte utfört någon revision av årsredovisningen för räkenskapsåret [PERIOD].\n\n[ANGE ORSAK TILL UTEBLIVEN REVISION, t.ex. att bolaget inte har lämnat tillgång till räkenskapsmaterial eller att det råder osäkerhet avseende ett flertal poster som var för sig, och sammantaget, anses väsentliga.]\n\nUteblivet uttalande\nPå grund av de förhållanden som beskrivs i avsnittet Grund för uteblivet uttalande kan jag inte inhämta tillräckliga och ändamålsenliga revisionsbevis som grund för ett uttalande. Därför gör jag inget uttalande om årsredovisningen.`,
+  // ── Upplysningar (ISA 706) ─────────────────────────────────────────
+  fortsattDrift: `Väsentlig osäkerhetsfaktor avseende antagandet om fortsatt drift\nUtan att det påverkar mina uttalanden ovan vill jag fästa uppmärksamheten på not [X] i årsredovisningen, som beskriver de händelser och förhållanden som indikerar att det finns en väsentlig osäkerhetsfaktor som kan leda till tvivel om bolagets förmåga att fortsätta verksamheten. Om bolaget inte kan fortsätta verksamheten kan det påverka bolagets förmåga att realisera sina tillgångar och reglera sina skulder i normal ordning.`,
+  betoning: `Upplysning av särskild betydelse\nUtan att det påverkar mina uttalanden vill jag fästa uppmärksamheten på [ANGE VAD SOM KRÄVER UPPLYSNING, t.ex. en väsentlig osäkerhetsfaktor, en redovisningsprincip av avgörande betydelse, eller ett förhållande som är viktigt för förståelsen av revisionsberättelsen].`,
+  ovrigt_matter: `Övrigt\n[ANGE ANLEDNING TILL UPPLYSNING, t.ex. att årsredovisningen för föregående år har reviderats av en annan revisor, eller att revisionsuppdraget är ett engångsuppdrag och revisorn saknar historisk information.]`,
+  // ── Anmärkningar (ABL 9:34 / BRL / Stiftelselagen) ───────────────
+  anm_bokforing: `Jag har vid revisionen funnit att bolaget inte fullgjort sin skyldighet att föra räkenskaper på ett sätt som krävs i bokföringslagen (1999:1078). Räkenskapsmaterialet har inte förts löpande / bokföringen har avslutats senare än vad bokföringslagen tillåter / [ANGE ANNAN BRIST].`,
+  anm_arsredovisning: `Jag har vid revisionen funnit att årsredovisningen inte har upprättats och inlämnats i enlighet med årsredovisningslagen. Årsredovisningen har inte ingetts till Bolagsverket inom föreskriven tid / [ANGE ANNAN BRIST].`,
+  anm_skatter: `Jag har vid revisionen funnit att bolaget inte i rätt tid har fullgjort sin skyldighet att anmäla sig för registrering / lämna skattedeklaration / betala skatt / lämna kontrolluppgifter [ANGE VILKEN/VILKA SKYLDIGHETER SOM INTE UPPFYLLTS].`,
+  anm_vinstutdelning: `Jag har vid revisionen funnit att bolaget under räkenskapsåret har lämnat bidrag eller annan vederlagsfri värdeöverföring i strid med 17 kap. aktiebolagslagen, eller att beslut om vinstutdelning har fattats i strid med aktiebolagslagen.`,
+  anm_lan: `Jag har vid revisionen funnit att bolaget under räkenskapsåret har lämnat förbjudet lån eller ställt säkerhet i strid med 21 kap. aktiebolagslagen (låneförbudet).`,
+  anm_forsummelse: `Jag har vid revisionen funnit att [STYRELSELEDAMOT/VD] har gjort sig skyldig till försummelse eller på annat sätt handlat i strid med aktiebolagslagen / årsredovisningslagen / bolagsordningen [ANGE SPECIFIKT FÖRFARANDE].`,
+  // ── BRF-specifika ─────────────────────────────────────────────────
+  anm_brf_bokforing: `Jag har vid revisionen funnit att föreningen inte fullgjort sin skyldighet att föra räkenskaper på ett sätt som krävs i bokföringslagen. [ANGE BRIST].`,
+  anm_brf_lag: `Jag har vid revisionen funnit att styrelsen under räkenskapsåret har handlat i strid med bostadsrättslagen eller lagen om ekonomiska föreningar. [ANGE SPECIFIKT FÖRFARANDE].`,
+  // ── Stiftelsespecifika ────────────────────────────────────────────
+  anm_stift_syfte: `Jag har vid revisionen funnit att stiftelsens medel inte har förvaltats i enlighet med stiftelsens förordnande / ändamål. [ANGE HUR MEDLEN HAR FÖRVALTATS OCH VARFÖR DET STRIDER MOT FÖRORDNANDET].`,
+  anm_stift_lag: `Jag har vid revisionen funnit att styrelsen under räkenskapsåret har handlat i strid med stiftelselagen eller stiftelsens stadgar. [ANGE SPECIFIKT FÖRFARANDE].`,
+};
+
+// Default FAR-based texts — EN
+const UL_TEXTS_EN = {
+  reservation: `Basis for Qualified Opinion\nI have audited the annual report of [COMPANY] for the financial year [PERIOD]. My audit was conducted in accordance with ISA and generally accepted auditing standards in Sweden.\n\nI have not been able to obtain sufficient appropriate audit evidence regarding [SPECIFY AREA] due to [SPECIFY REASON]. This gives rise to a risk of material misstatement.\n\nOpinion (Qualified)\nExcept for the possible effects of the matter described in the Basis for Qualified Opinion section, it is my opinion that the annual report, in all material respects, presents a true and fair view of the company's financial position as at [BALANCE DATE] in accordance with the Annual Accounts Act.`,
+  avvikande: `Basis for Adverse Opinion\nI have audited the annual report of [COMPANY] for the financial year [PERIOD].\n\n[DESCRIBE THE SPECIFIC CIRCUMSTANCES THAT GIVE RISE TO THE ADVERSE OPINION, e.g. that an accounting policy is inappropriate or that the effect of a misstatement is so material that a qualification is insufficient.]\n\nAdverse Opinion\nIn my opinion, due to the significance of the matters described above, the annual report does not present a true and fair view of the company's financial position as at [BALANCE DATE] in accordance with the Annual Accounts Act.`,
+  utebliven: `Basis for Disclaimer of Opinion\nI was engaged as auditor of [COMPANY]. I have not performed an audit of the annual report for the financial year [PERIOD].\n\n[SPECIFY THE REASON FOR THE DISCLAIMER, e.g. that the company has not provided access to accounting records, or that there are uncertainties regarding multiple items.]\n\nDisclaimer of Opinion\nBecause of the matters described in the Basis for Disclaimer of Opinion section, I have not been able to obtain sufficient appropriate audit evidence to provide a basis for an audit opinion. Accordingly, I do not express an opinion on the annual report.`,
+  fortsattDrift: `Material Uncertainty Related to Going Concern\nWithout qualifying my opinions above, I draw attention to note [X] in the annual report, which describes the events and conditions indicating that a material uncertainty exists that may cast significant doubt on the company's ability to continue as a going concern. If the company is unable to continue as a going concern, this may affect the company's ability to realise its assets and discharge its liabilities in the ordinary course of business.`,
+  betoning: `Emphasis of Matter\nWithout qualifying my opinions, I draw attention to [SPECIFY WHAT REQUIRES EMPHASIS, e.g. a material uncertainty, a significant accounting policy, or a matter important for understanding the audit report].`,
+  ovrigt_matter: `Other Matter\n[SPECIFY THE REASON FOR THE OTHER MATTER PARAGRAPH, e.g. that the prior year financial statements were audited by a different auditor, or that this is a one-off engagement.]`,
+  anm_bokforing: `I have found in the course of the audit that the company has failed to fulfil its obligation to maintain accounting records as required by the Bookkeeping Act (1999:1078). [SPECIFY THE DEFICIENCY].`,
+  anm_arsredovisning: `I have found in the course of the audit that the annual report has not been prepared and submitted in accordance with the Annual Accounts Act. The annual report was not submitted to the Swedish Companies Registration Office within the prescribed time / [SPECIFY OTHER DEFICIENCY].`,
+  anm_skatter: `I have found in the course of the audit that the company has not, in a timely manner, fulfilled its obligation to register / submit tax returns / pay taxes / submit income statements [SPECIFY WHICH OBLIGATIONS HAVE NOT BEEN FULFILLED].`,
+  anm_vinstutdelning: `I have found in the course of the audit that the company has made a contribution or other gratuitous transfer of value in violation of Chapter 17 of the Companies Act, or that a dividend decision has been made in violation of the Companies Act.`,
+  anm_lan: `I have found in the course of the audit that the company has made a prohibited loan or provided security in violation of Chapter 21 of the Companies Act (the loan prohibition).`,
+  anm_forsummelse: `I have found in the course of the audit that [DIRECTOR/CEO] has been guilty of negligence or has otherwise acted in violation of the Companies Act / Annual Accounts Act / articles of association [SPECIFY THE SPECIFIC CONDUCT].`,
+  anm_brf_bokforing: `I have found in the course of the audit that the association has failed to fulfil its obligation to maintain accounting records as required by the Bookkeeping Act. [SPECIFY THE DEFICIENCY].`,
+  anm_brf_lag: `I have found in the course of the audit that the board has, during the financial year, acted in violation of the Tenant-Owners' Association Act or the Act on Economic Associations. [SPECIFY THE SPECIFIC CONDUCT].`,
+  anm_stift_syfte: `I have found in the course of the audit that the foundation's assets have not been administered in accordance with the foundation's statutes / purpose. [SPECIFY HOW THE ASSETS HAVE BEEN ADMINISTERED AND WHY THIS IS IN VIOLATION].`,
+  anm_stift_lag: `I have found in the course of the audit that the board has, during the financial year, acted in violation of the Foundations Act or the foundation's statutes. [SPECIFY THE SPECIFIC CONDUCT].`,
+};
+
+// XBRL tags for each underlag item (Swedish se-nak-gar taxonomy — same regardless of language)
+const UL_XBRL = {
+  reservation:          'se-nak-gar:BasisForQualifiedOpinion',
+  avvikande:            'se-nak-gar:BasisForAdverseOpinion',
+  utebliven:            'se-nak-gar:BasisForDisclaimerOfOpinion',
+  fortsattDrift:        'se-nak-gar:MaterialUncertaintyRelatedToGoingConcern',
+  betoning:             'se-nak-gar:EmphasisOfMatter',
+  ovrigt_matter:        'se-nak-gar:OtherMatter',
+  anm_bokforing:        'se-nak-gar:RemarksAccountingRecords',
+  anm_arsredovisning:   'se-nak-gar:RemarksAnnualReport',
+  anm_skatter:          'se-nak-gar:RemarksTaxes',
+  anm_vinstutdelning:   'se-nak-gar:RemarksDividend',
+  anm_lan:              'se-nak-gar:RemarksLoans',
+  anm_forsummelse:      'se-nak-gar:RemarksNegligence',
+  anm_brf_bokforing:    'se-nak-gar:RemarksAccountingRecords',
+  anm_brf_lag:          'se-nak-gar:RemarksNegligence',
+  anm_stift_syfte:      'se-nak-gar:RemarksPurpose',
+  anm_stift_lag:        'se-nak-gar:RemarksNegligence',
+};
+
+// Checklista frågor per entityType
+const UL_CHECKLIST = {
+  ab: [
+    { id:'rattvisande',       q:'Ger årsredovisningen en rättvisande bild?',                              hint:'ISA 700 – grundläggande uttalande' },
+    { id:'iEnlighet',         q:'Är årsredovisningen upprättad i enlighet med årsredovisningslagen?',     hint:'ÅRL 2 kap.' },
+    { id:'bokforing',         q:'Är bokföringen fullständig, löpande och avslutad i rätt tid?',           hint:'BFL 5 kap. – anmärkning om bokföring' },
+    { id:'arsredovisningInl', q:'Har årsredovisningen ingivits till Bolagsverket inom föreskriven tid?',  hint:'ÅRL 8:3 – anmärkning om årsredovisning' },
+    { id:'skatteDeklaration', q:'Har bolaget fullgjort sina skyldigheter gentemot Skatteverket?',         hint:'ABL 9:34 p.4 – skatter och avgifter' },
+    { id:'utdelning',         q:'Har eventuell vinstutdelning skett i enlighet med ABL kap 17?',          hint:'ABL 17 kap. – värdeöverföringar' },
+    { id:'lanForbud',         q:'Har bolaget hållit sig fri från förbjudna lån enligt ABL 21 kap.?',      hint:'ABL 21 kap. – låneförbudet' },
+    { id:'forsummelse',       q:'Har styrelse/VD handlat korrekt och i enlighet med ABL?',               hint:'ABL 9:34 – försummelse eller lagstrid' },
+    { id:'fortsattDrift',     q:'Finns det omständigheter som ifrågasätter fortsatt drift?',              hint:'ISA 570 – going concern' },
+    { id:'vasentligFelakt',   q:'Har du identifierat väsentliga felaktigheter i årsredovisningen?',       hint:'ISA 705 – modifierade uttalanden' },
+    { id:'betoning',          q:'Finns det ett förhållande du vill betona utan att modifiera uttalandet?',hint:'ISA 706 – upplysning av särskild betydelse' },
+    { id:'ovrigtMatter',      q:'Finns det övrigt som behöver omnämnas i revisionsberättelsen?',         hint:'ISA 706 – övrigt' },
+  ],
+  brf: [
+    { id:'rattvisande',       q:'Ger årsredovisningen en rättvisande bild?',                              hint:'ISA 700 – grundläggande uttalande' },
+    { id:'iEnlighet',         q:'Är årsredovisningen upprättad i enlighet med ÅRL och BRL?',              hint:'ÅRL + BRL' },
+    { id:'bokforing',         q:'Är bokföringen fullständig, löpande och avslutad i rätt tid?',           hint:'BFL 5 kap. – anmärkning om bokföring' },
+    { id:'arsredovisningInl', q:'Har årsredovisningen ingivits till Bolagsverket inom föreskriven tid?',  hint:'ÅRL 8:3' },
+    { id:'skatteDeklaration', q:'Har föreningen fullgjort sina skyldigheter gentemot Skatteverket?',      hint:'ABL 9:34 p.4 via BRL/LEF' },
+    { id:'brfLag',            q:'Har styrelsen handlat i enlighet med BRL och lagen om ekonomiska föreningar?', hint:'BRL + LEF – lagstrid' },
+    { id:'fortsattDrift',     q:'Finns det omständigheter som ifrågasätter fortsatt drift?',              hint:'ISA 570 – going concern' },
+    { id:'vasentligFelakt',   q:'Har du identifierat väsentliga felaktigheter i årsredovisningen?',       hint:'ISA 705' },
+    { id:'betoning',          q:'Finns det ett förhållande du vill betona utan att modifiera uttalandet?',hint:'ISA 706' },
+    { id:'ovrigtMatter',      q:'Finns det övrigt som behöver omnämnas?',                                hint:'ISA 706 – övrigt' },
+  ],
+  stiftelse: [
+    { id:'rattvisande',       q:'Ger årsredovisningen en rättvisande bild?',                              hint:'ISA 700' },
+    { id:'iEnlighet',         q:'Är årsredovisningen upprättad i enlighet med ÅRL och stiftelselagen?',   hint:'ÅRL + SL (1994:1220)' },
+    { id:'bokforing',         q:'Är bokföringen fullständig, löpande och avslutad i rätt tid?',           hint:'BFL 5 kap.' },
+    { id:'arsredovisningInl', q:'Har årsredovisningen ingivits i rätt tid (länsstyrelse/Bolagsverket)?',  hint:'SL 4 kap.' },
+    { id:'skatteDeklaration', q:'Har stiftelsen fullgjort sina skyldigheter gentemot Skatteverket?',      hint:'Skatteregler för stiftelser' },
+    { id:'stiftSyfte',        q:'Har stiftelsens medel förvaltats i enlighet med stiftarens förordnande?',hint:'SL 1:2 – ändamålsenlighet' },
+    { id:'stiftLag',          q:'Har styrelsen handlat i enlighet med stiftelselagen och stadgarna?',     hint:'SL – lagstrid' },
+    { id:'fortsattDrift',     q:'Finns det omständigheter som ifrågasätter fortsatt drift?',              hint:'ISA 570' },
+    { id:'vasentligFelakt',   q:'Har du identifierat väsentliga felaktigheter i årsredovisningen?',       hint:'ISA 705' },
+    { id:'betoning',          q:'Finns det ett förhållande du vill betona utan att modifiera uttalandet?',hint:'ISA 706' },
+    { id:'ovrigtMatter',      q:'Finns det övrigt som behöver omnämnas?',                                hint:'ISA 706 – övrigt' },
+  ],
+};
+
+// Map checklist answers to which underlag sections become relevant
+const UL_TRIGGERS = {
+  vasentligFelakt:   ['reservation','avvikande','utebliven'],
+  fortsattDrift:     ['fortsattDrift'],
+  betoning:          ['betoning'],
+  ovrigtMatter:      ['ovrigt_matter'],
+  bokforing:         { ab:'anm_bokforing', brf:'anm_brf_bokforing', stiftelse:'anm_bokforing' },
+  arsredovisningInl: { ab:'anm_arsredovisning', brf:'anm_arsredovisning', stiftelse:'anm_arsredovisning' },
+  skatteDeklaration: { ab:'anm_skatter', brf:'anm_skatter', stiftelse:'anm_skatter' },
+  utdelning:         'anm_vinstutdelning',
+  lanForbud:         'anm_lan',
+  forsummelse:       'anm_forsummelse',
+  brfLag:            'anm_brf_lag',
+  stiftSyfte:        'anm_stift_syfte',
+  stiftLag:          'anm_stift_lag',
+};
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function getUlYear() {
+  const c = clients.find(c=>c.id===currentUnderlagClientId); if (!c) return null;
+  return (c.years||[])[currentUnderlagYearIdx] || null;
+}
+function getUlClient() { return clients.find(c=>c.id===currentUnderlagClientId)||null; }
+function saveUlYear(data) {
+  const c = clients.find(c=>c.id===currentUnderlagClientId); if (!c) return;
+  Object.assign(c.years[currentUnderlagYearIdx], data); save();
+}
+function defaultUlData(entityType) {
+  return {
+    checklist:{}, modifiering:'ren',
+    upplysningar:{ fortsattDrift:{aktiv:false,sv:'',en:''}, betoning:{aktiv:false,sv:'',en:''}, ovrigt_matter:{aktiv:false,sv:'',en:''} },
+    anmarkningar:{
+      anm_bokforing:{aktiv:false,sv:'',en:''},
+      anm_arsredovisning:{aktiv:false,sv:'',en:''},
+      anm_skatter:{aktiv:false,sv:'',en:''},
+      anm_vinstutdelning:{aktiv:false,sv:'',en:''},
+      anm_lan:{aktiv:false,sv:'',en:''},
+      anm_forsummelse:{aktiv:false,sv:'',en:''},
+      anm_brf_bokforing:{aktiv:false,sv:'',en:''},
+      anm_brf_lag:{aktiv:false,sv:'',en:''},
+      anm_stift_syfte:{aktiv:false,sv:'',en:''},
+      anm_stift_lag:{aktiv:false,sv:'',en:''},
+    },
+    grund_reservation:{sv:'',en:''},
+    grund_avvikande:{sv:'',en:''},
+    grund_utebliven:{sv:'',en:''},
+    klar: false
+  };
+}
+
+function getUlTexts() { return currentUlLang==='en' ? UL_TEXTS_EN : UL_TEXTS_SV; }
+
+// ── Open Underlag ─────────────────────────────────────────────────────────────
+function openUnderlag(id, yearIdx) {
+  currentUnderlagClientId = id;
+  const c = clients.find(c=>c.id===id); if (!c) return;
+  if (!c.years||!c.years.length) { openReport(id); return; }
+  currentUnderlagYearIdx = yearIdx!==undefined ? yearIdx : c.years.length-1;
+  // Sync lang with currentLang
+  currentUlLang = currentLang;
+  document.getElementById('underlagTitle').textContent = c.name + ' – Underlag';
+  document.getElementById('nav-underlag').style.display = 'flex';
+  buildUlYearSelector(c);
+  setUlLangButtons();
+  renderUnderlag();
+  showView('underlag');
+}
+
+function buildUlYearSelector(c) {
+  const sel = document.getElementById('ul-yearSelect'); sel.innerHTML = '';
+  (c.years||[]).forEach((y,i)=>{
+    const opt = document.createElement('option');
+    const period = y.from&&y.to ? `${fmtDate(y.from)} – ${fmtDate(y.to)}` : `År ${i+1}`;
+    opt.value=i; opt.textContent=period+(y.underlag?.klar?' ✓':'');
+    if (i===currentUnderlagYearIdx) opt.selected=true;
+    sel.appendChild(opt);
+  });
+}
+
+function switchUlYear() {
+  currentUnderlagYearIdx = parseInt(document.getElementById('ul-yearSelect').value);
+  renderUnderlag();
+}
+
+function setUlLang(lang) {
+  currentUlLang = lang;
+  currentLang = lang; // keep in sync
+  setUlLangButtons();
+  renderUnderlag();
+}
+
+function setUlLangButtons() {
+  const sv = document.getElementById('ul-lang-sv');
+  const en = document.getElementById('ul-lang-en');
+  if (!sv||!en) return;
+  const isSv = currentUlLang==='sv';
+  sv.style.background = isSv?'rgba(255,255,255,.22)':'transparent';
+  sv.style.color       = isSv?'#fff':'rgba(255,255,255,.6)';
+  sv.style.fontWeight  = isSv?'600':'400';
+  en.style.background  = !isSv?'rgba(255,255,255,.22)':'transparent';
+  en.style.color       = !isSv?'#fff':'rgba(255,255,255,.6)';
+  en.style.fontWeight  = !isSv?'600':'400';
+}
+
+// ── Main render ───────────────────────────────────────────────────────────────
+function renderUnderlag() {
+  const c = getUlClient(); if (!c) return;
+  const y = getUlYear();   if (!y) return;
+  if (!y.underlag) { y.underlag = defaultUlData(c.entityType); save(); }
+  const u = y.underlag;
+  const locked = u.klar===true;
+  const T = getUlTexts();
+  const entityType = c.entityType||'ab';
+  const questions  = UL_CHECKLIST[entityType]||UL_CHECKLIST.ab;
+  const L = currentUlLang;
+
+  // Labels
+  const lbl = L==='en' ? {
+    step1:'Checklist', step2:'Audit Opinion', step3:'Explanatory Paragraphs', step4:'Remarks',
+    ja:'Yes', nej:'No', na:'N/A',
+    modRen:'Clean opinion', modRes:'Qualified opinion', modAvv:'Adverse opinion', modUte:'Disclaimer',
+    grundRub:'Basis for modified opinion (replaces "Basis for Opinions" in the report)',
+    uplRub:'Explanatory Paragraphs (ISA 706)', anmRub:'Remarks (Chapter 9:34 / applicable law)',
+    klarBtn:'Mark analysis complete → Transfer to report',
+    klarMsg:'Analysis complete. Texts have been transferred to the audit report.',
+    unlockedMsg:'Analysis not yet marked complete. Mark complete to transfer texts to the report.',
+    backBtn:'← Back to edit',
+    riskOk:'No issues identified based on checklist — clean opinion indicated.',
+    riskWarn:'Possible issues identified. Review sections below carefully.',
+    riskAlert:'Significant issues identified. Modified opinion or remarks likely required.',
+    xbrlNote:'XBRL tag (se-nak-gar taxonomy):',
+  } : {
+    step1:'Checklista', step2:'Uttalande', step3:'Upplysningar', step4:'Anmärkningar',
+    ja:'Ja', nej:'Nej', na:'Ej tillämpligt',
+    modRen:'Ren revisionsberättelse', modRes:'Reservation (ISA 705)', modAvv:'Avvikande mening (ISA 705)', modUte:'Uteblivet uttalande (ISA 705)',
+    grundRub:'Grund för modifierat uttalande (ersätter "Grund för uttalanden" i berättelsen)',
+    uplRub:'Upplysningar (ISA 706)', anmRub:'Anmärkningar (ABL 9:34 / tillämplig lag)',
+    klarBtn:'Markera underlag klart → Överför till berättelse',
+    klarMsg:'Underlaget är markerat klart. Texterna har överförts till revisionsberättelsen.',
+    unlockedMsg:'Underlaget är inte markerat klart. Markera klart för att föra över texterna.',
+    backBtn:'← Tillbaka för att redigera',
+    riskOk:'Inga avvikelser identifierade utifrån checklistan — ren revisionsberättelse indikeras.',
+    riskWarn:'Möjliga avvikelser identifierade. Granska avsnitten nedan noggrant.',
+    riskAlert:'Väsentliga avvikelser identifierade. Modifierat uttalande eller anmärkning troligen nödvändigt.',
+    xbrlNote:'XBRL-tagg (se-nak-gar taxonomi):',
+  };
+
+  // Risk assessment
+  const cl = u.checklist||{};
+  let riskLevel = 'ok';
+  ['vasentligFelakt','fortsattDrift','betoning','bokforing','arsredovisningInl','skatteDeklaration','utdelning','lanForbud','forsummelse','brfLag','stiftSyfte','stiftLag']
+    .forEach(k => { if (cl[k]==='nej') riskLevel='warn'; });
+  if (cl.vasentligFelakt==='nej') riskLevel='alert';
+  if (u.modifiering!=='ren') riskLevel='alert';
+
+  const riskHtml = `<div class="ul-risk-banner ${riskLevel==='ok'?'green':riskLevel==='warn'?'orange':'red'}">
+    <span>${riskLevel==='ok'?'✓':riskLevel==='warn'?'⚠️':'🔴'}</span>
+    <span>${riskLevel==='ok'?lbl.riskOk:riskLevel==='warn'?lbl.riskWarn:lbl.riskAlert}</span>
+  </div>`;
+
+  // ── Step 1: Checklist ──────────────────────────────────────────────────────
+  const step1Html = questions.map(q => {
+    const v = cl[q.id]||'';
+    const hasNej = v==='nej';
+    const hasJa  = v==='ja';
+    return `<div class="ul-check-item ${hasJa?'has-ja':hasNej?'has-nej':''}" id="ulci-${q.id}">
+      <div class="ul-check-q">${q.q}<small>${q.hint}</small></div>
+      <div class="ul-check-btns">
+        <button class="ul-yno ${v==='ja'?'sel-ja':''}" ${locked?'disabled':''} onclick="setUlCheck('${q.id}','ja')">${lbl.ja}</button>
+        <button class="ul-yno ${v==='nej'?'sel-nej':''}" ${locked?'disabled':''} onclick="setUlCheck('${q.id}','nej')">${lbl.nej}</button>
+        <button class="ul-yno ${v==='na'?'sel-na':''}"  ${locked?'disabled':''} onclick="setUlCheck('${q.id}','na')">${lbl.na}</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  // ── Step 2: Uttalande / Opinion ────────────────────────────────────────────
+  const mod = u.modifiering||'ren';
+  const modOpts = [
+    {v:'ren',      label:lbl.modRen,  cls:''},
+    {v:'reservation', label:lbl.modRes,  cls:'sel-warn'},
+    {v:'avvikande',   label:lbl.modAvv,  cls:'sel-danger'},
+    {v:'utebliven',   label:lbl.modUte,  cls:'sel-danger'},
+  ];
+  const modHtml = `<div class="ul-mod-opts">${modOpts.map(o=>`
+    <button class="ul-mod-opt ${mod===o.v?(o.cls||'sel'):''}" ${locked?'disabled':''} onclick="setUlMod('${o.v}')">${o.label}</button>`).join('')}</div>`;
+
+  // Grund-textarea (only when not clean)
+  let grundHtml = '';
+  if (mod!=='ren') {
+    const grundKey = `grund_${mod}`;
+    const defText  = T[mod]||'';
+    const val      = u[grundKey]?.[L] || defText;
+    grundHtml = `
+      <div class="ul-section">
+        <div class="ul-section-label">${lbl.grundRub}</div>
+        <div class="ul-xbrl-hint">${lbl.xbrlNote} ${UL_XBRL[mod]||''}</div>
+        <textarea class="ul-textarea ${locked?'locked':''}" id="ul-grund-ta" rows="8"
+          ${locked?'readonly':''} onchange="saveUlGrund('${mod}','${L}',this.value)"
+        >${val}</textarea>
+      </div>`;
+  }
+
+  // ── Step 3: Upplysningar ───────────────────────────────────────────────────
+  const uplItems = [
+    {key:'fortsattDrift', labelSv:'Väsentlig osäkerhetsfaktor – fortsatt drift (ISA 570)', labelEn:'Material Uncertainty – Going Concern (ISA 570)'},
+    {key:'betoning',      labelSv:'Upplysning av särskild betydelse (ISA 706)',             labelEn:'Emphasis of Matter (ISA 706)'},
+    {key:'ovrigt_matter', labelSv:'Övrigt (ISA 706)',                                       labelEn:'Other Matter (ISA 706)'},
+  ];
+  const step3Html = uplItems.map(item => {
+    const aktiv = u.upplysningar[item.key]?.aktiv||false;
+    const val   = u.upplysningar[item.key]?.[L] || (aktiv ? (T[item.key]||'') : '');
+    const label = L==='en' ? item.labelEn : item.labelSv;
+    return `<div class="ul-anm-item ${aktiv?'active':''}" id="ul-upl-${item.key}">
+      <div class="ul-anm-header" onclick="${locked?'':(`toggleUlSection('upplysningar','${item.key}')`)}">
+        <button class="ul-section-toggle ${aktiv?'active':''}" ${locked?'disabled':''}>${aktiv?'✓ Aktiv':'+ Inkludera'}</button>
+        <span style="font-size:.92rem">${label}</span>
+        <span style="margin-left:auto;font-size:.7rem;font-family:'DM Mono',monospace;color:var(--xbrl);opacity:.7">${UL_XBRL[item.key]||''}</span>
+      </div>
+      ${aktiv?`<div class="ul-anm-body">
+        <textarea class="ul-textarea ${locked?'locked':''}" rows="5" ${locked?'readonly':''}
+          onchange="saveUlSection('uplysningar_text','${item.key}','${L}',this.value)"
+        >${x(val)}</textarea>
+      </div>`:''}
+    </div>`;
+  }).join('');
+
+  // ── Step 4: Anmärkningar ───────────────────────────────────────────────────
+  const anmDefs = {
+    ab: [
+      {key:'anm_bokforing',       labelSv:'Anmärkning – Bokföring (BFL 5 kap.)',           labelEn:'Remark – Accounting Records (Bookkeeping Act)'},
+      {key:'anm_arsredovisning',  labelSv:'Anmärkning – Årsredovisning (ÅRL 8:3)',          labelEn:'Remark – Annual Report (AAA 8:3)'},
+      {key:'anm_skatter',         labelSv:'Anmärkning – Skatter och avgifter (ABL 9:34)',   labelEn:'Remark – Taxes and Charges (CA 9:34)'},
+      {key:'anm_vinstutdelning',  labelSv:'Anmärkning – Vinstutdelning/värdeöverföring (ABL 17)', labelEn:'Remark – Dividend/Value Transfer (CA 17)'},
+      {key:'anm_lan',             labelSv:'Anmärkning – Förbjudet lån (ABL 21 kap.)',       labelEn:'Remark – Prohibited Loan (CA 21)'},
+      {key:'anm_forsummelse',     labelSv:'Anmärkning – Försummelse/lagstrid (ABL 9:34)',   labelEn:'Remark – Negligence/Violation (CA 9:34)'},
+    ],
+    brf: [
+      {key:'anm_brf_bokforing',   labelSv:'Anmärkning – Bokföring (BFL 5 kap.)',            labelEn:'Remark – Accounting Records'},
+      {key:'anm_arsredovisning',  labelSv:'Anmärkning – Årsredovisning (ÅRL 8:3)',           labelEn:'Remark – Annual Report'},
+      {key:'anm_skatter',         labelSv:'Anmärkning – Skatter och avgifter',               labelEn:'Remark – Taxes and Charges'},
+      {key:'anm_brf_lag',         labelSv:'Anmärkning – Lagstrid BRL/LEF',                   labelEn:'Remark – Violation of BRL/EAA'},
+    ],
+    stiftelse: [
+      {key:'anm_bokforing',       labelSv:'Anmärkning – Bokföring (BFL 5 kap.)',             labelEn:'Remark – Accounting Records'},
+      {key:'anm_arsredovisning',  labelSv:'Anmärkning – Årsredovisning',                     labelEn:'Remark – Annual Report'},
+      {key:'anm_skatter',         labelSv:'Anmärkning – Skatter och avgifter',                labelEn:'Remark – Taxes and Charges'},
+      {key:'anm_stift_syfte',     labelSv:'Anmärkning – Förvaltning/ändamålsenlighet (SL)',  labelEn:'Remark – Purpose/Administration (FL)'},
+      {key:'anm_stift_lag',       labelSv:'Anmärkning – Lagstrid stiftelselagen',             labelEn:'Remark – Violation of Foundations Act'},
+    ],
+  };
+  const relevantAnm = anmDefs[entityType]||anmDefs.ab;
+  const step4Html = relevantAnm.map(item => {
+    const aktiv = u.anmarkningar[item.key]?.aktiv||false;
+    const val   = u.anmarkningar[item.key]?.[L] || (aktiv ? (T[item.key]||'') : '');
+    const label = L==='en' ? item.labelEn : item.labelSv;
+    return `<div class="ul-anm-item ${aktiv?'active':''}" id="ul-anm-${item.key}">
+      <div class="ul-anm-header" onclick="${locked?'':(`toggleUlAnm('${item.key}')`)}">
+        <button class="ul-section-toggle ${aktiv?'active':''}" ${locked?'disabled':''}>${aktiv?'✓ Aktiv':'+ Inkludera'}</button>
+        <span style="font-size:.92rem">${label}</span>
+        <span style="margin-left:auto;font-size:.7rem;font-family:'DM Mono',monospace;color:var(--xbrl);opacity:.7">${UL_XBRL[item.key]||''}</span>
+      </div>
+      ${aktiv?`<div class="ul-anm-body">
+        <textarea class="ul-textarea ${locked?'locked':''}" rows="5" ${locked?'readonly':''}
+          onchange="saveUlAnmText('${item.key}','${L}',this.value)"
+        >${x(val)}</textarea>
+      </div>`:''}
+    </div>`;
+  }).join('');
+
+  // ── Klar-bar ───────────────────────────────────────────────────────────────
+  const klarHtml = locked
+    ? `<div class="ul-klar-bar locked">
+        <span>🔒 ${lbl.klarMsg}</span>
+        <button class="btn btn-sm" style="margin-left:auto" onclick="unlockUnderlag()">${lbl.backBtn}</button>
+        <button class="btn btn-sm btn-primary" onclick="openReportFromUl()">▶ ${L==='en'?'Open Report':'Öppna berättelse'}</button>
+      </div>`
+    : `<div class="ul-klar-bar">
+        <span style="color:#4a6b00;font-size:.88rem">⚠ ${lbl.unlockedMsg}</span>
+        <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="markeraUnderlagKlart()">${lbl.klarBtn}</button>
+      </div>`;
+
+  document.getElementById('underlagContent').innerHTML = `
+    ${riskHtml}
+    <div class="ul-step">
+      <div class="ul-step-header"><span class="ul-step-num">1</span><span class="ul-step-title">${lbl.step1}</span></div>
+      <div class="ul-step-body"><div class="ul-checklist">${step1Html}</div></div>
+    </div>
+    <div class="ul-step">
+      <div class="ul-step-header"><span class="ul-step-num">2</span><span class="ul-step-title">${lbl.step2}</span></div>
+      <div class="ul-step-body">${modHtml}${grundHtml}</div>
+    </div>
+    <div class="ul-step">
+      <div class="ul-step-header"><span class="ul-step-num">3</span><span class="ul-step-title">${lbl.step3}</span></div>
+      <div class="ul-step-body">${step3Html}</div>
+    </div>
+    <div class="ul-step">
+      <div class="ul-step-header"><span class="ul-step-num">4</span><span class="ul-step-title">${lbl.step4}</span></div>
+      <div class="ul-step-body">${step4Html}</div>
+    </div>
+    ${klarHtml}
+  `;
+}
+
+// ── Setters ───────────────────────────────────────────────────────────────────
+function setUlCheck(qid, val) {
+  const y = getUlYear(); if (!y||y.underlag?.klar) return;
+  if (!y.underlag) y.underlag = defaultUlData(getUlClient()?.entityType);
+  y.underlag.checklist[qid] = val; save(); renderUnderlag();
+}
+function setUlMod(val) {
+  const y = getUlYear(); if (!y||y.underlag?.klar) return;
+  y.underlag.modifiering = val; save(); renderUnderlag();
+}
+function saveUlGrund(mod, lang, val) {
+  const y = getUlYear(); if (!y||y.underlag?.klar) return;
+  const key = `grund_${mod}`;
+  if (!y.underlag[key]) y.underlag[key]={sv:'',en:''};
+  y.underlag[key][lang]=val; save();
+}
+function toggleUlSection(group, key) {
+  const y = getUlYear(); if (!y||y.underlag?.klar) return;
+  const T = getUlTexts();
+  const s = y.underlag[group][key];
+  s.aktiv = !s.aktiv;
+  if (s.aktiv && !s.sv) s.sv = UL_TEXTS_SV[key]||'';
+  if (s.aktiv && !s.en) s.en = UL_TEXTS_EN[key]||'';
+  save(); renderUnderlag();
+}
+function toggleUlAnm(key) {
+  const y = getUlYear(); if (!y||y.underlag?.klar) return;
+  const s = y.underlag.anmarkningar[key];
+  s.aktiv = !s.aktiv;
+  if (s.aktiv && !s.sv) s.sv = UL_TEXTS_SV[key]||'';
+  if (s.aktiv && !s.en) s.en = UL_TEXTS_EN[key]||'';
+  save(); renderUnderlag();
+}
+function saveUlSection(group, key, lang, val) {
+  const y = getUlYear(); if (!y) return;
+  if (group==='uplysningar_text') { y.underlag.upplysningar[key][lang]=val; }
+  save();
+}
+function saveUlAnmText(key, lang, val) {
+  const y = getUlYear(); if (!y) return;
+  y.underlag.anmarkningar[key][lang]=val; save();
+}
+
+// ── Markera klar / lås ────────────────────────────────────────────────────────
+function markeraUnderlagKlart() {
+  const y = getUlYear(); if (!y) return;
+  if (!y.underlag) y.underlag = defaultUlData(getUlClient()?.entityType);
+  // Snapshot current textarea values before locking
+  const grundKey = `grund_${y.underlag.modifiering}`;
+  const gta = document.getElementById('ul-grund-ta');
+  if (gta && y.underlag.modifiering!=='ren') {
+    if (!y.underlag[grundKey]) y.underlag[grundKey]={sv:'',en:''};
+    y.underlag[grundKey][currentUlLang] = gta.value;
+  }
+  // Snapshot uplysningar and anmarkningar textareas
+  document.querySelectorAll('[id^="ul-upl-"] textarea').forEach(ta => {
+    const key = ta.closest('[id^="ul-upl-"]')?.id?.replace('ul-upl-','');
+    if (key && y.underlag.upplysningar[key]) y.underlag.upplysningar[key][currentUlLang]=ta.value;
+  });
+  document.querySelectorAll('[id^="ul-anm-"] textarea').forEach(ta => {
+    const key = ta.closest('[id^="ul-anm-"]')?.id?.replace('ul-anm-','');
+    if (key && y.underlag.anmarkningar[key]) y.underlag.anmarkningar[key][currentUlLang]=ta.value;
+  });
+  y.underlag.klar = true;
+  save();
+  // Update year selector badge
+  buildUlYearSelector(getUlClient());
+  renderUnderlag();
+  toast(currentUlLang==='en'?'✓ Analysis complete — texts transferred to report':'✓ Underlag klart — texter överförda till berättelsen','#5a8200');
+}
+
+function unlockUnderlag() {
+  const y = getUlYear(); if (!y||!y.underlag) return;
+  y.underlag.klar = false; save();
+  buildUlYearSelector(getUlClient());
+  renderUnderlag();
+  toast('Underlag upplåst för redigering','#92400e');
+}
+
+function openReportFromUl() {
+  openReport(currentUnderlagClientId, currentUnderlagYearIdx);
+}
+
+// ── Apply underlag to report ─────────────────────────────────────────────────
+// Called from buildReportAB / buildReportBRF / buildReportStiftelse
+// Returns object with overrides or null
+function getUnderlagOverrides(y, lang) {
+  const u = y.underlag;
+  if (!u||!u.klar) return null;
+  const L = lang||currentLang;
+  const T = L==='en' ? UL_TEXTS_EN : UL_TEXTS_SV;
+  const mod = u.modifiering||'ren';
+  const grundKey = `grund_${mod}`;
+  const grundVal = u[grundKey]?.[L] || (mod!=='ren'?T[mod]:'');
+
+  // Gather active upplysningar
+  const uppl = Object.entries(u.upplysningar||{})
+    .filter(([,v])=>v.aktiv)
+    .map(([k,v])=>({ key:k, text: v[L]||UL_TEXTS_SV[k]||'', xbrl: UL_XBRL[k]||'' }));
+
+  // Gather active anmarkningar
+  const anm = Object.entries(u.anmarkningar||{})
+    .filter(([,v])=>v.aktiv)
+    .map(([k,v])=>({ key:k, text: v[L]||UL_TEXTS_SV[k]||'', xbrl: UL_XBRL[k]||'' }));
+
+  return { mod, grundVal, uppl, anm, locked:true };
+}
+
+// Build locked-overlay block for use in report doc
+function buildUlOverlayGrund(ov, lang) {
+  if (!ov||ov.mod==='ren') return '';
+  const L = lang||currentLang;
+  const xbrl = UL_XBRL[ov.mod]||'';
+  const lbl = L==='en' ? 'Basis for modified opinion — from analysis (locked)' : 'Grund för modifierat uttalande — från underlag (låst)';
+  return `<div class="ul-info-box">${lbl}</div>
+    <div style="border:2px solid var(--xbrl);padding:.7rem 1rem;background:#eff6ff;margin-bottom:.6rem">
+      <div style="font-size:.68rem;font-family:'DM Mono',monospace;color:var(--xbrl);margin-bottom:.4rem">${xbrl}</div>
+      <p class="doc-p" style="white-space:pre-line">${x(ov.grundVal)}</p>
+    </div>`;
+}
+
+function buildUlOverlayUppl(ov, lang) {
+  if (!ov||!ov.uppl||!ov.uppl.length) return '';
+  const L = lang||currentLang;
+  const lbl = L==='en'?'Explanatory Paragraphs — from analysis (locked)':'Upplysningar — från underlag (låst)';
+  return `<div class="ul-info-box">${lbl}</div>` + ov.uppl.map(u=>`
+    <div style="border:2px solid #f59e0b;padding:.7rem 1rem;background:#fffbeb;margin-bottom:.55rem">
+      <div style="font-size:.68rem;font-family:'DM Mono',monospace;color:#92400e;margin-bottom:.4rem">${u.xbrl}</div>
+      <p class="doc-p" style="white-space:pre-line">${x(u.text)}</p>
+    </div>`).join('');
+}
+
+function buildUlOverlayAnm(ov, lang) {
+  if (!ov||!ov.anm||!ov.anm.length) return '';
+  const L = lang||currentLang;
+  const lbl = L==='en'?'Remarks — from analysis (locked)':'Anmärkningar — från underlag (låst)';
+  return `<div class="ul-info-box">${lbl}</div>` + ov.anm.map(a=>`
+    <div style="border:2px solid #e5202e;padding:.7rem 1rem;background:#fde8ea;margin-bottom:.55rem">
+      <div style="font-size:.68rem;font-family:'DM Mono',monospace;color:#b0000a;margin-bottom:.4rem">${a.xbrl}</div>
+      <p class="doc-p" style="white-space:pre-line">${x(a.text)}</p>
+    </div>`).join('');
+}
+
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
@@ -3054,16 +3728,16 @@ window.addEventListener('appinstalled', () => {
 
 <!-- Installationsbanner -->
 <div id="installBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;
-  background:#1e3a5f;color:#fff;padding:.85rem 1.2rem;
+  background:#007ac3;color:#fff;padding:.85rem 1.2rem;
   align-items:center;gap:.8rem;box-shadow:0 -2px 12px rgba(0,0,0,.25);
-  font-family:'EB Garamond',Georgia,serif;font-size:.95rem;">
+  font-family:'Fira Sans',Arial,sans-serif;font-size:.95rem;">
   <span style="font-size:1.4rem">📋</span>
   <div style="flex:1">
     <strong>Lägg till Audit Report på hemskärmen</strong>
     <div style="font-size:.8rem;opacity:.8;margin-top:.1rem">Fungerar offline · Öppnas som en app</div>
   </div>
-  <button onclick="installApp()" style="background:#fff;color:#1e3a5f;border:none;padding:.45rem 1rem;
-    font-family:'EB Garamond',Georgia,serif;font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;">
+  <button onclick="installApp()" style="background:#fff;color:#007ac3;border:none;padding:.45rem 1rem;
+    font-family:'Fira Sans',Arial,sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;white-space:nowrap;">
     Installera
   </button>
   <button onclick="dismissInstallBanner()" style="background:transparent;border:none;color:rgba(255,255,255,.7);
